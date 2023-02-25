@@ -1,0 +1,60 @@
+* {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+
+  #four04-page {
+
+    display: flex;
+    flex-direction: column;
+    background: url('../imgs/8.png') no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  #four04-title {
+
+    font-size: 4.5em;
+    text-align: center;
+    margin: 10vh 0 5vh 0;
+    
+  }
+
+  #four04-description {
+    font-size: 2em;
+    text-align: center;
+    margin: 10vh 0 5vh 0;
+  }
+
+#four04-button-group {
+    justify-content: center;
+    align-items: center;
+}
+
+#four04-arrow {
+   transform: rotate(135deg);
+   font-size: 3rem;
+
+}
