@@ -3,9 +3,14 @@
     padding: 0 0 0 0;
 }
 
-html {
-    height: 100%;
-    width: 100%;
+#root {
+    height: 100vh;
+    width: 100vw;
+}
+
+#app {
+  height: 100vh;
+  width: 100vw;
 }
 
 body {
@@ -26,9 +31,11 @@ body {
   }
 
   #four04-page {
-
+    height: 100vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
+    
     background: url('../imgs/8.png') no-repeat;
     background-size: cover;
     background-position: center center;
@@ -38,14 +45,14 @@ body {
 
     font-size: 4.5em;
     text-align: center;
-    margin: 10vh 0 5vh 0;
+    padding: 20vh 0 5vh 0;
     
   }
 
   #four04-description {
     font-size: 2em;
     text-align: center;
-    margin: 10vh 0 5vh 0;
+    padding: 10vh 0 5vh 0;
   }
 
 #four04-button-group {
@@ -57,4 +64,29 @@ body {
    transform: rotate(135deg);
    font-size: 3rem;
 
+}
+
+#landing-page {
+
+  height: 100vh;
+  width: 100vw;
+  background: url('../imgs/alexandre-debieve-FO7JIlwjOtU-unsplash.jpg') ;
+
+  background-blend-mode: multiply;
+  background-size: cover;
+  
+}
+#landing-page-title {
+  color: white;
+  font-size: 4.5em;
+  text-align: center;
+  padding: 20vh 0 5vh 0;
+  
+}
+
+#landing-page-description {
+  color: white;
+  font-size: 2em;
+  text-align: center;
+  padding: 10vh 0 5vh 0;
 }
