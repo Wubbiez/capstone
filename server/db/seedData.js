@@ -1,4 +1,6 @@
 import client from "./client.js";
+import {getProducts} from "../api/fakestoreAPI.js";
+import {createProduct} from "./components/products.js";
 
 async function dropTables() {
     console.log("Starting to drop tables...");
@@ -41,11 +43,11 @@ export async function createTables() {
             
                                 (
                                     product_id   SERIAL PRIMARY KEY,
-                                    name         VARCHAR(255) NOT NULL,
+                                    title         VARCHAR(255) NOT NULL,
                                     description  TEXT         NOT NULL,
-                                    price        INTEGER      NOT NULL,
-                                    image_url    VARCHAR(255) NOT NULL,
-                                    in_stock     BOOLEAN      NOT NULL,
+                                    price        DECIMAL  NOT NULL,
+                                    image    VARCHAR(255) NOT NULL,
+                                    in_stock     BOOLEAN      DEFAULT true,
                                     category     VARCHAR(255) NOT NULL,
                                     is_active    BOOLEAN      DEFAULT true,
                                     date_created TIMESTAMP   DEFAULT CURRENT_TIMESTAMP
@@ -109,11 +111,26 @@ export async function createTables() {
     }
 }
 
+async function createInitialProducts() {
+    try {
+        const products = await getProducts();
+        const productPromises = products.map(product => {
+            return createProduct(product);
+        })
+        await Promise.all(productPromises);
+        console.log("Finished creating products!");
+    } catch (error) {
+        console.error("Error creating products!");
+        throw error;
+    }
+}
+
 export async function rebuildDB() {
     try {
         client.connect();
         await dropTables();
         await createTables();
+        await createInitialProducts();
     } catch (error) {
         console.error("Error during rebuildDB");
         throw error;
