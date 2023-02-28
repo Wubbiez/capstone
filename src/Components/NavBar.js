@@ -10,7 +10,7 @@ import {
   useTheme,
 } from "@mui/material";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import DrawerComp from "./Drawer";
+import DrawerComp from "./Drawer.js";
 const NavBar = () => {
   const [value, setValue] = useState();
   const theme = useTheme();
