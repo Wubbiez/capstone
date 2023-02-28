@@ -2,10 +2,10 @@ import React from 'react';
 //import ReactDOM from 'react-dom/client';
 //import  { useState, useEffect } from 'react';
 import { Route,  Routes, BrowserRouter } from 'react-router-dom';
-import Home from './Components/Home';
-import SignUp from './Components/SignUp';
-import NavBar from './Components/NavBar';
-import LogIn from './Components/LogIn';
+import Home from './Components/Home.js';
+import SignUp from './Components/SignUp.js';
+import NavBar from './Components/NavBar.js';
+import LogIn from './Components/LogIn.js';
 
 
 function App() {
