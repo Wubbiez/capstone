@@ -7,7 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import {Menu} from "@mui/icons-material";
 const pages = ["Home", "Products", "ContactUs"];
 const DrawerComp = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -33,7 +33,7 @@ const DrawerComp = () => {
         sx={{ color: "white", marginLeft: "auto" }}
         onClick={() => setOpenDrawer(!openDrawer)}
       >
-        <MenuIcon color="white" />
+        <Menu color="white" />
       </IconButton>
     </React.Fragment>
   );

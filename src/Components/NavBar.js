@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import {AddShoppingCart} from '@mui/icons-material';
 import DrawerComp from "./Drawer.js";
 const NavBar = () => {
   const [value, setValue] = useState();
@@ -22,7 +22,7 @@ const NavBar = () => {
     <React.Fragment>
       <AppBar sx={{ background: "#00008B" }}>
         <Toolbar>
-          <AddShoppingCartIcon sx={{ transform: "scale(2)" }} />
+          <AddShoppingCart sx={{ transform: "scale(2)" }} />
           {isMatch ? (
             <>
               <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>
