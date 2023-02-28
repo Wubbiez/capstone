@@ -1,5 +1,5 @@
 import client from "./client.js";
-import {getProducts} from "../api/fakestoreAPI.js";
+import {getProducts} from "../../api/fakestoreAPI.js";
 import {createProduct} from "./components/products.js";
 
 async function dropTables() {
@@ -125,7 +125,7 @@ async function createInitialProducts() {
     }
 }
 
-export async function rebuildDB() {
+async function rebuildDB() {
     try {
         client.connect();
         await dropTables();
@@ -136,7 +136,7 @@ export async function rebuildDB() {
         throw error;
     }
 }
-export default {
+export  {
     rebuildDB,
     dropTables
 }

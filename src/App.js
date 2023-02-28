@@ -6,6 +6,7 @@ import Home from './Components/Home.js';
 import SignUp from './Components/SignUp.js';
 import NavBar from './Components/NavBar.js';
 import LogIn from './Components/LogIn.js';
+import SampleProducts from "./Components/SampleProducts.js";
 
 
 function App() {
@@ -25,6 +26,9 @@ function App() {
         <Route
         path='/nav'
         exact element={<NavBar />}></Route>
+        <Route
+        path='/products'
+        exact element={<SampleProducts />}></Route>
         
       </Routes>
       </BrowserRouter>

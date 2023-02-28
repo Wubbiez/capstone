@@ -1,7 +1,7 @@
+import apiRouter from "../api/index.js";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import apiRouter from "./api/index.js";
 
 const app = express();
 
