@@ -1,7 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import apiRouter from "./api";
+import apiRouter from "./api/index.js";
 
 const app = express();
 
@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/api", require("./api"));
+app.use("/api", apiRouter);
 
 // Error handling
 app.use((err, req, res, next) => {

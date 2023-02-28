@@ -1,9 +1,15 @@
-const express = require("express");
+import express from "express";
+import {getProducts} from "./fakestoreAPI.js";
 const apiRouter = express.Router();
-const {getAllProducts} = require("/server/api/fakestoreAPI.js");
+
 
 apiRouter.get("/products", async (req, res, next) => {
-    res.send (getAllProducts());
+    try {
+        const products = await getProducts();
+        res.send(products);
+    } catch (error) {
+        next(error);
+    }
 })
 
 export default apiRouter;
