@@ -1,6 +1,6 @@
 import express from "express";
 
-import {getAllProducts} from "../../server/db/components/products.js";
+import {getAllProducts, getProductById} from "../../server/db/components/products.js";
 
 const productsRouter = express.Router();
 
@@ -13,5 +13,16 @@ productsRouter.get("/", async (req, res, next) => {
         next(error);
     }
 })
+
+productsRouter.get("/:id", async (req, res, next) => {
+    try {
+        const {id} = req.params;
+        const product = await getProductById(id);
+
+        res.send(product);
+    } catch (error) {
+        next(error);
+    }
+});
 
 export default productsRouter;
