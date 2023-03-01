@@ -7,6 +7,8 @@ import SignUp from './Components/SignUp.js';
 import NavBar from './Components/NavBar.js';
 import LogIn from './Components/LogIn.js';
 import SampleProducts from "./Components/SampleProducts.js";
+import PageNotFound from './Components/PageNotFound.js';
+import Cart from './Components/Cart.js';
 
 
 function App() {
@@ -29,6 +31,12 @@ function App() {
         <Route
         path='/products'
         exact element={<SampleProducts />}></Route>
+        <Route
+        path='*'
+        exact element={<PageNotFound />}></Route>
+        <Route
+        path='/cart'
+        exact element={<Cart />}></Route>
         
       </Routes>
       </BrowserRouter>
