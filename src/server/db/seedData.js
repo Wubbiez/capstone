@@ -1,6 +1,8 @@
 import client from "./client.js";
+import fs from 'fs';
 import {getProducts} from "../../api/fakestoreAPI.js";
 import {createProduct} from "./components/products.js";
+// import bbfridges from "./excelData/bbfridges.csv";
 
 async function dropTables() {
     console.log("Starting to drop tables...");
@@ -48,7 +50,7 @@ export async function createTables() {
                                  price        DECIMAL      NOT NULL,
                                  image        VARCHAR(255) NOT NULL,
                                  in_stock     BOOLEAN   DEFAULT true,
-                                 category     VARCHAR(255) NOT NULL,
+                                 category     VARCHAR(255) DEFAULT 'other',
                                  is_active    BOOLEAN   DEFAULT true,
                                  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                              );
@@ -125,12 +127,32 @@ async function createInitialProducts() {
     }
 }
 
+async function seedProducts() {
+    const csvData = await fs.promises.readFile('./src/server/db/excelData/bbfridges.csv', 'utf8');
+    const rows = csvData.trim().split('\n');
+    const headers = rows.shift().split(',');
+    const tableName = 'products';
+
+    for (const row of rows) {
+        const values = row.split(',');
+        const query = {
+            text: `INSERT INTO ${tableName} (${headers.join(', ')})
+                   VALUES (${values.map((_, i) => `$${i + 1}`).join(', ')})`,
+            values
+        };
+
+        await client.query(query);
+    }
+}
+
+
 async function rebuildDB() {
     try {
         client.connect();
         await dropTables();
         await createTables();
-        await createInitialProducts();
+        await seedProducts();
+        // await createInitialProducts();
     } catch (error) {
         console.error("Error during rebuildDB");
         throw error;
