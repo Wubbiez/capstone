@@ -2,6 +2,7 @@ import client from "./client.js";
 import {getProducts} from "../../api/fakestoreAPI.js";
 import {createProduct} from "./components/products.js";
 import { createUser } from "./components/users.js";
+import { createReviews } from "./components/reviews.js";
 
 async function dropTables() {
     console.log("Starting to drop tables...");
@@ -76,7 +77,7 @@ export async function createTables() {
         await client.query(` CREATE TABLE reviews
                              (
                                  review_id    SERIAL PRIMARY KEY,
-                                 user_id      INTEGER REFERENCES users (user_id)       NOT NULL,
+                                 username     VARCHAR(255) UNIQUE NOT NULL,
                                  product_id   INTEGER REFERENCES products (product_id) NOT NULL,
                                  title        VARCHAR(255)                             NOT NULL,
                                  content      TEXT                                     NOT NULL,
@@ -126,6 +127,7 @@ async function createInitialProducts() {
     }
 }
 
+//admin users!!!
 async function createInitialUsers() {
     console.log("Starting to create users...")
     try {
@@ -146,6 +148,25 @@ async function createInitialUsers() {
     }
 }
 
+//fake reviews for testing
+async function createInitialReviews() {
+    console.log("Starting to create reviews...")
+    try {
+        const reviewsToCreate = [
+            { username: "Corey", product_id: "35593983", title: "Shitty Fridge", content: "This thing don't even run!", rating: "2" },
+        ]
+        const reviews = await Promise.all(reviewsToCreate.map(createReviews))
+
+        console.log("Reviews created:")
+        console.log(reviews)
+        console.log("Finished creating Reviews!")
+    } catch (error) {
+        console.error("Error creating Reviews!")
+        throw error
+    }
+}
+
+
 async function rebuildDB() {
     try {
         client.connect();
@@ -153,6 +174,7 @@ async function rebuildDB() {
         await createTables();
         await createInitialProducts();
         await createInitialUsers();
+        await createInitialReviews();
     } catch (error) {
         console.error("Error during rebuildDB");
         throw error;
