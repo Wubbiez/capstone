@@ -1,25 +1,26 @@
 import client from "../client.js";
 
-async function createOrderProduct({orderId, productId, price, quantity}) {
+async function createOrderProduct({order_id, product_id, price, quantity}) {
+    console.log(order_id, product_id, price, quantity)
     try {
         const {rows: [orderProduct]} = await client.query(`
             INSERT INTO order_products("orderId", "productId", price, quantity)
             VALUES($1, $2, $3, $4)
             RETURNING *;
-        `, [orderId, productId, price, quantity]);
+        `, [order_id, product_id, price, quantity]);
         return orderProduct;
     } catch (error) {
         throw error;
     }
 }
 
-async function getOrderProductsByOrderId(orderId) {
+async function getOrderProductsByOrderId(order_id) {
     try {
         const {rows: orderProducts} = await client.query(`
             SELECT *
             FROM order_products
             WHERE "orderId" = $1;
-        `, [orderId]);
+        `, [order_id]);
         return orderProducts;
     } catch (error) {
         throw error;
@@ -53,13 +54,13 @@ async function destroyOrderProduct(orderProductId) {
     }
 }
 
-async function destroyOrderProductsByOrderId(orderId) {
+async function destroyOrderProductsByOrderId(order_id) {
     try {
         const {rows: orderProducts} = await client.query(`
             DELETE FROM order_products
             WHERE "orderId" = $1
             RETURNING *;
-        `, [orderId]);
+        `, [order_id]);
         return orderProducts;
     } catch (error) {
         throw error;

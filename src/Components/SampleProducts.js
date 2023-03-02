@@ -25,7 +25,7 @@ function SampleProducts() {
                                     <Typography variant="h6">{product.price}</Typography>
                                     <Typography variant="body1">{product.description}</Typography>
                                     <Button variant="contained" component={Link} to={`/products/${product.product_id}`}>View</Button>
-                                    <AddToOrderButton userId={1} status="created" price={product.price} quantity={1} />
+                                    <AddToOrderButton userId={1} product_id={product.product_id} status="created" price={product.price} quantity={1} />
                                 </CardContent>
                             </Card>
                         </Grid>
