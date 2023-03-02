@@ -3,6 +3,7 @@ import fs from 'fs';
 import {getProducts} from "../../api/fakestoreAPI.js";
 import {createProduct} from "./components/products.js";
 import { createUser } from "./components/users.js";
+import { createReviews } from "./components/reviews.js";
 
 
 async function dropTables() {
@@ -78,7 +79,8 @@ export async function createTables() {
         await client.query(` CREATE TABLE reviews
                              (
                                  review_id    SERIAL PRIMARY KEY,
-                                 user_id      INTEGER REFERENCES users (user_id)       NOT NULL,
+                                 username     VARCHAR(255) UNIQUE NOT NULL,
+                                 user_id      VARCHAR (255) REFERENCES users (user_id)
                                  product_id   INTEGER REFERENCES products (product_id) NOT NULL,
                                  title        VARCHAR(255)                             NOT NULL,
                                  content      TEXT                                     NOT NULL,
@@ -128,6 +130,9 @@ async function createInitialProducts() {
     }
 }
 
+
+//admin users!!!
+
 async function seedProducts() {
     const csvData = await fs.promises.readFile('./src/server/db/excelData/bbfridges.csv', 'utf8');
     const rows = csvData.trim().split('\n');
@@ -145,7 +150,6 @@ async function seedProducts() {
         await client.query(query);
     }
 }
-
 
 async function createInitialUsers() {
     console.log("Starting to create users...")
@@ -167,14 +171,35 @@ async function createInitialUsers() {
     }
 }
 
+//fake reviews for testing
+async function createInitialReviews() {
+    console.log("Starting to create reviews...")
+    try {
+        const reviewsToCreate = [
+            { username: "Corey", product_id: "35593983", title: "Shitty Fridge", content: "This thing don't even run!", rating: "2" },
+        ]
+        const reviews = await Promise.all(reviewsToCreate.map(createReviews))
+
+        console.log("Reviews created:")
+        console.log(reviews)
+        console.log("Finished creating Reviews!")
+    } catch (error) {
+        console.error("Error creating Reviews!")
+        throw error
+    }
+}
+
+
 async function rebuildDB() {
     try {
         client.connect();
         await dropTables();
         await createTables();
         await createInitialUsers();
+        await createInitialReviews();
         await seedProducts();
         // await createInitialProducts();
+
     } catch (error) {
         console.error("Error during rebuildDB");
         throw error;

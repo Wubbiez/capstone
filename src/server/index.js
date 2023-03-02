@@ -10,6 +10,16 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 
+//admin authorization
+export async function is_admin (req, res, next) {
+   if (req.user.role === "is_admin") {
+    return next();
+   }else{
+    res.status.json({error: "Sorry But You Can't Do That!"})
+   }
+};
+
+
 // Routes
 app.use("/api", apiRouter);
 

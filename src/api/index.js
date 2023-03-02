@@ -3,7 +3,9 @@ import productsRouter from "./components/products.js";
 import express from "express";
 import ordersRouter from "./components/orders.js";
 import userRouter from "./components/user.js"
+// import reviewRouter from "./reviews.js";
 import orderProductsRouter from "./components/order_products.js";
+
 const apiRouter = express.Router();
 
 // ROUTER: /api/products
@@ -11,6 +13,9 @@ apiRouter.use("/products", productsRouter);
 
 // ROUTER: /api/orders
 apiRouter.use("/orders", ordersRouter);
+
+//ROUTER: /api/reviews
+// apiRouter.use("/reviews", reviewRouter);
 
 // ROUTER: /api/user
 apiRouter.use("/user", userRouter);
