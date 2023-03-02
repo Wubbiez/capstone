@@ -3,7 +3,7 @@ import fs from 'fs';
 import {getProducts} from "../../api/fakestoreAPI.js";
 import {createProduct} from "./components/products.js";
 import { createUser } from "./components/users.js";
-// import bbfridges from "./excelData/bbfridges.csv";
+
 
 async function dropTables() {
     console.log("Starting to drop tables...");
@@ -70,7 +70,7 @@ export async function createTables() {
                                  id           SERIAL PRIMARY KEY,
                                  "orderId"    INTEGER REFERENCES orders (order_id)     NOT NULL,
                                  "productId"  INTEGER REFERENCES products (product_id) NOT NULL,
-                                 price        INTEGER                                  NOT NULL,
+                                 price        DECIMAL                                  NOT NULL,
                                  quantity     INTEGER                                  NOT NULL,
                                  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                              );
