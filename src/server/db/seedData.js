@@ -1,6 +1,7 @@
 import client from "./client.js";
 import {getProducts} from "../../api/fakestoreAPI.js";
 import {createProduct} from "./components/products.js";
+import { createUser } from "./components/users.js";
 
 async function dropTables() {
     console.log("Starting to drop tables...");
@@ -30,10 +31,10 @@ export async function createTables() {
                                  username     VARCHAR(255) UNIQUE NOT NULL,
                                  password     VARCHAR(255)        NOT NULL,
                                  email        VARCHAR(255) UNIQUE NOT NULL,
-                                 first_name   VARCHAR(255)        NOT NULL,
-                                 last_name    VARCHAR(255)        NOT NULL,
-                                 address      VARCHAR(255)        NOT NULL,
-                                 phone        VARCHAR(255)        NOT NULL,
+                                 first_name   VARCHAR(255)        DEFAULT NULL,
+                                 last_name    VARCHAR(255)        DEFAULT NULL,
+                                 address      VARCHAR(255)        DEFAULT NULL,
+                                 phone        VARCHAR(255)        DEFAULT NULL,
                                  is_admin     BOOLEAN   DEFAULT false,
                                  is_active    BOOLEAN   DEFAULT true,
                                  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -125,12 +126,33 @@ async function createInitialProducts() {
     }
 }
 
+async function createInitialUsers() {
+    console.log("Starting to create users...")
+    try {
+        const usersToCreate = [
+            { username: "Corey", password: "Corey22", email: "Corey@gmail.com", is_admin: true },
+            { username: "Zach", password: "Zach123", email: "Zach@gmail.com", is_admin: true },
+            { username: "Abdulla", password: "Abdulla10", email: "Abdulla@gmail.com", is_admin: true },
+            { username: "Santi", password: "Santi27", email: "Santi@gmail.com", is_admin: true },
+        ]
+        const users = await Promise.all(usersToCreate.map(createUser))
+
+        console.log("Users created:")
+        console.log(users)
+        console.log("Finished creating users!")
+    } catch (error) {
+        console.error("Error creating users!")
+        throw error
+    }
+}
+
 async function rebuildDB() {
     try {
         client.connect();
         await dropTables();
         await createTables();
         await createInitialProducts();
+        await createInitialUsers();
     } catch (error) {
         console.error("Error during rebuildDB");
         throw error;
