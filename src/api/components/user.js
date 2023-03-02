@@ -1,15 +1,15 @@
 import { createUser, getUser, getUserByUsername } from "../../server/db/components/users.js";
 import express from "express";
-export const jwt = require("jsonwebtoken");//
+import jwt from "jsonwebtoken";//
 export const { JWT_SECRET } = process.env;//
 
 const userRouter = express.Router();
 
 
 userRouter.post("/register", async (req, res, next) => {
-    const { username, password } = req.body;
+    const { username, password, email, first_name, last_name, address, phone } = req.body;
     const queriedUser = await getUserByUsername(username);
-    const message = "Thanks for joining";
+    const welcomeMessage = "Thanks for joining";
     try {
         const _user = await getUserByUsername(username);
         if (!username || !password) {
@@ -25,11 +25,11 @@ userRouter.post("/register", async (req, res, next) => {
                 message: `The User ${queriedUser.username} is already taken.`,
             })
         }
-        const user = await createUser({ username, password });
+        const user = await createUser({ username, password, email, first_name, last_name, address, phone });
 
         const token = jwt.sign({ id: user.id, username }, "neverTell");
 
-        res.send({ message, token, user })
+        res.send({ welcomeMessage, token, user })
     } catch ({ name, message }) {
         next({ name, message })
     }
