@@ -1,19 +1,19 @@
 import client from "../client.js";
-export const bcrypt = require("bcrypt");
+import  bcrypt from "bcrypt";
 export const SALT_COUNT = 10;
 
-async function createUser({ username, password, email }) {
+async function createUser({ username, password, email, is_admin, first_name, last_name, address, phone }) {
 
     try {
         const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
         const { 
             rows: [user]
         } = await client.query(`
-            INSERT INTO users(username,password,email)
-            VALUES($1,$2,$3)
-            ON CONFLICT (username, email) DO NOTHING
-            RETURNING id, username, email;
-        `, [username, hashedPassword]);
+            INSERT INTO users(username,password,email,is_admin,first_name,last_name,address,phone)
+            VALUES($1,$2,$3,$4,$5,$6,$7,$8)
+            ON CONFLICT (username) DO NOTHING
+            RETURNING user_id, username, email;
+        `, [username, hashedPassword, email, is_admin, first_name, last_name, address, phone]);
             if (user) {
                 delete user.password;
                 return user;          
@@ -37,7 +37,7 @@ async function getUser ({ username, password }) {
                 rows: [user],
             } = await client.query(`
 
-            SELECT id, username FROM users
+            SELECT user_id, username FROM users
             WHERE username = $1
             AND password = $2
             `, [ username, hashedPassword ]);
@@ -59,7 +59,7 @@ async function getUserByUsername(username) {
     try {
         const {rows: [user] } = await client.query (`
         
-        SELECT id, username, password FROM users
+        SELECT user_id, username, password FROM users
         WHERE username = $1;
         `, [username]);
         return user;
@@ -88,4 +88,5 @@ export {
  createUser,
  getUser,
  getUserByUsername,
+ bcrypt,
 }
