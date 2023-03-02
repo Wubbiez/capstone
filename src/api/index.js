@@ -2,6 +2,7 @@
 import productsRouter from "./components/products.js";
 import express from "express";
 import ordersRouter from "./components/orders.js";
+import userRouter from "./components/user.js"
 const apiRouter = express.Router();
 
 // ROUTER: /api/products
@@ -9,6 +10,8 @@ apiRouter.use("/products", productsRouter);
 
 // ROUTER: /api/orders
 apiRouter.use("/orders", ordersRouter);
+
+apiRouter.use("/user", userRouter);
 
 
 apiRouter.use((error, req, res, next) => {

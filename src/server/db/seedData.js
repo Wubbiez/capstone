@@ -1,6 +1,7 @@
 import client from "./client.js";
 import {getProducts} from "../../api/fakestoreAPI.js";
 import {createProduct} from "./components/products.js";
+import { createUser } from "./components/users.js";
 
 async function dropTables() {
     console.log("Starting to drop tables...");
@@ -125,12 +126,33 @@ async function createInitialProducts() {
     }
 }
 
+async function createInitialUsers() {
+    console.log("Starting to create users...")
+    try {
+        const usersToCreate = [
+            { username: "Corey", password: "Corey22", email: "Corey@gmail.com" },
+            { username: "Zach", password: "Zach123", email: "Zach@gmail.com" },
+            { username: "Abdulla", password: "Abdulla10", email: "Abdulla@gmail.com" },
+            { username: "Santi", password: "Santi27", email: "Santi@gmail.com" },
+        ]
+        const users = await Promise.all(usersToCreate.map(createUser))
+
+        console.log("Users created:")
+        console.log(users)
+        console.log("Finished creating users!")
+    } catch (error) {
+        console.error("Error creating users!")
+        throw error
+    }
+}
+
 async function rebuildDB() {
     try {
         client.connect();
         await dropTables();
         await createTables();
         await createInitialProducts();
+        await createInitialUsers();
     } catch (error) {
         console.error("Error during rebuildDB");
         throw error;
