@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   AppBar,
   Button,
+  ButtonGroup,
   Tab,
   Tabs,
   Toolbar,
@@ -11,6 +12,8 @@ import {
 } from "@mui/material";
 import {AddShoppingCart} from '@mui/icons-material';
 import DrawerComp from "./Drawer.js";
+
+import { Link } from "react-router-dom";
 const NavBar = () => {
   const [value, setValue] = useState();
   const theme = useTheme();
@@ -39,16 +42,24 @@ const NavBar = () => {
                 value={value}
                 onChange={(e, value) => setValue(value)}
               >
-                <Tab label="Home" />
-                <Tab label="Products" />
-                <Tab label="Contact" />
+                <Tab label="Home"  component={Link} to="/" />
+                <Tab label="Products"  component={Link} to="/products" />
+          
+                <Tab label="Cart" component={Link} to="/cart"/>
+                <Tab label="Contact" component={Link} to="/contact"/>
               </Tabs>
-              <Button sx={{ marginLeft: "auto" }} variant="inherit">
-                Login
-              </Button>
-              <Button sx={{ marginLeft: "10px" }} variant="contained">
-                SignUp
-              </Button>
+              <ButtonGroup>
+                <Link to="/login">
+                  <Button variant="contained">
+                    Login
+                  </Button>
+                  </Link>
+                <Link to="/signup">
+                  <Button variant="contained">
+                    SignUp
+                  </Button>
+                </Link>
+              </ButtonGroup>
             </>
           )}
         </Toolbar>
