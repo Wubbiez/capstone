@@ -1,6 +1,8 @@
 import React from 'react'
-import { Grid,Paper, Avatar, TextField, Button, FormControlLabel, Checkbox} from '@mui/material'
-import {LockOutlined} from '@mui/icons-material';
+import { Grid,Paper, Avatar, TextField, Button} from '@material-ui/core'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 const SignUp=()=>{
 
     const paperStyle={padding :20,height:'70vh',width:280, margin:"20px auto"}
@@ -8,9 +10,10 @@ const SignUp=()=>{
     const btnstyle={margin:'8px 0'}
     return(
         <Grid>
+             <Button  href='http://localhost:3000/'>back To Shopping</Button>
             <Paper elevation={10} style={paperStyle}>
                 <Grid align='center'>
-                     <Avatar style={avatarStyle}><LockOutlined/></Avatar>
+                     <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
                     <h2>Sign Up</h2>
                 </Grid>
                 <TextField label='Email' placeholder='Enter Email' fullWidth required/>

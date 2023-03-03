@@ -9,8 +9,9 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import {AddShoppingCart} from '@mui/icons-material';
-import DrawerComp from "./Drawer.js";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import DrawerComp from "./Drawer";
+//import { Link } from "react-router-dom";
 const NavBar = () => {
   const [value, setValue] = useState();
   const theme = useTheme();
@@ -22,7 +23,7 @@ const NavBar = () => {
     <React.Fragment>
       <AppBar sx={{ background: "#00008B" }}>
         <Toolbar>
-          <AddShoppingCart sx={{ transform: "scale(2)" }} />
+          <AddShoppingCartIcon sx={{ transform: "scale(2)" }} />
           {isMatch ? (
             <>
               <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>
@@ -39,14 +40,14 @@ const NavBar = () => {
                 value={value}
                 onChange={(e, value) => setValue(value)}
               >
-                <Tab label="Home" />
-                <Tab label="Products" />
-                <Tab label="Contact" />
+                <Tab href="http://localhost:3000/" label='Home'/>
+                <Tab href="http://localhost:3000/products" label='Products'/>
+                <Tab href="http://localhost:3000/contact" label='Contact'/>
               </Tabs>
-              <Button sx={{ marginLeft: "auto" }} variant="inherit">
-                Login
+              <Button sx={{ marginLeft: "auto" }} variant="inherit" href="http://localhost:3000/login">LogIn
+                
               </Button>
-              <Button sx={{ marginLeft: "10px" }} variant="contained">
+              <Button sx={{ marginLeft: "10px" }} variant="contained" href="http://localhost:3000/signup">
                 SignUp
               </Button>
             </>

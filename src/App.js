@@ -1,17 +1,16 @@
 import React from 'react';
 //import ReactDOM from 'react-dom/client';
-//import  { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Route,  Routes, BrowserRouter } from 'react-router-dom';
-import Home from './Components/Home.js';
-import SignUp from './Components/SignUp.js';
-import NavBar from './Components/NavBar.js';
-import LogIn from './Components/LogIn.js';
-import SampleProducts from "./Components/SampleProducts.js";
-import PageNotFound from './Components/PageNotFound.js';
-import Cart from './Components/Cart.js';
-
+import Home from './Components/Home';
+import SignUp from './Components/SignUp';
+import NavBar from './Components/NavBar';
+import LogIn from './Components/LogIn';
+import Contact from './Components/Contact';
 
 function App() {
+  const [token, setToken] = useState('');
+
   return (
     <>
     <BrowserRouter>
@@ -20,23 +19,17 @@ function App() {
         path='/'
         exact element={<Home />}></Route>
         <Route
+        path='/contact'
+        exact element={<Contact />}></Route>
+        <Route
         path='/login'
-        exact element={<LogIn />}></Route>
+        exact element={<LogIn  setToken={setToken}/>}></Route>
         <Route
         path='/signup'
         exact element={<SignUp />}></Route>
         <Route
         path='/nav'
         exact element={<NavBar />}></Route>
-        <Route
-        path='/products'
-        exact element={<SampleProducts />}></Route>
-        <Route
-        path='*'
-        exact element={<PageNotFound />}></Route>
-        <Route
-        path='/cart'
-        exact element={<Cart />}></Route>
         
       </Routes>
       </BrowserRouter>
