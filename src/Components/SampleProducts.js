@@ -35,7 +35,7 @@ function SampleProducts() {
                                     </Box>
                                     <Box display="flex" alignItems="center" justifyContent="center" style={{ margin: '8px 0' }}>
                                         <EditProductButton variant="contained" color="secondary" title={product.title} description={product.description}
-                                                              price={product.price} image={product.image} product_id={product.product_id}
+                                                              price={product.price} image={product.image} product_id={product.product_id} category={product.category} in_stock={product.in_stock}
                                         />
                                     </Box>
                                     <Box display="flex" alignItems="center" justifyContent="center" style={{ margin: '8px 0' }}>

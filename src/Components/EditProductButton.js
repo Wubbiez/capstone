@@ -13,14 +13,14 @@ import {
 import {FormControlLabel, TextField} from "@mui/material/";
 import {updateProduct} from "../api/apirequests.js";
 
-function EditProductButton ({product_id , title: initialTitle, description: initialDescription, price: initialPrice, image: initialImage, inStock: initialInStock, category: initialCategory}) {
+function EditProductButton ({product_id , title: initialTitle, description: initialDescription, price: initialPrice, image: initialImage, in_stock: initialInStock, category: initialCategory}) {
     const [isEditing, setIsEditing] = useState(false);
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState(initialTitle);
     const [description, setDescription] = useState(initialDescription);
     const [price, setPrice] = useState(initialPrice);
     const [image, setImage] = useState(initialImage);
-    const [inStock, setInStock] = useState(initialInStock);
+    const [in_stock, setInStock] = useState(initialInStock);
     const [category, setCategory] = useState(initialCategory);
 
     const handleClickOpen = () => {
@@ -34,7 +34,7 @@ function EditProductButton ({product_id , title: initialTitle, description: init
     async function handleSubmit() {
         setIsEditing(true);
         try {
-            await updateProduct(product_id, title, description, price, image, inStock, category)
+            await updateProduct(product_id, title, description, price, image, in_stock, category)
         } catch (error) {
             console.error(error);
         }
@@ -113,7 +113,7 @@ function EditProductButton ({product_id , title: initialTitle, description: init
                 margin="dense"
                 id="image"
                 label="image"
-                type="image"
+                type="text"
                 fullWidth
                 variant="standard"
                 value={image}
@@ -122,20 +122,27 @@ function EditProductButton ({product_id , title: initialTitle, description: init
                 }
                 }
             />
-            <TextField
-                autoFocus
-                margin="dense"
-                id="inStock"
-                label="inStock"
-                type="inStock"
-                fullWidth
-                variant="standard"
-                value={inStock}
-                onChange={(e) => {
-                    setInStock(e.target.value);
-                }
-                }
-            />
+            <FormControl>
+                <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    value={in_stock}
+                    name="radio-buttons-group"
+                    onChange={(e) => {
+                        setInStock(e.target.value);
+                    }}
+                >
+                    <FormControlLabel
+                        value="true"
+                        control={<Radio />}
+                        label="In stock"
+                    />
+                    <FormControlLabel
+                        value="false"
+                        control={<Radio />}
+                        label="Out of stock"
+                    />
+                </RadioGroup>
+            </FormControl>
             <TextField
                 autoFocus
                 margin="dense"

@@ -21,14 +21,12 @@ export async function getOrderProductById(orderProductId) {
 }
 
 export async function updateProduct(id, title, description, price, image, inStock, category) {
-    console.log(id, title, description, price, image, inStock, category)
     const response = await fetch(`http://localhost:3001/api/products/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, title, description, price, image, inStock, category }),
     });
     const product = await response.json();
-    // console.log(product)
     return product;
 }
 
