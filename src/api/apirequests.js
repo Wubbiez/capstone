@@ -4,6 +4,22 @@ export async function getAllProducts() {
     return products;
 }
 
+export async function updateOrderProduct(id, price, quantity) {
+    const response = await fetch(`http://localhost:3001/api/cart/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, price, quantity }),
+    });
+    const item = await response.json();
+    return item;
+}
+
+export async function getOrderProductById(orderProductId) {
+    const response = await fetch(`http://localhost:3001/api/cart/${orderProductId}`);
+    const orderProduct = await response.json();
+    return orderProduct;
+}
+
 // export async function addProductToCart(productId) {
 //     const response = await fetch(`http://localhost:3001/api/cart/${productId}`, {
 //         method: "POST",

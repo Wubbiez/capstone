@@ -27,6 +27,19 @@ async function getOrderProductsByOrderId(order_id) {
     }
 }
 
+async function getOrderProductById(orderProductId) {
+    try {
+        const {rows: [orderProduct]} = await client.query(`
+            SELECT *
+            FROM order_products
+            WHERE id = $1;
+        `, [orderProductId]);
+        return orderProduct;
+    } catch (error) {
+        throw error;
+    }
+}
+
 async function updateOrderProduct({orderProductId, price, quantity}) {
     try {
         const {rows: [orderProduct]} = await client.query(`
@@ -72,5 +85,6 @@ export {
     getOrderProductsByOrderId,
     updateOrderProduct,
     destroyOrderProduct,
-    destroyOrderProductsByOrderId
+    destroyOrderProductsByOrderId,
+    getOrderProductById
 }

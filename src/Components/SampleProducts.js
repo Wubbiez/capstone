@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {Card, Paper, Grid, styled, Typography, Button, CardContent} from "@mui/material";
+import {Card, Paper, Grid, styled, Typography, Button, CardContent, Box} from "@mui/material";
 import AddToOrderButton from "./AddToOrderButton.js";
 import {getAllProducts} from "../api/apirequests.js";
-import NavBar from './NavBar.js';
+import EditOrderProductButton from "./EditOrderProductButton.js";
+import UpdateQuantityButton from "./UpdateQuantityButton.js";
 function SampleProducts() {
     const [products, setProducts] = useState([]);
 
@@ -15,7 +16,6 @@ function SampleProducts() {
 
     return (
         <div>
-            <NavBar></NavBar>
             <Grid container spacing={2}>
                 {products.map((product) => {
                     return (
@@ -28,6 +28,10 @@ function SampleProducts() {
                                     <Typography variant="body1">{product.description}</Typography>
                                     <Button variant="contained" component={Link} to={`/products/${product.product_id}`}>View</Button>
                                     <AddToOrderButton userId={1} product_id={product.product_id} status="created" price={product.price} quantity={1} />
+                                    <EditOrderProductButton orderProductId={product.product_id} price={product.price} quantity={1} />
+                                    <Box display="flex" alignItems="center">
+                                    <UpdateQuantityButton orderProductId={product.product_id} price={product.price} />
+                                    </Box>
                                 </CardContent>
                             </Card>
                         </Grid>
