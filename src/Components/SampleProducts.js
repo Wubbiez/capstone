@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {Card, Paper, Grid, styled, Typography, Button, CardContent} from "@mui/material";
 import AddToOrderButton from "./AddToOrderButton.js";
 import {getAllProducts} from "../api/apirequests.js";
+import NavBar from './NavBar.js';
 function SampleProducts() {
     const [products, setProducts] = useState([]);
 
@@ -14,6 +15,7 @@ function SampleProducts() {
 
     return (
         <div>
+            <NavBar></NavBar>
             <Grid container spacing={2}>
                 {products.map((product) => {
                     return (
