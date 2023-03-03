@@ -1,10 +1,10 @@
 // import {getProducts} from "./fakestoreAPI.js";
-import productsRouter from "./components/products.js";
+import productsRouter from "./endpoints/products.js";
 import express from "express";
-import ordersRouter from "./components/orders.js";
-import userRouter from "./components/user.js"
+import ordersRouter from "./endpoints/orders.js";
+import userRouter from "./endpoints/user.js"
 // import reviewRouter from "./reviews.js";
-import orderProductsRouter from "./components/order_products.js";
+import orderProductsRouter from "./endpoints/order_products.js";
 
 const apiRouter = express.Router();
 

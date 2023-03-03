@@ -47,16 +47,16 @@ function UpdateQuantityButton ({orderProductId: id, price}) {
                 disabled={quantity === 0 || isUpdating}
                 onClick={handleDecrementClick}
             >
-                -1
+                -
             </Button>
-            <Typography variant="body1">{quantity}</Typography>
+            <Typography variant="body1" style={{ margin: '0 8px' }}>{quantity}</Typography>
             <Button
                 variant="contained"
                 color="primary"
                 disabled={isUpdating}
                 onClick={handleIncrementClick}
             >
-                +1
+                +
             </Button>
         </>
     );

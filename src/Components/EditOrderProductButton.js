@@ -30,7 +30,7 @@ function EditOrderProductButton({orderProductId: id, price, quantity}) {
             disabled={isEditing}
             onClick={handleClick}
         >
-            {isEditing ? 'Editing...' : 'Edit'}
+            {'Edit'}
         </Button>
     );
 }

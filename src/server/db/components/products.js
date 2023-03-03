@@ -40,14 +40,15 @@ async function getProductById(productId) {
     }
 }
 
-async function updateProduct({productId, title, description, price, image, inStock, category}) {
+async function updateProduct({product_id: id, title, description, price, image, inStock, category}) {
+    console.log(id, title, description, price, image, inStock, category)
     try {
         const {rows: [product]} = await client.query(`
             UPDATE products
             SET title = $1, description = $2, price = $3, "image" = $4, "in_stock" = $5, category = $6
             WHERE product_id = $7
             RETURNING *;
-        `, [title, description, price, image, inStock, category, productId]);
+        `, [title, description, price, image, inStock, category, id]);
         return product;
     } catch (error) {
         throw error;
