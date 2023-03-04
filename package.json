@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.10",
+    "@stripe/stripe-js": "^1.48.0",
     "bcrypt": "^5.1.0",
     "chalk": "^5.2.0",
     "cors": "^2.8.5",

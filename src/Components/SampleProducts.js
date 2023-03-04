@@ -8,6 +8,7 @@ import UpdateQuantityButton from "./Buttons/UpdateQuantityButton.js";
 import EditProductButton from "./Buttons/EditProductButton.js";
 import DeleteProductButton from "./Buttons/DeleteProductButton.js";
 import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
+import CheckoutButton from "./Buttons/CheckoutButton.js";
 function SampleProducts() {
     const [products, setProducts] = useState([]);
     const [order, setOrder] = useState(null);
@@ -46,6 +47,9 @@ function SampleProducts() {
                                     </Box>
                                     <Box display="flex" alignItems="center" justifyContent="center" style={{ margin: '8px 0' }}>
                                         <DeleteOrderProductButton product_id={product.product_id} order_id={order} />
+                                    </Box>
+                                    <Box display="flex" alignItems="center" justifyContent="center" style={{margin: '8px 0'}}>
+                                        <CheckoutButton price={product.price} name={product.title} description={product.description} image={product.image}  />
                                     </Box>
                                 </CardContent>
                             </Card>
