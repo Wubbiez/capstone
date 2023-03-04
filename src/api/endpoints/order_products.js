@@ -1,7 +1,7 @@
 import express from "express";
 import {
     createOrderProduct, destroyOrderProducts, getOrderProductById,
-    updateOrderProduct
+    updateOrderProduct, getOrderProductsByOrderId
 } from "../../server/db/components/order_products.js";
 
 const orderProductsRouter = express.Router();
@@ -21,7 +21,7 @@ const orderProductsRouter = express.Router();
 orderProductsRouter.get("/:id", async (req, res, next) => {
     try {
         const {id} = req.params;
-        const orderProduct = await getOrderProductById(id);
+        const orderProduct = await getOrderProductsByOrderId(id);
 
         res.send(orderProduct);
     } catch (error) {
