@@ -1,7 +1,7 @@
 import client from "./client.js";
 import fs from 'fs';
 import {getProducts} from "../../api/fakestoreAPI.js";
-import {createProduct} from "./components/products.js";
+import {createProduct, updateProduct} from "./components/products.js";
 import { createUser } from "./components/users.js";
 import { createReviews } from "./components/reviews.js";
 
@@ -50,7 +50,7 @@ export async function createTables() {
                                  title        VARCHAR(255) NOT NULL,
                                  description  TEXT         NOT NULL,
                                  price        DECIMAL      NOT NULL,
-                                 image        VARCHAR(255) NOT NULL,
+                                 image        VARCHAR(255) DEFAULT 'https://www.freeiconspng.com/uploads/no-image-icon-6.png',
                                  in_stock     BOOLEAN   DEFAULT true,
                                  category     VARCHAR(255) DEFAULT 'other',
                                  is_active    BOOLEAN   DEFAULT true,
@@ -80,7 +80,7 @@ export async function createTables() {
                              (
                                  review_id    SERIAL PRIMARY KEY,
                                  username     VARCHAR(255) UNIQUE NOT NULL,
-                                 user_id      VARCHAR (255) REFERENCES users (user_id)
+                                 user_id      INTEGER REFERENCES users (user_id),
                                  product_id   INTEGER REFERENCES products (product_id) NOT NULL,
                                  title        VARCHAR(255)                             NOT NULL,
                                  content      TEXT                                     NOT NULL,
@@ -196,8 +196,9 @@ async function rebuildDB() {
         await dropTables();
         await createTables();
         await createInitialUsers();
-        await createInitialReviews();
+        // await createInitialReviews();
         await seedProducts();
+        await updateProduct({product_id: 1, title: "RF", description: "test",price: 1000})
         // await createInitialProducts();
 
     } catch (error) {
