@@ -52,11 +52,13 @@ orderProductsRouter.post("/:order_id/items", async (req, res, next) => {
     }
 })
 
-orderProductsRouter.patch("/:id", async (req, res, next) => {
+orderProductsRouter.patch("/:productId", async (req, res, next) => {
+    console.log(req);
     try {
-        const {id} = req.params;
+        const {productId} = req.params;
         const {price, quantity} = req.body;
-        const orderProduct = await updateOrderProduct({orderProductId: id, price, quantity});
+        console.log(productId, price, quantity)
+        const orderProduct = await updateOrderProduct({orderProductId: productId, price, quantity});
 
         res.send(orderProduct);
     } catch (error) {

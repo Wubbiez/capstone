@@ -34,7 +34,7 @@ function SampleProducts() {
                                     <AddToOrderButton userId={1} product_id={product.product_id} status="created" price={product.price} quantity={1} setOrder={setOrder} />
                                     <EditOrderProductButton orderProductId={product.product_id} price={product.price} quantity={1} />
                                     <Box display="flex" alignItems="center" justifyContent="center" style={{ margin: '8px 0' }}>
-                                    <UpdateQuantityButton orderProductId={product.product_id} price={product.price} />
+                                    <UpdateQuantityButton order={order} orderProductId={product.product_id} price={product.price} />
                                     </Box>
                                     <Box display="flex" alignItems="center" justifyContent="center" style={{ margin: '8px 0' }}>
                                         <EditProductButton variant="contained" color="secondary" title={product.title} description={product.description}

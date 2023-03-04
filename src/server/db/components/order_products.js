@@ -43,6 +43,7 @@ async function getOrderProductsByOrderId(order_id) {
 }
 
 async function updateOrderProduct({orderProductId, price, quantity}) {
+console.log(orderProductId, price, quantity)
     try {
         const {rows: [orderProduct]} = await client.query(`
             UPDATE order_products

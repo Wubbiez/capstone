@@ -15,6 +15,7 @@ export async function updateOrderProduct(id, price, quantity) {
 }
 
 export async function getOrderProductById(orderProductId) {
+    console.log(orderProductId);
     const response = await fetch(`http://localhost:3001/api/cart/${orderProductId}`);
     const orderProduct = await response.json();
     return orderProduct;
