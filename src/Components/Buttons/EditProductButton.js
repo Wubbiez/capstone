@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {
     Button,
     Dialog,
@@ -11,7 +11,7 @@ import {
     RadioGroup
 } from "@mui/material";
 import {FormControlLabel, TextField} from "@mui/material/";
-import {updateProduct} from "../api/apirequests.js";
+import {updateProduct} from "../../api/apirequests.js";
 
 function EditProductButton ({product_id , title: initialTitle, description: initialDescription, price: initialPrice, image: initialImage, in_stock: initialInStock, category: initialCategory}) {
     const [isEditing, setIsEditing] = useState(false);
@@ -22,6 +22,19 @@ function EditProductButton ({product_id , title: initialTitle, description: init
     const [image, setImage] = useState(initialImage);
     const [in_stock, setInStock] = useState(initialInStock);
     const [category, setCategory] = useState(initialCategory);
+
+    const [productData, setProductData] = useState({
+        title: initialTitle,
+        description: initialDescription,
+        price: initialPrice,
+        image: initialImage,
+        in_stock: initialInStock,
+        category: initialCategory,
+    });
+
+    useEffect(() => {
+
+    }, [productData]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -34,13 +47,15 @@ function EditProductButton ({product_id , title: initialTitle, description: init
     async function handleSubmit() {
         setIsEditing(true);
         try {
-            await updateProduct(product_id, title, description, price, image, in_stock, category)
+            await updateProduct(product_id, title, description, price, image, in_stock, category);
+            window.location.reload();
         } catch (error) {
             console.error(error);
         }
         setIsEditing(false);
         setOpen(false);
     }
+
 
     return (
         <>
