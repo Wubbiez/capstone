@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import {Button} from '@mui/material';
+import {getOrderProductsByOrderId} from "../../api/apirequests.js";
+
 
 function AddToOrderButton({ userId, product_id, status, price, quantity, setOrder }) {
     const [isAddingToOrder, setIsAddingToOrder] = useState(false);
@@ -19,6 +21,7 @@ function AddToOrderButton({ userId, product_id, status, price, quantity, setOrde
                 if (incompleteOrder) {
                     const order_id = incompleteOrder['order_id'];
                     setOrder(order_id);
+
                     const response = await fetch(`http://localhost:3001/api/cart/${order_id}/items`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
