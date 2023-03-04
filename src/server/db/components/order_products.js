@@ -54,14 +54,15 @@ async function updateOrderProduct({orderProductId, price, quantity}) {
     }
 }
 
-async function destroyOrderProduct(orderProductId) {
+async function destroyOrderProducts(productId, orderId) {
     try {
-        const {rows: [orderProduct]} = await client.query(`
-            DELETE FROM order_products
-            WHERE id = $1
-            RETURNING *;
-        `, [orderProductId]);
-        return orderProduct;
+        const { rows } = await client.query(`
+      DELETE FROM order_products
+      WHERE "productId"= $1 AND "orderId" = $2
+      RETURNING *;
+    `, [productId, orderId]);
+
+        return rows;
     } catch (error) {
         throw error;
     }
@@ -84,7 +85,7 @@ export {
     createOrderProduct,
     getOrderProductsByOrderId,
     updateOrderProduct,
-    destroyOrderProduct,
+    destroyOrderProducts,
     destroyOrderProductsByOrderId,
     getOrderProductById
 }

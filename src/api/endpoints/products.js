@@ -1,6 +1,6 @@
 import express from "express";
 
-import {getAllProducts, getProductById, updateProduct} from "../../server/db/components/products.js";
+import {destroyProduct, getAllProducts, getProductById, updateProduct} from "../../server/db/components/products.js";
 
 const productsRouter = express.Router();
 
@@ -34,5 +34,15 @@ productsRouter.patch("/:id", async (req, res, next) => {
             next(error);
         }
 
-})
+});
+
+productsRouter.delete("/:id", async (req, res, next) => {
+    try {
+        const {id} = req.params;
+        const product = await destroyProduct(id);
+        res.send(product);
+    } catch (error) {
+        next(error);
+    }
+});
 export default productsRouter;

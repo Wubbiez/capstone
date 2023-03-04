@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {Button} from '@mui/material';
 
-function AddToOrderButton({ userId, product_id, status, price, quantity }) {
+function AddToOrderButton({ userId, product_id, status, price, quantity, setOrder }) {
     const [isAddingToOrder, setIsAddingToOrder] = useState(false);
 
     async function handleClick() {
@@ -18,6 +18,7 @@ function AddToOrderButton({ userId, product_id, status, price, quantity }) {
 
                 if (incompleteOrder) {
                     const order_id = incompleteOrder['order_id'];
+                    setOrder(order_id);
                     const response = await fetch(`http://localhost:3001/api/cart/${order_id}/items`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -37,6 +38,7 @@ function AddToOrderButton({ userId, product_id, status, price, quantity }) {
                     if (response2.ok) {
                         const order = await response2.json();
                         const order_id = order['order_id'];
+                        setOrder(order_id);
                         const response = await fetch(`http://localhost:3001/api/cart/${order_id}/items`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },

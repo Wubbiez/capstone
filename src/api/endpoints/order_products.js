@@ -1,7 +1,6 @@
 import express from "express";
 import {
-    createOrderProduct,
-    destroyOrderProduct, getOrderProductById,
+    createOrderProduct, destroyOrderProducts, getOrderProductById,
     updateOrderProduct
 } from "../../server/db/components/order_products.js";
 
@@ -35,7 +34,7 @@ orderProductsRouter.post("/:order_id/items", async (req, res, next) => {
         const {order_id} = req.params;
         const {product_id, price, quantity} = req.body;
         console.log(product_id);
-        const orderProduct = await createOrderProduct({order_id: order_id, product_id, price, quantity});
+        const orderProduct = await createOrderProduct({order_id: order_id, product_id: product_id, price, quantity});
         console.log(orderProduct);
         res.send(orderProduct);
     } catch (error) {
@@ -55,10 +54,12 @@ orderProductsRouter.patch("/:id", async (req, res, next) => {
     }
 })
 
-orderProductsRouter.delete("/:id", async (req, res, next) => {
+orderProductsRouter.delete("/:productId", async (req, res, next) => {
     try {
-        const {id} = req.params;
-        const orderProduct = await destroyOrderProduct(id);
+        const {productId} = req.params;
+        const {order_id} = req.body;
+
+        const orderProduct = await destroyOrderProducts(productId, order_id);
 
         res.send(orderProduct);
     } catch (error) {
