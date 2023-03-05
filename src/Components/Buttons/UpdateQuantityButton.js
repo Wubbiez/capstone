@@ -18,7 +18,6 @@ function UpdateQuantityButton ({orderProductId, price}) {
 
     async function handleDecrementClick() {
         const orderProduct = await getOrderProductById(orderProductId);
-
         setQuantity(orderProduct.quantity);
         if (quantity > 0 && !isUpdating) {
             setIsUpdating(true);
@@ -35,7 +34,6 @@ function UpdateQuantityButton ({orderProductId, price}) {
 
     async function handleIncrementClick() {
         const orderProduct = await getOrderProductById(orderProductId);
-
         setQuantity(orderProduct.quantity);
         if (!isUpdating) {
             setIsUpdating(true);

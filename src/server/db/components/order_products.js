@@ -21,7 +21,7 @@ async function getOrderProductById(orderProductId) {
         const {rows: [orderProduct]} = await client.query(`
             SELECT *
             FROM order_products
-            WHERE id = $1;
+            WHERE "productId" = $1;
         `, [orderProductId]);
         return orderProduct;
     } catch (error) {
@@ -48,7 +48,7 @@ console.log(orderProductId, price, quantity)
         const {rows: [orderProduct]} = await client.query(`
             UPDATE order_products
             SET price = $1, quantity = $2
-            WHERE id = $3
+            WHERE "productId" = $3
             RETURNING *;
         `, [price, quantity, orderProductId]);
         return orderProduct;

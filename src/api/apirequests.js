@@ -14,9 +14,9 @@ export async function updateOrderProduct(id, price, quantity) {
     return item;
 }
 
-export async function getOrderProductById(orderProductId) {
-    console.log(orderProductId);
-    const response = await fetch(`http://localhost:3001/api/cart/${orderProductId}`);
+export async function getOrderProductById(id) {
+    const response = await fetch(`http://localhost:3001/api/cart/${id}`);
+    console.log(response);
     const orderProduct = await response.json();
     return orderProduct;
 }
