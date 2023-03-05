@@ -1,13 +1,12 @@
 import client from "../client.js";
 
-async function createOrderProduct({order_id, product_id, price, quantity}) {
-    console.log(order_id, product_id, price, quantity)
+async function createOrderProduct({order_id, product_id, price, quantity, stripe_id}) {
     try {
         const {rows: [orderProduct]} = await client.query(`
-            INSERT INTO order_products("orderId", "productId", price, quantity)
-            VALUES($1, $2, $3, $4)
+            INSERT INTO order_products("orderId", "productId", price, quantity, stripe_id)
+            VALUES ($1, $2, $3, $4, $5)
             RETURNING *;
-        `, [order_id, product_id, price, quantity]);
+        `, [order_id, product_id, price, quantity, stripe_id]);
         return orderProduct;
     } catch (error) {
         throw error;

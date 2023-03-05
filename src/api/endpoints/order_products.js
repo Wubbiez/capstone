@@ -43,8 +43,8 @@ orderProductsRouter.get("/:order_id/items", async (req, res, next) => {
 orderProductsRouter.post("/:order_id/items", async (req, res, next) => {
     try {
         const {order_id} = req.params;
-        const {product_id, price, quantity} = req.body;
-        const orderProduct = await createOrderProduct({order_id: order_id, product_id: product_id, price, quantity});
+        const {product_id, price, quantity, stripe_id} = req.body;
+        const orderProduct = await createOrderProduct({order_id: order_id, product_id: product_id, price, quantity, stripe_id});
         const attach = await attachOrderProductsToOrder(order_id);
         res.send(orderProduct);
     } catch (error) {
@@ -78,6 +78,7 @@ orderProductsRouter.delete("/:productId", async (req, res, next) => {
         next(error);
     }
 })
+
 
 export default orderProductsRouter;
 

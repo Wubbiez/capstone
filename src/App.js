@@ -9,6 +9,7 @@ import LogIn from './Components/LogIn.js';
 import SampleProducts from "./Components/SampleProducts.js";
 import PageNotFound from './Components/PageNotFound.js';
 import Cart from './Components/Cart.js';
+import Success from './Components/Success.js';
 
 
 function App() {
@@ -37,6 +38,10 @@ function App() {
         <Route
         path='/cart'
         exact element={<Cart />}></Route>
+        <Route
+          path='/success'
+            exact element={<Success />}></Route>
+
         
       </Routes>
       </BrowserRouter>

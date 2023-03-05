@@ -32,7 +32,7 @@ function SampleProducts() {
                                     <Typography variant="h6">{product.price}</Typography>
                                     <Typography variant="body1">{product.description}</Typography>
                                     <Button variant="contained" component={Link} to={`/products/${product.product_id}`}>View</Button>
-                                    <AddToOrderButton userId={1} product_id={product.product_id} status="created" price={product.price} quantity={1} setOrder={setOrder} />
+                                    <AddToOrderButton userId={1} product_id={product.product_id} status="created" price={product.price} quantity={1} setOrder={setOrder} stripe_id={product.stripe_id} />
                                     <EditOrderProductButton orderProductId={product.product_id} price={product.price} quantity={1} />
                                     <Box display="flex" alignItems="center" justifyContent="center" style={{ margin: '8px 0' }}>
                                     <UpdateQuantityButton order={order} orderProductId={product.product_id} price={product.price} />
@@ -49,7 +49,7 @@ function SampleProducts() {
                                         <DeleteOrderProductButton product_id={product.product_id} order_id={order} />
                                     </Box>
                                     <Box display="flex" alignItems="center" justifyContent="center" style={{margin: '8px 0'}}>
-                                        <CheckoutButton price={product.price} name={product.title} description={product.description} image={product.image}  />
+                                        <CheckoutButton price={product.price} name={product.title} description={product.description} image={product.image} order_id={order}  />
                                     </Box>
                                 </CardContent>
                             </Card>
