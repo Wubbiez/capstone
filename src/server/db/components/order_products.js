@@ -41,15 +41,28 @@ async function getOrderProductsByOrderId(order_id) {
     }
 }
 
-async function updateOrderProduct({orderProductId, price, quantity}) {
-console.log(orderProductId, price, quantity)
+async function updateOrderProduct({productId, price, quantity, orderId}) {
+console.log(productId, price, quantity)
     try {
         const {rows: [orderProduct]} = await client.query(`
             UPDATE order_products
             SET price = $1, quantity = $2
-            WHERE "productId" = $3
+            WHERE "productId" = $3 AND "orderId" = $4
             RETURNING *;
-        `, [price, quantity, orderProductId]);
+        `, [price, quantity, productId, orderId]);
+        return orderProduct;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function getOrderProductByOrderIdAndProductId(order_id, productId) {
+    try {
+        const {rows: [orderProduct]} = await client.query(`
+            SELECT *
+            FROM order_products
+            WHERE "orderId" = $1 AND "productId" = $2;
+        `, [order_id, productId]);
         return orderProduct;
     } catch (error) {
         throw error;
@@ -90,9 +103,9 @@ async function attachOrderProductsToOrder(order_id) {
     JOIN order_products op ON o.order_id = op."orderId"
     WHERE o.order_id = ${order_id}
   `;
-    const result = await client.query(orderProductQuery);
-    console.log(result.rows);
-    return result.rows;
+    const {rows: result} = await client.query(orderProductQuery);
+    console.log("attach result", result);
+    return result;
 }
 
 export {
@@ -101,5 +114,6 @@ export {
     updateOrderProduct,
     destroyOrderProducts,
     getOrderProductById,
-    attachOrderProductsToOrder
+    attachOrderProductsToOrder,
+    getOrderProductByOrderIdAndProductId,
 }

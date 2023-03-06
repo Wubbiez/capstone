@@ -1,25 +1,26 @@
 import {useState} from "react";
 import {Button} from "@mui/material";
 
-function DeleteOrderProductButton ({order_id, product_id}) {
+function DeleteOrderProductButton ({order_id, product_id, setRefresh}) {
     const [isDeleting, setIsDeleting] = useState(false);
 
     async function handleClick() {
         setIsDeleting(true);
         try {
-            // delete product from all existing orders
-            const deleteOrderProduct = await fetch(`http://localhost:3001/api/cart/${product_id}`, {
+            const response = await fetch(`http://localhost:3001/api/cart/${order_id}/${product_id}`, {
                 method: 'DELETE',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({order_id}),
+                headers: {'Content-Type': 'application/json'}
             });
-            if (deleteOrderProduct.ok) {
-                const product = await deleteOrderProduct.json();
+
+            if (response.ok) {
+                const item = await response.json();
+                console.log(item);
             }
         } catch (error) {
             console.error(error);
         }
         setIsDeleting(false);
+        setRefresh(true);
     }
 
     return (

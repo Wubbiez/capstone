@@ -4,11 +4,11 @@ export async function getAllProducts() {
     return products;
 }
 
-export async function updateOrderProduct(id, price, quantity) {
-    const response = await fetch(`http://localhost:3001/api/cart/${id}`, {
+export async function updateOrderProduct(productId, price, quantity, orderId) {
+    const response = await fetch(`http://localhost:3001/api/cart/${orderId}/${productId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, price, quantity }),
+        body: JSON.stringify({ productId, price, quantity, orderId }),
     });
     const item = await response.json();
     return item;
@@ -18,6 +18,13 @@ export async function getOrderProductById(id) {
     const response = await fetch(`http://localhost:3001/api/cart/${id}`);
     console.log(response);
     const orderProduct = await response.json();
+    return orderProduct;
+}
+
+export async function getOrderProductByOrderIdAndProductId(orderId, productId) {
+    const response = await fetch(`http://localhost:3001/api/cart/${orderId}/${productId}`);
+    const orderProduct = await response.json();
+    console.log(orderProduct);
     return orderProduct;
 }
 
@@ -32,7 +39,7 @@ export async function updateProduct(id, title, description, price, image, inStoc
 }
 
 export async function getOrderProductsByOrderId(orderId) {
-    const response = await fetch(`http://localhost:3001/api/cart/${orderId}`);
+    const response = await fetch(`http://localhost:3001/api/cart/${orderId}/items`);
     const orderProducts = await response.json();
     return orderProducts;
 }
