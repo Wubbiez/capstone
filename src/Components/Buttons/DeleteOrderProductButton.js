@@ -13,11 +13,8 @@ function DeleteOrderProductButton ({order_id, product_id}) {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({order_id}),
             });
-
-            console.log(deleteOrderProduct);
             if (deleteOrderProduct.ok) {
                 const product = await deleteOrderProduct.json();
-                console.log(product);
             }
         } catch (error) {
             console.error(error);

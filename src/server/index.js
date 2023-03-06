@@ -2,6 +2,12 @@ import apiRouter from "../api/index.js";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import {getOrderById, updateOrder} from "./db/components/orders.js";
+import stripe0 from "stripe";
+import{config} from "dotenv";
+config();
+
+
 
 const app = express();
 
@@ -21,6 +27,31 @@ export async function is_admin (req, res, next) {
 
 
 // Routes
+
+
+app.post('/success', async (req, res) => {
+    const { session_id } = req.query;
+    console.log(session_id);
+    console.log("session_id", session_id);
+    try {
+        const stripe = stripe0(process.env.STRIPE_API_KEY);
+        const session = await stripe.checkout.sessions.retrieve(session_id);
+        const order_id = session.client_reference_id;
+        console.log(order_id);
+        if (session.payment_status === 'paid') {
+            await updateOrder({ orderId: order_id, status: 'paid' });
+            res.redirect(`/orders/${order_id}`);
+
+        } else {
+            console.log('Payment not successful');
+            res.redirect('/cancel');
+        }
+    } catch (error) {
+        console.error('Error in stripe checkout', error);
+        res.status(500).end();
+    }
+});
+
 app.use("/api", apiRouter);
 
 // Error handling

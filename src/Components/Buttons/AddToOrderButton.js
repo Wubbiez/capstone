@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import {Button} from '@mui/material';
+import {getOrderProductsByOrderId} from "../../api/apirequests.js";
 
-function AddToOrderButton({ userId, product_id, status, price, quantity, setOrder }) {
+
+function AddToOrderButton({ userId, product_id, status, price, quantity, stripe_id, setOrder }) {
     const [isAddingToOrder, setIsAddingToOrder] = useState(false);
 
     async function handleClick() {
@@ -14,15 +16,16 @@ function AddToOrderButton({ userId, product_id, status, price, quantity, setOrde
 
             if (response.ok) {
                 const orders = await response.json();
-                const incompleteOrder = orders.find(order => order.status !== 'completed');
+                const incompleteOrder = orders.find(order => order.status !== 'paid');
 
                 if (incompleteOrder) {
                     const order_id = incompleteOrder['order_id'];
                     setOrder(order_id);
+
                     const response = await fetch(`http://localhost:3001/api/cart/${order_id}/items`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({order_id, product_id, price, quantity}),
+                        body: JSON.stringify({order_id, product_id, price, quantity, stripe_id}),
                     });
                     if (response.ok) {
                         const item = await response.json();
@@ -42,7 +45,7 @@ function AddToOrderButton({ userId, product_id, status, price, quantity, setOrde
                         const response = await fetch(`http://localhost:3001/api/cart/${order_id}/items`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({order_id, product_id, price, quantity}),
+                            body: JSON.stringify({order_id, product_id, price, quantity, stripe_id}),
                         });
                         if (response.ok) {
                             const item = await response.json();

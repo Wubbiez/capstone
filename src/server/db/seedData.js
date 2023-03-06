@@ -54,8 +54,11 @@ export async function createTables() {
                                  in_stock     BOOLEAN   DEFAULT true,
                                  category     VARCHAR(255) DEFAULT 'other',
                                  is_active    BOOLEAN   DEFAULT true,
+                                 stripe_id    VARCHAR(255) DEFAULT NULL,
                                  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                 
                              );
+                            CREATE UNIQUE INDEX product_id ON products (product_id, stripe_id);
         `);
         await client.query(` CREATE TABLE orders
 
@@ -73,7 +76,9 @@ export async function createTables() {
                                  "productId"  INTEGER REFERENCES products (product_id) NOT NULL,
                                  price        DECIMAL                                  NOT NULL,
                                  quantity     INTEGER                                  NOT NULL,
-                                 date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                 stripe_id    VARCHAR(255)                             NOT NULL,
+                                 date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                 FOREIGN KEY ("productId", stripe_id) REFERENCES products (product_id, stripe_id)
                              );
         `);
         await client.query(` CREATE TABLE reviews
@@ -198,7 +203,7 @@ async function rebuildDB() {
         await createInitialUsers();
         // await createInitialReviews();
         await seedProducts();
-        await updateProduct({product_id: 1, title: "RF", description: "test",price: 1000})
+        // await updateProduct({product_id: 1, title: "RF", description: "test",price: 1000})
         // await createInitialProducts();
 
     } catch (error) {

@@ -38,15 +38,22 @@ ordersRouter.post("/", async (req, res, next) => {
 
 ordersRouter.patch("/:id", async (req, res, next) => {
     try {
-        const {id} = req.params;
-        const {status} = req.body;
-        const order = await updateOrder({orderId: id, status});
+        const { id } = req.params;
+        const { status } = req.body;
 
-        res.send(order);
+        try {
+            const order = await updateOrder({ id, status });
+            res.send(order);
+        } catch (error) {
+            console.error(error);
+            res.sendStatus(500);
+        }
+
     } catch (error) {
         next(error);
     }
-})
+});
+
 
 ordersRouter.delete("/:id", async (req, res, next) => {
     try {

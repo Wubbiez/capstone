@@ -1,20 +1,29 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {Button} from "@mui/material";
 import {updateOrderProduct, getOrderProductById} from "../../api/apirequests.js";
 import {Typography} from "@mui/material";
 
-function UpdateQuantityButton ({product_id, price}) {
+function UpdateQuantityButton ({orderProductId, price}) {
+
     const [isUpdating, setIsUpdating] = useState(false);
     const [quantity, setQuantity] = useState(1);
 
+    useEffect(() => {
+        async function getQuantity() {
+            const orderProduct = await getOrderProductById(orderProductId);
+            setQuantity(orderProduct.quantity);
+        }
+        getQuantity();
+    } , [orderProductId]);
+
     async function handleDecrementClick() {
-        const orderProduct = await getOrderProductById(product_id);
+        const orderProduct = await getOrderProductById(orderProductId);
         setQuantity(orderProduct.quantity);
         if (quantity > 0 && !isUpdating) {
             setIsUpdating(true);
             try {
                 const updatedQuantity = quantity - 1;
-                await updateOrderProduct(product_id, price, updatedQuantity);
+                await updateOrderProduct(orderProductId, price, updatedQuantity);
                 setQuantity(updatedQuantity);
             } catch (error) {
                 console.error(error);
@@ -24,14 +33,13 @@ function UpdateQuantityButton ({product_id, price}) {
     }
 
     async function handleIncrementClick() {
-        const orderProduct = await getOrderProductById(product_id);
-
+        const orderProduct = await getOrderProductById(orderProductId);
         setQuantity(orderProduct.quantity);
         if (!isUpdating) {
             setIsUpdating(true);
             try {
                 const updatedQuantity = quantity + 1;
-                await updateOrderProduct(product_id, price, updatedQuantity);
+                await updateOrderProduct(orderProductId, price, updatedQuantity);
                 setQuantity(updatedQuantity);
             } catch (error) {
                 console.error(error);
