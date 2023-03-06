@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 //import ReactDOM from 'react-dom/client';
 //import  { useState, useEffect } from 'react';
 import { Route,  Routes, BrowserRouter } from 'react-router-dom';
@@ -13,6 +13,7 @@ import Success from './Components/Success.js';
 
 
 function App() {
+  const [order, setOrder] = useState(null);
   return (
     <>
     <BrowserRouter>
@@ -31,7 +32,7 @@ function App() {
         exact element={<NavBar />}></Route>
         <Route
         path='/products'
-        exact element={<SampleProducts />}></Route>
+        exact element={<SampleProducts order={order} setOrder={setOrder} />}></Route>
         <Route
         path='*'
         exact element={<PageNotFound />}></Route>
@@ -40,7 +41,7 @@ function App() {
         exact element={<Cart />}></Route>
         <Route
           path='/success'
-            exact element={<Success />}></Route>
+            exact element={<Success order={order} setOrder={setOrder} />}></Route>
 
         
       </Routes>

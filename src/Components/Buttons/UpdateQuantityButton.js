@@ -1,29 +1,44 @@
-import {useState, useEffect} from "react";
-import {Button} from "@mui/material";
-import {updateOrderProduct, getOrderProductById} from "../../api/apirequests.js";
-import {Typography} from "@mui/material";
+import { useState, useEffect } from "react";
+import { Button } from "@mui/material";
+import {
+    updateOrderProduct,
+    getOrderProductById,
+    getOrderProductByOrderIdAndProductId,
+} from "../../api/apirequests.js";
+import { Typography } from "@mui/material";
 
-function UpdateQuantityButton ({orderProductId, price}) {
-
+function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , refresh}) {
     const [isUpdating, setIsUpdating] = useState(false);
     const [quantity, setQuantity] = useState(1);
+    const [isInCart, setIsInCart] = useState(false);
 
     useEffect(() => {
         async function getQuantity() {
-            const orderProduct = await getOrderProductById(orderProductId);
-            setQuantity(orderProduct.quantity);
+            try {
+                const { quantity } = await getOrderProductByOrderIdAndProductId(
+                    order_id,
+                    orderProductId
+                );
+                if (quantity) {
+                    setQuantity(quantity);
+                    setIsInCart(true);
+                } else {
+                    setQuantity(1);
+                    setIsInCart(false);
+                }
+            } catch (error) {
+                console.error(error);
+            }
         }
         getQuantity();
-    } , [orderProductId]);
+    }, [orderProductId, order_id, refresh]);
 
     async function handleDecrementClick() {
-        const orderProduct = await getOrderProductById(orderProductId);
-        setQuantity(orderProduct.quantity);
-        if (quantity > 0 && !isUpdating) {
+        if (quantity > 1 && !isUpdating) {
             setIsUpdating(true);
             try {
                 const updatedQuantity = quantity - 1;
-                await updateOrderProduct(orderProductId, price, updatedQuantity);
+                await updateOrderProduct(orderProductId, price, updatedQuantity, order_id);
                 setQuantity(updatedQuantity);
             } catch (error) {
                 console.error(error);
@@ -33,13 +48,11 @@ function UpdateQuantityButton ({orderProductId, price}) {
     }
 
     async function handleIncrementClick() {
-        const orderProduct = await getOrderProductById(orderProductId);
-        setQuantity(orderProduct.quantity);
         if (!isUpdating) {
             setIsUpdating(true);
             try {
                 const updatedQuantity = quantity + 1;
-                await updateOrderProduct(orderProductId, price, updatedQuantity);
+                await updateOrderProduct(orderProductId, price, updatedQuantity, order_id);
                 setQuantity(updatedQuantity);
             } catch (error) {
                 console.error(error);
@@ -50,23 +63,29 @@ function UpdateQuantityButton ({orderProductId, price}) {
 
     return (
         <>
-            <Button
-                variant="contained"
-                color="primary"
-                disabled={quantity === 1 || isUpdating}
-                onClick={handleDecrementClick}
-            >
-                -
-            </Button>
-            <Typography variant="body1" style={{ margin: '0 8px' }}>{quantity}</Typography>
-            <Button
-                variant="contained"
-                color="primary"
-                disabled={isUpdating}
-                onClick={handleIncrementClick}
-            >
-                +
-            </Button>
+            {isInCart && (
+                <>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        disabled={quantity === 1 || isUpdating}
+                        onClick={handleDecrementClick}
+                    >
+                        -
+                    </Button>
+                    <Typography variant="body1" style={{ margin: "0 8px" }}>
+                        {quantity}
+                    </Typography>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        disabled={isUpdating}
+                        onClick={handleIncrementClick}
+                    >
+                        +
+                    </Button>
+                </>
+            )}
         </>
     );
 }

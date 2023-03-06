@@ -40,8 +40,7 @@ app.post('/success', async (req, res) => {
         console.log(order_id);
         if (session.payment_status === 'paid') {
             await updateOrder({ orderId: order_id, status: 'paid' });
-            res.redirect(`/orders/${order_id}`);
-
+            // res.redirect(`/orders/${order_id}`);
         } else {
             console.log('Payment not successful');
             res.redirect('/cancel');

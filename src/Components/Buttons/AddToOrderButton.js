@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import {Button} from '@mui/material';
 import {getOrderProductsByOrderId} from "../../api/apirequests.js";
 
 
-function AddToOrderButton({ userId, product_id, status, price, quantity, stripe_id, setOrder }) {
+function AddToOrderButton({userId, product_id, status, price, quantity, stripe_id, setOrder, setRefresh}) {
     const [isAddingToOrder, setIsAddingToOrder] = useState(false);
 
     async function handleClick() {
         setIsAddingToOrder(true);
+
         try {
             const response = await fetch(`http://localhost:3001/api/orders?userId=${userId}`, {
                 method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
             });
 
             if (response.ok) {
@@ -21,30 +22,48 @@ function AddToOrderButton({ userId, product_id, status, price, quantity, stripe_
                 if (incompleteOrder) {
                     const order_id = incompleteOrder['order_id'];
                     setOrder(order_id);
+                    localStorage.setItem('order_id', order_id);
+                    const orderProducts = await getOrderProductsByOrderId(order_id);
 
-                    const response = await fetch(`http://localhost:3001/api/cart/${order_id}/items`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({order_id, product_id, price, quantity, stripe_id}),
-                    });
-                    if (response.ok) {
-                        const item = await response.json();
-                        console.log(item);
+                    if (orderProducts.find(order_product => order_product.productId === product_id)) {
+                        quantity = orderProducts.find(order_product => order_product.productId === product_id).quantity + 1;
+
+                        const response3 = await fetch(`http://localhost:3001/api/cart/${order_id}/${product_id}`, {
+                            method: 'PATCH',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({order_id, product_id, price, quantity, stripe_id}),
+
+                        })
+
+                        if (response3.ok) {
+                            const item = await response3.json();
+                            console.log(item);
+                        }
+                    } else {
+                        const response = await fetch(`http://localhost:3001/api/cart/${order_id}/items`, {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({order_id, product_id, price, quantity, stripe_id}),
+                        });
+                        if (response.ok) {
+                            const item = await response.json();
+                            console.log(item);
+                        }
                     }
-                    console.log('An incomplete order already exists');
                 } else {
                     const response2 = await fetch('http://localhost:3001/api/orders', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ userId, status}),
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({userId, status}),
                     });
                     if (response2.ok) {
                         const order = await response2.json();
                         const order_id = order['order_id'];
                         setOrder(order_id);
+                        localStorage.setItem('order_id', order_id);
                         const response = await fetch(`http://localhost:3001/api/cart/${order_id}/items`, {
                             method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
+                            headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify({order_id, product_id, price, quantity, stripe_id}),
                         });
                         if (response.ok) {
@@ -58,6 +77,7 @@ function AddToOrderButton({ userId, product_id, status, price, quantity, stripe_
             console.error(error);
         }
         setIsAddingToOrder(false);
+        setRefresh(true);
     }
 
     return (

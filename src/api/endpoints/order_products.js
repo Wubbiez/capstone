@@ -1,8 +1,9 @@
 import express from "express";
 import {
     createOrderProduct, destroyOrderProducts, getOrderProductById,
-    updateOrderProduct, getOrderProductsByOrderId, attachOrderProductsToOrder
+    updateOrderProduct, getOrderProductsByOrderId, attachOrderProductsToOrder, getOrderProductByOrderIdAndProductId
 } from "../../server/db/components/order_products.js";
+
 
 
 const orderProductsRouter = express.Router();
@@ -22,8 +23,7 @@ const orderProductsRouter = express.Router();
 orderProductsRouter.get("/:id", async (req, res, next) => {
     try {
         const {id} = req.params;
-        const orderProduct = await getOrderProductsByOrderId(id);
-
+        const orderProduct = await getOrderProductById(id);
         res.send(orderProduct);
     } catch (error) {
         next(error);
@@ -34,7 +34,19 @@ orderProductsRouter.get("/:order_id/items", async (req, res, next) => {
     try {
         const {order_id} = req.params;
         const orderProducts = await getOrderProductsByOrderId(order_id);
+        console.log(orderProducts);
+        const attach = await attachOrderProductsToOrder(order_id);
         res.send(orderProducts);
+    } catch (error) {
+        next(error);
+    }
+})
+
+orderProductsRouter.get("/:order_id/:productId", async (req, res, next) => {
+    try {
+        const {order_id, productId} = req.params;
+        const orderProduct = await getOrderProductByOrderIdAndProductId(order_id, productId);
+        res.send(orderProduct);
     } catch (error) {
         next(error);
     }
@@ -46,31 +58,30 @@ orderProductsRouter.post("/:order_id/items", async (req, res, next) => {
         const {product_id, price, quantity, stripe_id} = req.body;
         const orderProduct = await createOrderProduct({order_id: order_id, product_id: product_id, price, quantity, stripe_id});
         const attach = await attachOrderProductsToOrder(order_id);
+        console.log(attach);
         res.send(orderProduct);
     } catch (error) {
         next(error);
     }
 })
 
-orderProductsRouter.patch("/:productId", async (req, res, next) => {
-    console.log(req);
+orderProductsRouter.patch("/:order_id/:productId", async (req, res, next) => {
+
     try {
-        const {productId} = req.params;
+        const {order_id,productId} = req.params;
         const {price, quantity} = req.body;
-        console.log(productId, price, quantity)
-        const orderProduct = await updateOrderProduct({orderProductId: productId, price, quantity});
-
+        const orderProduct = await updateOrderProduct({productId, price, quantity, orderId: order_id});
         res.send(orderProduct);
     } catch (error) {
         next(error);
     }
 })
 
-orderProductsRouter.delete("/:productId", async (req, res, next) => {
+orderProductsRouter.delete("/:order_id/:productId", async (req, res, next) => {
     try {
-        const {productId} = req.params;
-        const {order_id} = req.body;
+        const {order_id,productId} = req.params;
 
+console.log(productId, order_id)
         const orderProduct = await destroyOrderProducts(productId, order_id);
         console.log(orderProduct);
         res.send(orderProduct);
