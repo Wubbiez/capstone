@@ -24,6 +24,7 @@ function SampleProducts({order, setOrder}) {
         }
         setRefresh(false);
         getAllProducts().then((products) => {
+            products = products.filter(product => product.in_stock === true)
             setProducts(products);
         });
     }, [order, setOrder, refresh]);
@@ -68,7 +69,7 @@ function SampleProducts({order, setOrder}) {
                                     </Box>
                                     <Box display="flex" alignItems="center" justifyContent="center"
                                          style={{margin: '8px 0'}}>
-                                        <DeleteProductButton product_id={product.product_id} setRefresh={setRefresh}/>
+                                        {/*<DeleteProductButton product_id={product.product_id} setRefresh={setRefresh}/>*/}
                                     </Box>
                                     <Box display="flex" alignItems="center" justifyContent="center"
                                          style={{margin: '8px 0'}}>
