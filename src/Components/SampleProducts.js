@@ -9,6 +9,7 @@ import EditProductButton from "./Buttons/EditProductButton.js";
 import DeleteProductButton from "./Buttons/DeleteProductButton.js";
 import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
 import CheckoutButton from "./Buttons/CheckoutButton.js";
+import SingleProductModal from "./SingleProductModal.js";
 
 function SampleProducts({order, setOrder}) {
     const [products, setProducts] = useState([]);
@@ -31,7 +32,7 @@ function SampleProducts({order, setOrder}) {
 
 
     return (
-        <div>
+        <React.Fragment>
             <Grid container spacing={2}>
                 {products.map((product) => {
                     return (
@@ -40,11 +41,8 @@ function SampleProducts({order, setOrder}) {
                                 <CardContent>
                                     <img src={product.image} alt={product.description}
                                          style={{maxWidth: '100%', height: 'auto'}}/>
-                                    <Typography variant="h5">{product.title}</Typography>
-                                    <Typography variant="h6">{product.price}</Typography>
-                                    <Typography variant="body1">{product.description}</Typography>
-                                    <Button variant="contained" component={Link}
-                                            to={`/products/${product.product_id}`}>View</Button>
+                                    <Typography variant="h1">{product.title}</Typography>
+                                    <Typography variant="h4">$ {product.price}</Typography>
                                     <AddToOrderButton userId={1} product_id={product.product_id} status="created"
                                                       price={product.price} quantity={1} setOrder={setOrder}
                                                       stripe_id={product.stripe_id} order_id={order} setRefresh={setRefresh}
@@ -52,11 +50,21 @@ function SampleProducts({order, setOrder}) {
                                     />
                                     <EditOrderProductButton orderProductId={product.product_id} price={product.price}
                                                             quantity={1} />
+                                    <Box display="flex" alignItems="center" justifyContent="left"
+                                         style={{margin: '8px 0'}}>
+                                        <SingleProductModal variant="contained" title={product.title}
+                                                           description={product.description}
+                                                           price={product.price} image={product.image}
+                                                           product_id={product.product_id} category={product.category}
+                                                           in_stock={product.in_stock}
+                                        />
+                                    </Box>
                                     <Box display="flex" alignItems="center" justifyContent="center"
                                          style={{margin: '8px 0'}}>
                                         <UpdateQuantityButton order_id={order} orderProductId={product.product_id}
                                                               price={product.price} setRefresh={setRefresh} refresh={refresh}/>
                                     </Box>
+                                    
                                     <Box display="flex" alignItems="center" justifyContent="center"
                                          style={{margin: '8px 0'}}>
                                         <EditProductButton variant="contained" color="secondary" title={product.title}
@@ -66,6 +74,7 @@ function SampleProducts({order, setOrder}) {
                                                            in_stock={product.in_stock}
                                         />
                                     </Box>
+                                    
                                     <Box display="flex" alignItems="center" justifyContent="center"
                                          style={{margin: '8px 0'}}>
                                         <DeleteProductButton product_id={product.product_id} setRefresh={setRefresh}/>
@@ -86,7 +95,7 @@ function SampleProducts({order, setOrder}) {
                     );
                 })}
             </Grid>
-        </div>
+        </React.Fragment>
     );
 }
 
