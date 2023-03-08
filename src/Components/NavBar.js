@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   AppBar,
   Button,
+  ButtonGroup,
   Tab,
   Tabs,
   Toolbar,
@@ -9,9 +10,10 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import DrawerComp from "./Drawer";
-//import { Link } from "react-router-dom";
+import {AddShoppingCart} from '@mui/icons-material';
+import DrawerComp from "./Drawer.js";
+
+import { Link } from "react-router-dom";
 const NavBar = () => {
   const [value, setValue] = useState();
   const theme = useTheme();
@@ -40,16 +42,24 @@ const NavBar = () => {
                 value={value}
                 onChange={(e, value) => setValue(value)}
               >
-                <Tab href="http://localhost:3000/" label='Home'/>
-                <Tab href="http://localhost:3000/products" label='Products'/>
-                <Tab href="http://localhost:3000/contact" label='Contact'/>
+                <Tab label="Home"  component={Link} to="/" />
+                <Tab label="Products"  component={Link} to="/products" />
+          
+                <Tab label="Cart" component={Link} to="/cart"/>
+                <Tab label="Contact" component={Link} to="/contact"/>
               </Tabs>
-              <Button sx={{ marginLeft: "auto" }} variant="inherit" href="http://localhost:3000/login">LogIn
-                
-              </Button>
-              <Button sx={{ marginLeft: "10px" }} variant="contained" href="http://localhost:3000/signup">
-                SignUp
-              </Button>
+              <ButtonGroup>
+                <Link to="/login">
+                  <Button variant="contained">
+                    Login
+                  </Button>
+                  </Link>
+                <Link to="/signup">
+                  <Button variant="contained">
+                    SignUp
+                  </Button>
+                </Link>
+              </ButtonGroup>
             </>
           )}
         </Toolbar>

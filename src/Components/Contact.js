@@ -1,5 +1,6 @@
 import React from 'react';
-import { Grid, TextField, Button, Card, CardContent, Typography } from '@material-ui/core';
+import { Grid, TextField, Button, Card, CardContent, Typography } from '@mui/material';
+import NavBar from './NavBar.js';
 
 
 
@@ -8,7 +9,7 @@ function Contact() {
 
   return (
     <div>
-    
+        <NavBar></NavBar>
         <Button  href='http://localhost:3000/'>back To Shopping</Button>
       <Typography gutterBottom variant="h3" align="center" color='secondary'>
         Get In Touch
@@ -16,7 +17,6 @@ function Contact() {
       <Grid>
         <Card style={{ maxWidth: 450, padding: "20px 5px", margin: "0 auto" }}>
           <CardContent>
-              
             <Typography gutterBottom variant="h5">
               Contact Us
           </Typography> 
@@ -49,7 +49,6 @@ function Contact() {
           </CardContent>
         </Card>
       </Grid>
-      
     </div>
   );
 }

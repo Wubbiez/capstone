@@ -1,5 +1,5 @@
-// import { createReviews } from "../server/db/components/reviews"; 
-// import { getProductById } from "../server/db/components/products";
+// import { createReviews } from "../server/db/endpoints/reviews";
+// import { getProductById } from "../server/db/endpoints/products";
 // import express from "express";
 
 // const reviewRouter = express.Router();

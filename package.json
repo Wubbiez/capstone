@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.10",
+    "@stripe/stripe-js": "^1.48.0",
     "bcrypt": "^5.1.0",
     "chalk": "^5.2.0",
     "cors": "^2.8.5",
@@ -21,6 +22,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
     "react-scripts": "^5.0.1",
+    "stripe": "^11.13.0",
     "webpack": "^4.19.1"
   },
   "devDependencies": {
@@ -30,6 +32,7 @@
     "db:build": "node src/server/db/seed.js",
     "start:dev": "nodemon src/server/server.js",
     "start": "react-scripts start",
+    "seedStripe": "node src/lib/seedStripe.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
