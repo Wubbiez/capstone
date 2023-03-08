@@ -14,14 +14,9 @@ const Success = ({order, setOrder}) => {
                     body: JSON.stringify({sessionId}),
                 });
 
-                if (response.ok) {
-                    // handle successful response here
-                } else {
-                    // handle unsuccessful response here
-                }
 
             } catch (error) {
-                // handle error here
+          console.error(error);
             }
         };
 

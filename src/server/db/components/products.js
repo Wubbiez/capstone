@@ -81,6 +81,19 @@ async function getProductsByCategory(category) {
     }
 }
 
+async function checkIfProductInStock(productId) {
+    try {
+        const {rows: [product]} = await client.query(`
+            SELECT "in_stock"
+            FROM products
+            WHERE product_id = $1;
+        `, [productId]);
+        return product;
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 export {
     createProduct,
@@ -88,5 +101,6 @@ export {
     getProductById,
     updateProduct,
     destroyProduct,
-    getProductsByCategory
+    getProductsByCategory,
+    checkIfProductInStock
 }

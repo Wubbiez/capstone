@@ -1,6 +1,12 @@
 import express from "express";
 
-import {destroyProduct, getAllProducts, getProductById, updateProduct} from "../../server/db/components/products.js";
+import {
+    checkIfProductInStock,
+    destroyProduct,
+    getAllProducts,
+    getProductById,
+    updateProduct
+} from "../../server/db/components/products.js";
 
 const productsRouter = express.Router();
 
@@ -35,6 +41,17 @@ productsRouter.patch("/:id", async (req, res, next) => {
         }
 
 });
+
+productsRouter.get("/:product_id/stock", async (req, res, next) => {
+    try {
+        const {product_id} = req.params;
+        console.log(product_id);
+        const product = await checkIfProductInStock(product_id);
+        res.send(product);
+    } catch (error) {
+        next(error);
+    }
+})
 
 productsRouter.delete("/:id", async (req, res, next) => {
     try {
