@@ -9,7 +9,7 @@ const CheckoutButton = ({order_id}) => {
         const response = await fetch(`http://localhost:3001/api/cart/${order_id}/items`);
         const items = await response.json();
 
-        // check if items are in stock
+
         // Check if all items are in stock
         const itemStockPromises = items.map((item) => fetch(`http://localhost:3001/api/products/${item.productId}/stock`));
         const itemStockResponses = await Promise.all(itemStockPromises);
