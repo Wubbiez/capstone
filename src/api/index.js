@@ -1,15 +1,50 @@
-// import {getProducts} from "./fakestoreAPI.js";
 import productsRouter from "./endpoints/products.js";
 import express from "express";
 import ordersRouter from "./endpoints/orders.js";
-import userRouter from "./endpoints/user.js"
+import userRouter from "./endpoints/users.js"
 // import reviewRouter from "./reviews.js";
 import orderProductsRouter from "./endpoints/order_products.js";
-import getStripe from "../lib/getStripe.js";
-import {updateOrder} from "../server/db/components/orders.js";
-import app from "../server/index.js";
+import {getUser, getUserById} from "../server/db/components/users.js";
+import jwt from "jsonwebtoken";
+const { JWT_SECRET } = process.env;
+
 
 const apiRouter = express.Router();
+
+apiRouter.use(async (req, res, next) => {
+    const prefix = "Bearer ";
+    const auth = req.header("Authorization");
+
+    if (!auth) {
+        next();
+    } else if (auth.startsWith(prefix)) {
+        const token = auth.slice(prefix.length);
+
+        try {
+            const { id } = jwt.verify(token, JWT_SECRET);
+
+            if (id) {
+                req.user = await getUserById(id);
+                next();
+            }
+        } catch ({ name, message }) {
+            next({ name, message });
+        }
+    } else {
+        next({
+            name: "AuthorizationHeaderError",
+            message: `Authorization token must start with ${prefix}`,
+        });
+    }
+});
+
+apiRouter.use((req, res, next) => {
+    if (req.user) {
+        console.log("User is set:", req.user);
+    }
+
+    next();
+});
 
 // ROUTER: /api/products
 apiRouter.use("/products", productsRouter);
@@ -20,33 +55,11 @@ apiRouter.use("/orders", ordersRouter);
 //ROUTER: /api/reviews
 // apiRouter.use("/reviews", reviewRouter);
 
-// ROUTER: /api/user
-apiRouter.use("/user", userRouter);
+// ROUTER: /api/users
+apiRouter.use("/users", userRouter);
 
 // ROUTER: /api/cart
 apiRouter.use("/cart", orderProductsRouter);
-
-apiRouter.post('/success', async (req, res, next) => {
-    alert("hi")
-    const { session_id } = req.query;
-    console.log("hi")
-    try {
-        const stripe = await getStripe();
-        const session = await stripe.checkout.sessions.retrieve(session_id);
-        const order_id = session.client_reference_id;
-
-        if (session.payment_status === 'paid') {
-            await updateOrder({ orderId: order_id, status: 'paid' });
-            res.redirect(`/orders/${order_id}`);
-        } else {
-            console.log('Payment not successful');
-            res.redirect('/cancel');
-        }
-    } catch (error) {
-        console.error('Error in stripe checkout', error);
-        res.status(500).end();
-    }
-});
 
 
 apiRouter.use((error, req, res, next) => {

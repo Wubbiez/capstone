@@ -11,8 +11,16 @@ import Cart from './Components/Cart.js';
 import Success from './Components/Success.js';
 import Contact from './Components/Contact.js';
 
+export const TOKEN_STORAGE_KEY = "user-token";
+export const USER_STORAGE_KEY = "user-username";
+const storageToken = localStorage.getItem(TOKEN_STORAGE_KEY);
+const storageUser = localStorage.getItem(USER_STORAGE_KEY);
+
+
 function App() {
   const [order, setOrder] = useState(null);
+  const [token, setToken] = useState(storageToken);
+    const [user, setUser] = useState(null);
   return (
     <React.Fragment>
     <BrowserRouter>
@@ -26,7 +34,7 @@ function App() {
         exact element={<SampleProducts order={order} setOrder={setOrder} />}></Route>
         <Route
         path='/login'
-        exact element={<LogIn />}></Route>
+        exact element={<LogIn setToken={setToken} />}></Route>
         <Route
         path='/signup'
         exact element={<SignUp />}></Route>
