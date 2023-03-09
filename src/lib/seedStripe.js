@@ -11,7 +11,7 @@ const STRIPE_SECRET_KEY = process.env.STRIPE_API_KEY;
 
 
 const seedStripe = async () => {
-    console.log(STRIPE_SECRET_KEY);
+
     const products = await fetch('http://localhost:3001/api/products');
     const productsJson = await products.json();
     const productsArray = productsJson;
