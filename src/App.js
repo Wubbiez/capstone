@@ -49,7 +49,7 @@ function App() {
         exact element={<PageNotFound />}></Route>
         <Route
         path='/cart'
-        exact element={<Cart />}></Route>
+        exact element={<Cart order={order} setOrder={setOrder} />}></Route>
         <Route
           path='/success'
             exact element={<Success order={order} setOrder={setOrder} />}></Route>
