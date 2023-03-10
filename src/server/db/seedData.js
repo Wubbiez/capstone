@@ -1,7 +1,7 @@
 import client from "./client.js";
 import fs from 'fs';
 import {getProducts} from "../../api/fakestoreAPI.js";
-import {createProduct, updateProduct} from "./components/products.js";
+import {createProduct, getAllProducts, getProductById, updateProduct} from "./components/products.js";
 import { createUser } from "./components/users.js";
 import { createReviews } from "./components/reviews.js";
 
@@ -84,9 +84,8 @@ export async function createTables() {
         await client.query(` CREATE TABLE reviews
                              (
                                  review_id    SERIAL PRIMARY KEY,
-                                 username     VARCHAR(255) UNIQUE NOT NULL,
-                                 user_id      INTEGER REFERENCES users (user_id),
-                                 product_id   INTEGER REFERENCES products (product_id) NOT NULL,
+                                 username     VARCHAR(255) REFERENCES users (username) UNIQUE NOT NULL,
+                                 productid   INTEGER REFERENCES products (product_id) NOT NULL,
                                  title        VARCHAR(255)                             NOT NULL,
                                  content      TEXT                                     NOT NULL,
                                  rating       INTEGER                                  NOT NULL,
@@ -179,9 +178,12 @@ async function createInitialUsers() {
 //fake reviews for testing
 async function createInitialReviews() {
     console.log("Starting to create reviews...")
+    const product1 = await getProductById(1);
+    console.log(product1);
+    console.log(product1.product_id);
     try {
         const reviewsToCreate = [
-            { username: "Corey", product_id: "35593983", title: "Shitty Fridge", content: "This thing don't even run!", rating: "2" },
+            { username: "Corey", productid: product1.product_id, title: "Shitty Fridge", content: "This thing don't even run!", rating: "2" },
         ]
         const reviews = await Promise.all(reviewsToCreate.map(createReviews))
 
@@ -201,8 +203,8 @@ async function rebuildDB() {
         await dropTables();
         await createTables();
         await createInitialUsers();
-        // await createInitialReviews();
         await seedProducts();
+        await createInitialReviews();
         // await updateProduct({product_id: 1, title: "RF", description: "test",price: 1000})
         // await createInitialProducts();
 
