@@ -13,13 +13,9 @@ import {
 import {AddShoppingCart} from '@mui/icons-material';
 import DrawerComp from "./Drawer.js";
 
-import Cart from '../Components/Cart.js';
-
 import { Link } from "react-router-dom";
-
 import LogoutButton from "./Buttons/LogoutButton.js";
-const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
-
+const NavBar = ({setIsAdmin, setToken}) => {
   const [value, setValue] = useState();
   const theme = useTheme();
   console.log(theme);
@@ -50,10 +46,10 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
                 <Tab label="Home"  component={Link} to="/" />
                 <Tab label="Products"  component={Link} to="/products" />
           
+                <Tab label="Cart" component={Link} to="/cart"/>
                 <Tab label="Contact" component={Link} to="/contact"/>
               </Tabs>
               <ButtonGroup>
-                <Cart order={order} setOrder={setOrder} />
                 <Link to="/login">
                   <Button variant="contained">
                     Login
@@ -64,9 +60,7 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
                     SignUp
                   </Button>
                 </Link>
-
                 <LogoutButton setIsAdmin={setIsAdmin} setToken={setToken} />
-
               </ButtonGroup>
             </>
           )}

@@ -10,7 +10,6 @@ import DeleteProductButton from "./Buttons/DeleteProductButton.js";
 import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
 import CheckoutButton from "./Buttons/CheckoutButton.js";
 import SingleProductModal from "./SingleProductModal.js";
-import Cart from "./Cart.js";
 
 function SampleProducts({order, setOrder, user, isAdmin, setIsAdmin}) {
     const [products, setProducts] = useState([]);
@@ -62,7 +61,6 @@ function SampleProducts({order, setOrder, user, isAdmin, setIsAdmin}) {
                                                            price={product.price} image={product.image}
                                                            product_id={product.product_id} category={product.category}
                                                            in_stock={product.in_stock}
-                                                           
                                         />
                                     </Box>
                                     <Box display="flex" alignItems="center" justifyContent="center"
@@ -94,9 +92,6 @@ function SampleProducts({order, setOrder, user, isAdmin, setIsAdmin}) {
                                         <CheckoutButton price={product.price} name={product.title}
                                                         description={product.description} image={product.image}
                                                         order_id={order}/>
-                                    </Box>
-                                    <Box display="flex" alignItems="center" justifyContent="center"
-                                         style={{margin: '8px 0'}}>
                                     </Box>
                                 </CardContent>
                             </Card>
