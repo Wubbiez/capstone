@@ -91,9 +91,6 @@ export async function getUser(token) {
 }
 
 export async function loginUser(username, password) {
-    console.log(username);
-    console.log(password)
-
 
         const response = await fetch(
             "http://localhost:3001/api/users/login",
@@ -115,10 +112,12 @@ export async function loginUser(username, password) {
         if (results.token) {
             const data = {
                 token: results.token,
-                username: results.username,
+                username: results.user.username,
+                is_admin: results.user.is_admin,
             };
             localStorage.setItem("user-token", results.token);
             localStorage.setItem("user-username", results.user.username);
+            localStorage.setItem("user-is_admin", results.user.is_admin);
             console.log(data);
             return data;
         }

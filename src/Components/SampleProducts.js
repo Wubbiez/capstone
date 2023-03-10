@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {Card, Paper, Grid, styled, Typography, Button, CardContent, Box} from "@mui/material";
 import AddToOrderButton from "./Buttons/AddToOrderButton.js";
 import {getAllProducts} from "../api/apirequests.js";
-import EditOrderProductButton from "./Buttons/EditOrderProductButton.js";
+// import EditOrderProductButton from "./Buttons/EditOrderProductButton.js";
 import UpdateQuantityButton from "./Buttons/UpdateQuantityButton.js";
 import EditProductButton from "./Buttons/EditProductButton.js";
 import DeleteProductButton from "./Buttons/DeleteProductButton.js";
@@ -11,7 +11,7 @@ import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
 import CheckoutButton from "./Buttons/CheckoutButton.js";
 import SingleProductModal from "./SingleProductModal.js";
 
-function SampleProducts({order, setOrder}) {
+function SampleProducts({order, setOrder, user, isAdmin, setIsAdmin}) {
     const [products, setProducts] = useState([]);
     const [refresh, setRefresh] = useState(false);
 
@@ -23,12 +23,16 @@ function SampleProducts({order, setOrder}) {
                 setOrder(order_id);
             }
         }
-        setRefresh(false);
+            const isAdmin = localStorage.getItem('user-is_admin');
+        if(isAdmin==="true"){
+            setIsAdmin(isAdmin);
+        }
+            setRefresh(false);
         getAllProducts().then((products) => {
             products = products.filter(product => product.in_stock === true)
             setProducts(products);
         });
-    }, [order, setOrder, refresh]);
+    }, [order, setOrder, refresh, isAdmin]);
 
 
 
@@ -49,8 +53,7 @@ function SampleProducts({order, setOrder}) {
                                                       stripe_id={product.stripe_id} order_id={order} setRefresh={setRefresh}
 
                                     />
-                                    <EditOrderProductButton orderProductId={product.product_id} price={product.price}
-                                                            quantity={1} />
+
                                     <Box display="flex" alignItems="center" justifyContent="left"
                                          style={{margin: '8px 0'}}>
                                         <SingleProductModal variant="contained" title={product.title}
@@ -68,12 +71,12 @@ function SampleProducts({order, setOrder}) {
                                     
                                     <Box display="flex" alignItems="center" justifyContent="center"
                                          style={{margin: '8px 0'}}>
-                                        <EditProductButton variant="contained" color="secondary" title={product.title}
+                                        { isAdmin && <EditProductButton variant="contained" color="secondary" title={product.title}
                                                            description={product.description}
                                                            price={product.price} image={product.image}
                                                            product_id={product.product_id} category={product.category}
                                                            in_stock={product.in_stock}
-                                        />
+                                        /> }
                                     </Box>
                                     
                                     <Box display="flex" alignItems="center" justifyContent="center"
