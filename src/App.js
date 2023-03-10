@@ -22,8 +22,8 @@ const storageIsAdmin = localStorage.getItem(ADMIN_STORAGE_KEY);
 function App() {
   const [order, setOrder] = useState(null);
   const [token, setToken] = useState(storageToken);
-    const [user, setUser] = useState(null);
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [user, setUser] = useState(storageUser);
+    const [isAdmin, setIsAdmin] = useState(storageIsAdmin);
   return (
     <React.Fragment>
     <BrowserRouter>
@@ -34,13 +34,13 @@ function App() {
         exact element={<SampleProducts order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>}></Route>
       <Route
         path='/products'
-        exact element={<SampleProducts order={order} setOrder={setOrder} />}></Route>
+        exact element={<SampleProducts order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>}></Route>
         <Route
         path='/login'
         exact element={<LogIn setToken={setToken} setIsAdmin={setIsAdmin} />}></Route>
         <Route
         path='/signup'
-        exact element={<SignUp />}></Route>
+        exact element={<SignUp setUser={setUser} setToken={setToken} />}></Route>
         <Route
         path='/nav'
         exact element={<NavBar />}></Route>

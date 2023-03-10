@@ -10,7 +10,7 @@ const userRouter = express.Router();
 
 userRouter.post("/register", async (req, res, next) => {
     try {
-        const { username, password } = req.body;
+        const { username, password, email, first_name, last_name, address, phone } = req.body;
 
         const queriedUser = await getUserByUsername(username);
 
@@ -32,6 +32,11 @@ userRouter.post("/register", async (req, res, next) => {
             const user = await createUser({
                 username,
                 password,
+                email,
+                first_name,
+                last_name,
+                address,
+                phone
             });
             if (!user) {
                 next({

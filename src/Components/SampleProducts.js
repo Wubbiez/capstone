@@ -11,9 +11,10 @@ import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
 import CheckoutButton from "./Buttons/CheckoutButton.js";
 import SingleProductModal from "./SingleProductModal.js";
 
-function SampleProducts({order, setOrder, user, isAdmin, setIsAdmin}) {
+function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
     const [products, setProducts] = useState([]);
     const [refresh, setRefresh] = useState(false);
+
 
 
     useEffect(() => {
@@ -23,9 +24,9 @@ function SampleProducts({order, setOrder, user, isAdmin, setIsAdmin}) {
                 setOrder(order_id);
             }
         }
-            const isAdmin = localStorage.getItem('user-is_admin');
-        if(isAdmin==="true"){
-            setIsAdmin(isAdmin);
+            const checkAdmin = localStorage.getItem('user-is_admin');
+        if(checkAdmin==="true"){
+            setIsAdmin(true);
         }
             setRefresh(false);
         getAllProducts().then((products) => {

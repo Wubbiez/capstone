@@ -42,10 +42,10 @@ export async function getOrderProductsByOrderId(orderId) {
     return orderProducts;
 }
 
-export async function createaUser(username, password) {
+export async function createaUser(username, password, email, first_name, last_name, address, phone) {
     try {
         const response = await fetch(
-            "https://localhost:3001/api/users/register",
+            "http://localhost:3001/api/users/register",
             {
                 method: "POST",
                 headers: {
@@ -54,6 +54,11 @@ export async function createaUser(username, password) {
                 body: JSON.stringify({
                     username: username,
                     password: password,
+                    email: email,
+                    first_name: first_name,
+                    last_name: last_name,
+                    address: address,
+                    phone: phone
                 }),
             }
         );
