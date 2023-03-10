@@ -37,7 +37,7 @@ async function getUser({ username, password }) {
                 rows: [user],
             } = await client.query(`
 
-            SELECT user_id, username FROM users
+            SELECT user_id, username,is_admin FROM users
             WHERE username = $1
             AND password = $2
             `, [ username, hashedPassword ]);
