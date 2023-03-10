@@ -98,6 +98,14 @@ userRouter.get("/me", async (req, res, next) => {
     }
 });
 
+userRouter.get("/logout", async (req, res, next) => {
+    try {
+        res.send({ message: "You're logged out!" });
+    } catch (e) {
+        next(e);
+    }
+})
+
 
 
 export default userRouter; 

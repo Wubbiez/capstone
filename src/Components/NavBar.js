@@ -14,7 +14,8 @@ import {AddShoppingCart} from '@mui/icons-material';
 import DrawerComp from "./Drawer.js";
 
 import { Link } from "react-router-dom";
-const NavBar = () => {
+import LogoutButton from "./Buttons/LogoutButton.js";
+const NavBar = ({setIsAdmin, setToken}) => {
   const [value, setValue] = useState();
   const theme = useTheme();
   console.log(theme);
@@ -59,6 +60,7 @@ const NavBar = () => {
                     SignUp
                   </Button>
                 </Link>
+                <LogoutButton setIsAdmin={setIsAdmin} setToken={setToken} />
               </ButtonGroup>
             </>
           )}
