@@ -24,7 +24,7 @@ function App() {
   return (
     <React.Fragment>
     <BrowserRouter>
-    <NavBar></NavBar>
+    <NavBar order={order} setOrder={setOrder}></NavBar>
       <Routes>
       <Route
         path='/'
@@ -47,9 +47,7 @@ function App() {
         <Route
         path='*'
         exact element={<PageNotFound />}></Route>
-        <Route
-        path='/cart'
-        exact element={<Cart order={order} setOrder={setOrder} />}></Route>
+      
         <Route
           path='/success'
             exact element={<Success order={order} setOrder={setOrder} />}></Route>
