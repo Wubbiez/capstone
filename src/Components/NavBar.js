@@ -16,7 +16,10 @@ import DrawerComp from "./Drawer.js";
 import Cart from '../Components/Cart.js';
 
 import { Link } from "react-router-dom";
-const NavBar = (order, setOrder) => {
+
+import LogoutButton from "./Buttons/LogoutButton.js";
+const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
+
   const [value, setValue] = useState();
   const theme = useTheme();
   console.log(theme);
@@ -61,7 +64,9 @@ const NavBar = (order, setOrder) => {
                     SignUp
                   </Button>
                 </Link>
-                
+
+                <LogoutButton setIsAdmin={setIsAdmin} setToken={setToken} />
+
               </ButtonGroup>
             </>
           )}

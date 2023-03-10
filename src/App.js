@@ -13,28 +13,33 @@ import Contact from './Components/Contact.js';
 
 export const TOKEN_STORAGE_KEY = "user-token";
 export const USER_STORAGE_KEY = "user-username";
+export const ADMIN_STORAGE_KEY = "user-admin";
 const storageToken = localStorage.getItem(TOKEN_STORAGE_KEY);
 const storageUser = localStorage.getItem(USER_STORAGE_KEY);
+const storageIsAdmin = localStorage.getItem(ADMIN_STORAGE_KEY);
 
 
 function App() {
   const [order, setOrder] = useState(null);
   const [token, setToken] = useState(storageToken);
     const [user, setUser] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
   return (
     <React.Fragment>
     <BrowserRouter>
-    <NavBar order={order} setOrder={setOrder}></NavBar>
+
+    <NavBar order={order} setOrder={setOrder} setIsAdmin={setIsAdmin} setToken={setToken}></NavBar>
+
       <Routes>
       <Route
         path='/'
-        exact element={<SampleProducts order={order} setOrder={setOrder}/>}></Route>
+        exact element={<SampleProducts order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>}></Route>
       <Route
         path='/products'
         exact element={<SampleProducts order={order} setOrder={setOrder} />}></Route>
         <Route
         path='/login'
-        exact element={<LogIn setToken={setToken} />}></Route>
+        exact element={<LogIn setToken={setToken} setIsAdmin={setIsAdmin} />}></Route>
         <Route
         path='/signup'
         exact element={<SignUp />}></Route>

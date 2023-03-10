@@ -9,7 +9,7 @@ const LoginForm = styled("form")(({ theme }) => ({
     marginTop: theme.spacing(1),
 }));
 
-const Login=({setToken})=>{
+const Login=({setToken, setIsAdmin})=>{
     const [password, setPassword] = useState("");
     const [username,setUsername] = useState("");
 
@@ -32,6 +32,7 @@ const Login=({setToken})=>{
             await loginUser(username, password)
                 .then((r) => {
                     setToken(r.token);
+                    setIsAdmin(r.is_admin);
                 })
                 .then(() => {
                     window.location.href = "/";
