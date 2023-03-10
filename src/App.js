@@ -27,7 +27,9 @@ function App() {
   return (
     <React.Fragment>
     <BrowserRouter>
-    <NavBar setIsAdmin={setIsAdmin} setToken={setToken} />
+
+    <NavBar order={order} setOrder={setOrder} setIsAdmin={setIsAdmin} setToken={setToken}></NavBar>
+
       <Routes>
       <Route
         path='/'
@@ -50,9 +52,7 @@ function App() {
         <Route
         path='*'
         exact element={<PageNotFound />}></Route>
-        <Route
-        path='/cart'
-        exact element={<Cart />}></Route>
+      
         <Route
           path='/success'
             exact element={<Success order={order} setOrder={setOrder} />}></Route>
