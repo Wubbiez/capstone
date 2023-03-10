@@ -27,7 +27,7 @@ function App() {
   return (
     <React.Fragment>
     <BrowserRouter>
-    <NavBar></NavBar>
+    <NavBar setIsAdmin={setIsAdmin} setToken={setToken} />
       <Routes>
       <Route
         path='/'
