@@ -57,11 +57,8 @@ const SignUp=({setUser, setToken})=>{
 
     return(
         <>
-        <Typography gutterBottom variant="h3" align="center" color='secondary'>
-            Get In Touch
-        </Typography>
-    <Grid>
-        <Card elevation={10} style={{ maxWidth: 450, padding: "20px 5px", margin: "0 auto" }}>
+    <Grid style={{ height: "90vh" }}>
+        <Card elevation={10} style={{ maxWidth: 450, padding: "20px 20px", margin: "20px auto" }}>
             <CardContent>
                 <Typography gutterBottom variant="h5" align="center">
                     Sign Up
