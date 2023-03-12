@@ -25,7 +25,6 @@ function DeleteOrderProductButton ({order_id, product_id, setRefresh,}) {
         }
         setIsDeleting(false);
         setRefresh(true);
-        setInCart(false);
     }
 
     return (

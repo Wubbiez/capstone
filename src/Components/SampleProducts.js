@@ -115,6 +115,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                                      {order && <Box display="flex" alignItems="center" justifyContent="center" style={{margin: '8px 0'}}>
                                         <EmptyCartButton order_id={order} setRefresh={setRefresh} />
                                     </Box>}
+                                    </Box>
 
                                 </CardContent>
                             </Card>
