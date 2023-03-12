@@ -82,6 +82,19 @@ async function destroyOrderProducts(productId, orderId) {
     }
 }
 
+async function destroyAllOrderProducts(orderId) {
+    try {
+        const {rows: orderProducts} = await client.query(`
+            DELETE FROM order_products
+            WHERE "orderId" = $1
+            RETURNING *;
+        `, [orderId]);
+        return orderProducts;
+    } catch (error) {
+        throw error;
+    }
+}
+
 async function getOrderByOrderId(orderId) {
     try {
         const { rows: [order] } = await client.query(`
@@ -116,4 +129,5 @@ export {
     getOrderProductById,
     attachOrderProductsToOrder,
     getOrderProductByOrderIdAndProductId,
+    destroyAllOrderProducts,
 }

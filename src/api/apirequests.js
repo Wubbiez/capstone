@@ -1,3 +1,6 @@
+
+
+
 export async function getAllProducts() {
     const response = await fetch("http://localhost:3001/api/products");
     const products = await response.json();
@@ -26,11 +29,11 @@ export async function getOrderProductByOrderIdAndProductId(orderId, productId) {
     return orderProduct;
 }
 
-export async function updateProduct(id, title, description, price, image, inStock, category) {
+export async function updateProduct(id, title, description, price, image, inStock, category, stripe_id) {
     const response = await fetch(`http://localhost:3001/api/products/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, title, description, price, image, inStock, category }),
+        body: JSON.stringify({ id, title, description, price, image, inStock, category, stripe_id }),
     });
     const product = await response.json();
     return product;
@@ -133,6 +136,8 @@ export async function loginUser(username, password) {
 
 
 }
+
+
 
 // export async function attachOrderProductToOrder(orderId, orderProductId) {
 //     const response = await fetch(`http://localhost:3001/api/cart/${orderId}/items`, {

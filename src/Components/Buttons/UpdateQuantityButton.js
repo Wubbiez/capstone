@@ -19,21 +19,24 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
                     order_id,
                     orderProductId
                 );
-                if (quantity) {
+                if (quantity>0) {
                     setQuantity(quantity);
                     setIsInCart(true);
                 } else {
-                    setQuantity(1);
+                    setQuantity(0);
                     setIsInCart(false);
                 }
             } catch (error) {
                 console.error(error);
             }
+
         }
+        setRefresh(false);
         getQuantity();
     }, [orderProductId, order_id, refresh]);
 
     async function handleDecrementClick() {
+
         if (quantity > 1 && !isUpdating) {
             setIsUpdating(true);
             try {
@@ -45,6 +48,7 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
             }
             setIsUpdating(false);
         }
+        setRefresh(true);
     }
 
     async function handleIncrementClick() {
@@ -59,6 +63,7 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
             }
             setIsUpdating(false);
         }
+        setRefresh(true);
     }
 
     return (
@@ -88,6 +93,7 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
             )}
         </>
     );
+
 }
 
 export default UpdateQuantityButton;
