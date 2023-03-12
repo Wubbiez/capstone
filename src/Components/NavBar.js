@@ -24,8 +24,9 @@ import DrawerComp from "./Drawer.js";
 
 import { Link } from "react-router-dom";
 import {handleLogout} from "./Buttons/LogoutButton.js";
+import Cart from "./Cart.js";
 
-const NavBar = ({setIsAdmin, setToken}) => {
+const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [settings, setSettings] = useState([
@@ -105,10 +106,9 @@ const NavBar = ({setIsAdmin, setToken}) => {
               >
                 <Tab label="Home"  component={Link} to="/" />
                 <Tab label="Products"  component={Link} to="/products" />
-
-                <Tab label="Cart" component={Link} to="/cart"/>
                 <Tab label="Contact" component={Link} to="/contact"/>
               </Tabs>
+              <Cart order={order} setOrder={setOrder} />
               <ButtonGroup>
                 <Container maxWidth="xl">
                   <Toolbar disableGutters>

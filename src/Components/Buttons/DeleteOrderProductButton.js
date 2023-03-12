@@ -1,7 +1,11 @@
 import {useState} from "react";
 import {Button} from "@mui/material";
 
-function DeleteOrderProductButton ({order_id, product_id, setRefresh, setInCart}) {
+
+
+import { RemoveShoppingCartTwoTone } from "@mui/icons-material";
+function DeleteOrderProductButton ({order_id, product_id, setRefresh,}) {
+
     const [isDeleting, setIsDeleting] = useState(false);
 
     async function handleClick() {
@@ -31,7 +35,7 @@ function DeleteOrderProductButton ({order_id, product_id, setRefresh, setInCart}
             disabled={isDeleting}
             onClick={handleClick}
         >
-            {'Delete Order Item'}
+            <RemoveShoppingCartTwoTone /> Remove
         </Button>
     );
 }

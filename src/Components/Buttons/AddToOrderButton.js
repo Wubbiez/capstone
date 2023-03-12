@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Button} from '@mui/material';
 import {getOrderProductsByOrderId} from "../../api/apirequests.js";
+import { AddShoppingCartTwoTone } from '@mui/icons-material';
 
 
 function AddToOrderButton({userId, product_id, status, price, quantity, stripe_id, setOrder, setRefresh}) {
@@ -86,8 +87,9 @@ function AddToOrderButton({userId, product_id, status, price, quantity, stripe_i
             color="primary"
             disabled={isAddingToOrder}
             onClick={handleClick}
+            sx={{marginBottom: '1rem'}}
         >
-            {isAddingToOrder ? 'Adding to order...' : 'Add to order'}
+            {isAddingToOrder ? 'Adding to cart...' : <AddShoppingCartTwoTone />}
         </Button>
     );
 }
