@@ -45,7 +45,7 @@ const CheckoutButton = ({order_id}) => {
             lineItems,
             clientReferenceId: order_id.toString(),
             successUrl: `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancelUrl: "http://localhost:3000/cancel",
+            cancelUrl: "http://localhost:3000/products",
         });
         if (error) {
             console.warn("Error:", error);

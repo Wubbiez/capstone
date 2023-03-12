@@ -31,7 +31,6 @@ const NavBar = ({setIsAdmin, setToken}) => {
   const [settings, setSettings] = useState([
     { label: 'Profile', onClick: () => console.log('Profile clicked') },
     { label: 'Account', onClick: () => console.log('Account clicked') },
-    { label: 'Dashboard', onClick: () => console.log('Dashboard clicked') },
     { label: 'Logout', onClick: () => handleLogout(setToken,setIsAdmin) }
   ]);
 
@@ -62,11 +61,15 @@ const NavBar = ({setIsAdmin, setToken}) => {
 
   useEffect(() => {
     const token = localStorage.getItem("user-token");
+    const admin = localStorage.getItem("user-is_admin");
     setHasToken(Boolean(token));
     if (!token) {
       // If there's no token, update the settings to remove the "Logout" option
       setSettings(settings.filter(setting => setting.label !== "Logout"));
       setSettings(prevSettings => [...prevSettings, { label: 'Sign Up', onClick: () => window.location.href="/signup" }, { label: 'Log In', onClick: () => window.location.href = "/login" }]);
+    }
+    if(admin){
+      setSettings(prevSettings => [...prevSettings, { label: 'Admin Dashboard', onClick: () => window.location.href = "/admin" }]);
     }
     else {
       // If there is a token, make sure the "Logout" option is available
@@ -89,6 +92,7 @@ const NavBar = ({setIsAdmin, setToken}) => {
                 The BroZ Store
               </Typography>
               <DrawerComp />
+
             </>
           ) : (
             <>

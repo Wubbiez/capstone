@@ -8,7 +8,6 @@ import{config} from "dotenv";
 config();
 
 
-
 const app = express();
 
 // Middleware
@@ -28,7 +27,7 @@ app.post('/success', async (req, res) => {
             // res.redirect(`/orders/${order_id}`);
         } else {
             console.log('Payment not successful');
-            res.redirect('/cancel');
+            res.redirect('/products');
         }
     } catch (error) {
         console.error('Error in stripe checkout', error);
