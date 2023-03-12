@@ -33,8 +33,8 @@ productsRouter.patch("/:id", async (req, res, next) => {
 
         try {
             const {id} = req.params;
-            const {product_id, title,description,price,image,inStock,category} = req.body
-            const product = await updateProduct({product_id: id, title, description, price, image, inStock, category})
+            const {product_id, title,description,price,image,inStock,category, stripe_id} = req.body
+            const product = await updateProduct({product_id: id, title, description, price, image, inStock, category, stripe_id})
             res.send(product);
         } catch (error) {
             next(error);

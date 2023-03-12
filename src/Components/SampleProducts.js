@@ -10,7 +10,7 @@ import DeleteProductButton from "./Buttons/DeleteProductButton.js";
 import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
 import CheckoutButton from "./Buttons/CheckoutButton.js";
 import SingleProductModal from "./SingleProductModal.js";
-
+import EmptyCartButton from "./Buttons/EmptyCartButton.js";
 function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
     const [products, setProducts] = useState([]);
     const [refresh, setRefresh] = useState(false);
@@ -28,21 +28,23 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
         if(checkAdmin==="true"){
             setIsAdmin(true);
         }
-            setRefresh(false);
         getAllProducts().then((products) => {
             products = products.filter(product => product.in_stock === true)
             setProducts(products);
         });
+        setRefresh(false);
     }, [order, setOrder, refresh, isAdmin]);
 
 
 
     return (
         <React.Fragment>
+
             <Grid container spacing={2} sx={{
                                       backgroundColor: '#f5f5f5'
             }}>
-                {products.map((product) => {
+                {products.sort((a, b) => a.product_id - b.product_id).map((product) => {
+
                     return (
                         <Grid item xs={12} sm={6} md={4} lg={3} key={product.product_id}>
                             <Card>
@@ -95,25 +97,32 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                                         
                                         <Box display="flex" alignItems="center" justifyContent="center"
                                             style={{margin: '8px 0'}}>
-                                            { isAdmin && <EditProductButton variant="contained" color="secondary" title={product.title}
-                                                            description={product.description}
-                                                            price={product.price} image={product.image}
-                                                            product_id={product.product_id} category={product.category}
-                                                            in_stock={product.in_stock}
-                                            /> }
+                                            { isAdmin &&   <EditProductButton variant="contained" color="secondary" title={product.title}
+                                                           description={product.description}
+                                                           price={product.price} image={product.image}
+                                                           product_id={product.product_id} category={product.category}
+                                                           in_stock={product.in_stock} stripeId={product.stripe_id} /> }
                                         </Box>
                                         
                                         <Box display="flex" alignItems="center" justifyContent="center"
                                             style={{margin: '8px 0'}}>
                                             {/*<DeleteProductButton product_id={product.product_id} setRefresh={setRefresh}/>*/}
                                         </Box>
+                                         <Box display="flex" alignItems="center" justifyContent="center"
+                                         style={{margin: '8px 0'}}>
+                                        <DeleteOrderProductButton product_id={product.product_id} order_id={order} setRefresh={setRefresh} />
                                     </Box>
+                                     {order && <Box display="flex" alignItems="center" justifyContent="center" style={{margin: '8px 0'}}>
+                                        <EmptyCartButton order_id={order} setRefresh={setRefresh} />
+                                    </Box>}
+
                                 </CardContent>
                             </Card>
                         </Grid>
                     );
                 })}
             </Grid>
+            {console.log("Refresh: ", refresh)}
         </React.Fragment>
     );
 }

@@ -1,23 +1,19 @@
 import express from "express";
 import {
-    createOrderProduct, destroyOrderProducts, getOrderProductById,
-    updateOrderProduct, getOrderProductsByOrderId, attachOrderProductsToOrder, getOrderProductByOrderIdAndProductId
+    createOrderProduct,
+    destroyOrderProducts,
+    getOrderProductById,
+    updateOrderProduct,
+    getOrderProductsByOrderId,
+    attachOrderProductsToOrder,
+    getOrderProductByOrderIdAndProductId,
+    destroyAllOrderProducts
 } from "../../server/db/components/order_products.js";
 
 
 
 const orderProductsRouter = express.Router();
 
-// orderProductsRouter.get("/", async (req, res, next) => {
-//     try {
-//         const orderProducts = await getAllOrderProducts();
-//
-//         res.send(orderProducts);
-//     } catch (error) {
-//         next(error);
-//     }
-// })
-//
 
 
 orderProductsRouter.get("/:id", async (req, res, next) => {
@@ -85,6 +81,16 @@ console.log(productId, order_id)
         const orderProduct = await destroyOrderProducts(productId, order_id);
         console.log(orderProduct);
         res.send(orderProduct);
+    } catch (error) {
+        next(error);
+    }
+})
+
+orderProductsRouter.delete("/:order_id", async (req, res, next) => {
+    try {
+        const {order_id} = req.params;
+        const orderProducts = await destroyAllOrderProducts(order_id);
+        res.send(orderProducts);
     } catch (error) {
         next(error);
     }
