@@ -75,9 +75,8 @@ userRouter.post("/login", async (req, res, next) => {
             );
             res.send({ user, message: "you're logged in!", token });
         }
-    } catch (e) {
-        console.log(e);
-        next(e);
+    } catch (error) {
+        next(error);
     }
 });
 

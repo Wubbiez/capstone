@@ -2,7 +2,7 @@ import productsRouter from "./endpoints/products.js";
 import express from "express";
 import ordersRouter from "./endpoints/orders.js";
 import userRouter from "./endpoints/users.js"
-// import reviewRouter from "./reviews.js";
+import reviewRouter from "./reviews.js";
 import orderProductsRouter from "./endpoints/order_products.js";
 import {getUser, getUserById} from "../server/db/components/users.js";
 import jwt from "jsonwebtoken";
@@ -52,8 +52,8 @@ apiRouter.use("/products", productsRouter);
 // ROUTER: /api/orders
 apiRouter.use("/orders", ordersRouter);
 
-//ROUTER: /api/reviews
-// apiRouter.use("/reviews", reviewRouter);
+// ROUTER: /api/review
+apiRouter.use("/reviews", reviewRouter);
 
 // ROUTER: /api/users
 apiRouter.use("/users", userRouter);
