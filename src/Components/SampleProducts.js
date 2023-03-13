@@ -123,7 +123,6 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                     );
                 })}
             </Grid>
-            {console.log("Refresh: ", refresh)}
         </React.Fragment>
     );
 }

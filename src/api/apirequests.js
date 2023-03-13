@@ -137,6 +137,16 @@ export async function loginUser(username, password) {
 
 }
 
+export async function updateStripe(product_id, title, description, price, image, in_stock, category, stripe_id) {
+    const response = await fetch(`http://localhost:3001/api/products/${product_id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product_id, title, description, price, image, in_stock, category, stripe_id }),
+    });
+    const product = await response.json();
+    return product;
+}
+
 
 
 // export async function attachOrderProductToOrder(orderId, orderProductId) {

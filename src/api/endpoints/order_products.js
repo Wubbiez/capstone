@@ -1,4 +1,5 @@
 import express from "express";
+import stripe0 from "stripe";
 import {
     createOrderProduct,
     destroyOrderProducts,
@@ -9,9 +10,10 @@ import {
     getOrderProductByOrderIdAndProductId,
     destroyAllOrderProducts
 } from "../../server/db/components/order_products.js";
+import{config} from "dotenv";
+config();
 
-
-
+const stripe = stripe0(process.env.STRIPE_API_KEY);
 const orderProductsRouter = express.Router();
 
 
@@ -25,6 +27,8 @@ orderProductsRouter.get("/:id", async (req, res, next) => {
         next(error);
     }
 })
+
+
 
 orderProductsRouter.get("/:order_id/items", async (req, res, next) => {
     try {
