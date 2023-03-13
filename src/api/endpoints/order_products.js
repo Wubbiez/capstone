@@ -34,9 +34,17 @@ orderProductsRouter.get("/:order_id/items", async (req, res, next) => {
     try {
         const {order_id} = req.params;
         const orderProducts = await getOrderProductsByOrderId(order_id);
-        console.log(orderProducts);
+
         const attach = await attachOrderProductsToOrder(order_id);
-        res.send(orderProducts);
+        const result = orderProducts.map((op) => {
+            const product = attach.find((a) => a.productId === op.productId);
+            return {
+                ...op,
+                title: product ? product.title : null,
+            };
+        });
+console.log(result)
+        res.send(result);
     } catch (error) {
         next(error);
     }

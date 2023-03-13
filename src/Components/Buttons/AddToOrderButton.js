@@ -26,7 +26,7 @@ function AddToOrderButton({userId, product_id, status, price, quantity, stripe_i
                     localStorage.setItem('order_id', order_id);
                     const orderProducts = await getOrderProductsByOrderId(order_id);
 
-                    if (orderProducts.find(order_product => order_product.productId === product_id)) {
+                    if (orderProducts.length > 0 && orderProducts.find(order_product => order_product.productId === product_id)) {
                         quantity = orderProducts.find(order_product => order_product.productId === product_id).quantity + 1;
 
                         const response3 = await fetch(`http://localhost:3001/api/cart/${order_id}/${product_id}`, {
@@ -41,6 +41,7 @@ function AddToOrderButton({userId, product_id, status, price, quantity, stripe_i
                             console.log(item);
                         }
                     } else {
+                        const quantity = 1;
                         const response = await fetch(`http://localhost:3001/api/cart/${order_id}/items`, {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'},
