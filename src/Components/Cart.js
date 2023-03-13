@@ -12,11 +12,6 @@ import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
 import UpdateQuantityButton from './Buttons/UpdateQuantityButton.js';
 
 import CheckoutButton from './Buttons/CheckoutButton.js';
-import theme from './theme.js';
-
-
-
-
 
 
 const Cart = ({order, setOrder}) => {
@@ -25,70 +20,52 @@ const Cart = ({order, setOrder}) => {
 const [orderProducts, setOrderProducts] = useState([]);
 const [refresh, setRefresh] = useState(false);
 const [isOpen, setIsOpen] = useState(false);
-const order_id = localStorage.getItem('order_id');
 
 
-// useEffect(() => {
-//   if (!order) {
-//       const order_id = localStorage.getItem('order_id');
-//       if (order_id) {
-//           setOrder(order_id);
-//           console.log("order_id is", order_id);
-//       }
-//   }
-//   setRefresh(true);
-//   getOrderProductsByOrderId(order).then((orderProducts) => {
-//     console.log("orderProducts are", orderProducts);
-//     setOrderProducts(orderProducts);
-//     setRefresh(false);
-//     console.log("orderProducts are still", orderProducts);
-//   });
-// }, [order, setOrder]);
+    useEffect(() => {
+        // Call API to get order products
+        if (order) {
+            getOrderProductsByOrderId(order).then((orderProducts) => {
+                console.log("orderProducts are", orderProducts);
+                setOrderProducts(orderProducts);
+                setRefresh(false);
+                console.log("orderProducts are still", orderProducts);
+            });
+        }
+    }, [order, refresh]);
 
-useEffect(() => {
 
-}, [refresh])
+    function handleOpenCart() {
+        setIsOpen(true);
 
-function handleOpenCart() {
-  setIsOpen(true);
-  
-  if (!order) {
-    
-    if (order_id) {
-        setOrder(order_id);
-        console.log("order_id is", order_id);
+        if (!order) {
+            const order_id = localStorage.getItem('order_id');
+            if (order_id) {
+                setOrder(order_id);
+                console.log("order_id is", order_id);
+            }
+        }
+
+        setRefresh(true);
     }
-}
-setRefresh(true);
 
-getOrderProductsByOrderId(order_id).then((orderProducts) => {
-  console.log("orderProducts are", orderProducts);
-  setOrderProducts(orderProducts);
-  setRefresh(false);
-  console.log("orderProducts are still", orderProducts);
-} )};
-
-function handleCloseCart() {
-  setIsOpen(false);
-}  
+    function handleCloseCart() {
+        setIsOpen(false);
+    }
 
   return (
-    <React.Fragment>
+      <React.Fragment>
+          {orderProducts.length > 0 ? (
+              <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleOpenCart}
+              >
+                  {'View Cart'}
+              </Button>
+          ) : null}
 
-      
-       <Button
-            variant="contained"
-            color="primary"
-            onClick={handleOpenCart}
-        >
-            {'View Cart'}
-        </Button>
-
-        <Modal
-                    open={isOpen}
-                    onClose={handleCloseCart}
-            
-        >
+        <Modal open={isOpen} onClose={handleCloseCart}>
        <Paper
     sx={{
       margin: "5vh 10vw 5vh 10vw",
@@ -113,13 +90,7 @@ function handleCloseCart() {
         }}
         >
         <Typography variant='h4' component='div'> My Cart</Typography>
-                                                
-          
-                                    <CheckoutButton 
-                                                        order_id={order_id}/>
-       
-       
-       
+        <CheckoutButton  order_id={order}/>
         <Button
         onClick={handleCloseCart}
         sx={{
@@ -138,7 +109,8 @@ function handleCloseCart() {
                     margin: 0,}}>
 
           
-        {orderProducts.map((orderProduct) => {
+        {orderProducts.length > 0 ? orderProducts.map((orderProduct) => {
+            console.log("orderProduct is", orderProduct)
 
           return (
           
@@ -166,20 +138,21 @@ function handleCloseCart() {
 
 
                   }}>
-
+                    <Typography variant="h5"
+                    >Name:  {orderProduct.title}</Typography>
                     <Typography variant="h5"
                     >Product Id:  {orderProduct.productId}</Typography>
                     <Typography variant="h6">Price ${orderProduct.price}</Typography>
 
                   <CardActions>
-                    <UpdateQuantityButton order_id={order_id} orderProductId={orderProduct.productId}
+                    <UpdateQuantityButton order_id={order} orderProductId={orderProduct.productId}
                                                               price={orderProduct.price} setRefresh={setRefresh} refresh={refresh} />
                     <DeleteOrderProductButton order_id={order} product_id={orderProduct.productId} setRefresh={setRefresh} refresh={refresh}/>
                   </CardActions>
                 </CardContent>
 
             </Card>
-          )})}
+          )}) : null}
 
 
         </Grid>
