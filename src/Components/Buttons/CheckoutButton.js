@@ -1,6 +1,8 @@
 import React from 'react';
 import {useState} from "react";
 import getStripe from "../../lib/getStripe.js";
+import { Button } from '@mui/material';
+import { ShoppingCartCheckoutTwoTone } from '@mui/icons-material';
 
 const CheckoutButton = ({order_id}) => {
     const handleClick = async (event) => {
@@ -45,7 +47,7 @@ const CheckoutButton = ({order_id}) => {
             lineItems,
             clientReferenceId: order_id.toString(),
             successUrl: `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancelUrl: "http://localhost:3000/cancel",
+            cancelUrl: "http://localhost:3000/products",
         });
         if (error) {
             console.warn("Error:", error);
@@ -53,9 +55,10 @@ const CheckoutButton = ({order_id}) => {
     };
 
     return (
-        <button role="link" onClick={handleClick}>
-            Checkout
-        </button>
+
+<Button variant="contained" color="success" onClick={handleClick}>
+    <ShoppingCartCheckoutTwoTone />    Checkout
+</Button>
     );
 }
 

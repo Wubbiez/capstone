@@ -2,23 +2,23 @@ import client from "../client.js";
 import  bcrypt from "bcrypt";
 export const SALT_COUNT = 10;
 
-async function createUser({ username, password, email, is_admin, first_name, last_name, address, phone }) {
+async function createUser({ username, password, email, first_name, last_name, address, phone, is_admin }) {
 
     try {
         const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
         const { 
             rows: [user]
         } = await client.query(`
-            INSERT INTO users(username,password,email,is_admin,first_name,last_name,address,phone)
+            INSERT INTO users(username,password,email,first_name,last_name,address,phone,is_admin)
             VALUES($1,$2,$3,$4,$5,$6,$7,$8)
             ON CONFLICT (username) DO NOTHING
             RETURNING user_id, username, email;
-        `, [username, hashedPassword, email, is_admin, first_name, last_name, address, phone]);
+        `, [username, hashedPassword, email, first_name, last_name, address, phone,is_admin]);
             if (user) {
                 delete user.password;
                 return user;          
                 }else {
-                    console.error("username already exists!!")
+                    console.error("Username already exists!")
                 }
 
     } catch (e) {
@@ -37,7 +37,7 @@ async function getUser({ username, password }) {
                 rows: [user],
             } = await client.query(`
 
-            SELECT user_id, username FROM users
+            SELECT user_id, username,is_admin FROM users
             WHERE username = $1
             AND password = $2
             `, [ username, hashedPassword ]);

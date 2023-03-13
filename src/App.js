@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+
+
 //import ReactDOM from 'react-dom/client';
 //import  { useState, useEffect } from 'react';
 import { Route,  Routes, BrowserRouter } from 'react-router-dom';
@@ -10,34 +12,43 @@ import PageNotFound from './Components/PageNotFound.js';
 import Cart from './Components/Cart.js';
 import Success from './Components/Success.js';
 import Contact from './Components/Contact.js';
+import AdminDashboard from "./Components/AdminDashboard.js";
+
 
 export const TOKEN_STORAGE_KEY = "user-token";
 export const USER_STORAGE_KEY = "user-username";
+export const ADMIN_STORAGE_KEY = "user-admin";
 const storageToken = localStorage.getItem(TOKEN_STORAGE_KEY);
 const storageUser = localStorage.getItem(USER_STORAGE_KEY);
+const storageIsAdmin = localStorage.getItem(ADMIN_STORAGE_KEY);
+
 
 
 function App() {
   const [order, setOrder] = useState(null);
   const [token, setToken] = useState(storageToken);
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(storageUser);
+    const [isAdmin, setIsAdmin] = useState(storageIsAdmin);
   return (
     <React.Fragment>
     <BrowserRouter>
-    <NavBar></NavBar>
+    <NavBar setIsAdmin={setIsAdmin} setToken={setToken}  order={order} setOrder={setOrder}/>
       <Routes>
       <Route
         path='/'
-        exact element={<SampleProducts order={order} setOrder={setOrder}/>}></Route>
+        exact element={<SampleProducts order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>}></Route>
       <Route
         path='/products'
-        exact element={<SampleProducts order={order} setOrder={setOrder} />}></Route>
+        exact element={<SampleProducts order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>}></Route>
         <Route
         path='/login'
-        exact element={<LogIn setToken={setToken} />}></Route>
+        exact element={<LogIn setToken={setToken} setIsAdmin={setIsAdmin} />}></Route>
         <Route
         path='/signup'
-        exact element={<SignUp />}></Route>
+        exact element={<SignUp setUser={setUser} setToken={setToken} />}></Route>
+        <Route
+          path='/admin'
+            exact element={<AdminDashboard isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>}></Route>
         <Route
         path='/nav'
         exact element={<NavBar />}></Route>

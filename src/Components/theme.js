@@ -55,7 +55,14 @@ const theme = createTheme({
         color: '#fff',
       },
     },
-    
+    MuiGrid: {
+      root: {
+        margin: 0,
+      },
+      container: {
+        margin: 0,
+      },
+    },
     MuiRoutes: {
       root: {
         marginTop: '5vh' 
@@ -75,12 +82,7 @@ const theme = createTheme({
         padding: '12px 16px',
       },
     },
-    MuiCard: {
-      root: {
-        padding: 16,
-        marginBottom: 16,
-      },
-    },
+    
     
   },
 });

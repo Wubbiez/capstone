@@ -82,6 +82,19 @@ async function destroyOrderProducts(productId, orderId) {
     }
 }
 
+async function destroyAllOrderProducts(orderId) {
+    try {
+        const {rows: orderProducts} = await client.query(`
+            DELETE FROM order_products
+            WHERE "orderId" = $1
+            RETURNING *;
+        `, [orderId]);
+        return orderProducts;
+    } catch (error) {
+        throw error;
+    }
+}
+
 async function getOrderByOrderId(orderId) {
     try {
         const { rows: [order] } = await client.query(`
@@ -97,15 +110,36 @@ async function getOrderByOrderId(orderId) {
 }
 
 async function attachOrderProductsToOrder(order_id) {
-    const orderProductQuery = `
+        const orderProductQuery = `
     SELECT op."productId", op.price, op.quantity
     FROM orders o
     JOIN order_products op ON o.order_id = op."orderId"
     WHERE o.order_id = ${order_id}
   `;
-    const {rows: result} = await client.query(orderProductQuery);
-    console.log("attach result", result);
-    return result;
+        const { rows: orderProducts } = await client.query(orderProductQuery);
+
+        const productIds = orderProducts.map((op) => op.productId).join(',');
+
+        const productQuery = `
+    SELECT product_id, title
+    FROM products
+    WHERE product_id IN (${productIds})
+  `;
+        const { rows: products } = await client.query(productQuery);
+
+        const result = orderProducts.map((op) => {
+            const product = products.find((p) => p.product_id === op.productId);
+            return {
+                productId: op.productId,
+                title: product ? product.title : null,
+                price: op.price,
+                quantity: op.quantity,
+            };
+        });
+console.log(result)
+        return result;
+
+
 }
 
 export {
@@ -116,4 +150,5 @@ export {
     getOrderProductById,
     attachOrderProductsToOrder,
     getOrderProductByOrderIdAndProductId,
+    destroyAllOrderProducts,
 }

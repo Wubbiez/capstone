@@ -78,7 +78,7 @@ export async function createTables() {
                                  quantity     INTEGER                                  NOT NULL,
                                  stripe_id    VARCHAR(255)                             NOT NULL,
                                  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                 FOREIGN KEY ("productId", stripe_id) REFERENCES products (product_id, stripe_id)
+                                 FOREIGN KEY ("productId") REFERENCES products (product_id)
                              );
         `);
         await client.query(` CREATE TABLE reviews
@@ -163,6 +163,7 @@ async function createInitialUsers() {
             { username: "Zach", password: "Zach123", email: "Zach@gmail.com", is_admin: true },
             { username: "Abdulla", password: "Abdulla10", email: "Abdulla@gmail.com", is_admin: true },
             { username: "Santi", password: "Santi27", email: "Santi@gmail.com", is_admin: true },
+            { username: "Bob", password: "Bob123", email: "BobbyBoi@gmail.com", is_admin: false }
         ]
         const users = await Promise.all(usersToCreate.map(createUser))
 

@@ -13,7 +13,11 @@ import {
 import {FormControlLabel, TextField} from "@mui/material/";
 import {updateProduct} from "../../api/apirequests.js";
 
-function EditProductButton ({product_id , title: initialTitle, description: initialDescription, price: initialPrice, image: initialImage, in_stock: initialInStock, category: initialCategory}) {
+
+
+
+
+function EditProductButton ({product_id , title: initialTitle, description: initialDescription, price: initialPrice, image: initialImage, in_stock: initialInStock, category: initialCategory, stripe_id, setRefresh}) {
     const [isEditing, setIsEditing] = useState(false);
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState(initialTitle);
@@ -22,6 +26,7 @@ function EditProductButton ({product_id , title: initialTitle, description: init
     const [image, setImage] = useState(initialImage);
     const [in_stock, setInStock] = useState(initialInStock);
     const [category, setCategory] = useState(initialCategory);
+
 
     const [productData, setProductData] = useState({
         title: initialTitle,
@@ -47,8 +52,12 @@ function EditProductButton ({product_id , title: initialTitle, description: init
     async function handleSubmit() {
         setIsEditing(true);
         try {
-            await updateProduct(product_id, title, description, price, image, in_stock, category);
-            window.location.reload();
+            // const response = await editStripe(product_id, title, description, price, image, in_stock, category, stripe_id);
+            const response = await updateProduct(product_id, title, description, price, image, in_stock, category, stripe_id);
+
+            console.log(response);
+            setRefresh(true);
+            // window.location.reload();
         } catch (error) {
             console.error(error);
         }

@@ -1,17 +1,13 @@
 import {useState} from "react";
 import {Button} from "@mui/material";
 
-
-
-import { RemoveShoppingCartTwoTone } from "@mui/icons-material";
-function DeleteOrderProductButton ({order_id, product_id, setRefresh,}) {
-
+function EmptyCartButton ({order_id, setRefresh}) {
     const [isDeleting, setIsDeleting] = useState(false);
 
     async function handleClick() {
         setIsDeleting(true);
         try {
-            const response = await fetch(`http://localhost:3001/api/cart/${order_id}/${product_id}`, {
+            const response = await fetch(`http://localhost:3001/api/cart/${order_id}`, {
                 method: 'DELETE',
                 headers: {'Content-Type': 'application/json'}
             });
@@ -25,6 +21,7 @@ function DeleteOrderProductButton ({order_id, product_id, setRefresh,}) {
         }
         setIsDeleting(false);
         setRefresh(true);
+
     }
 
     return (
@@ -34,9 +31,9 @@ function DeleteOrderProductButton ({order_id, product_id, setRefresh,}) {
             disabled={isDeleting}
             onClick={handleClick}
         >
-            <RemoveShoppingCartTwoTone /> Remove
+            {'Empty Cart'}
         </Button>
     );
 }
 
-export default DeleteOrderProductButton;
+export default EmptyCartButton;

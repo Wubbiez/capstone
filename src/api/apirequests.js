@@ -1,3 +1,6 @@
+
+
+
 export async function getAllProducts() {
     const response = await fetch("http://localhost:3001/api/products");
     const products = await response.json();
@@ -26,11 +29,11 @@ export async function getOrderProductByOrderIdAndProductId(orderId, productId) {
     return orderProduct;
 }
 
-export async function updateProduct(id, title, description, price, image, inStock, category) {
+export async function updateProduct(id, title, description, price, image, inStock, category, stripe_id) {
     const response = await fetch(`http://localhost:3001/api/products/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, title, description, price, image, inStock, category }),
+        body: JSON.stringify({ id, title, description, price, image, inStock, category, stripe_id }),
     });
     const product = await response.json();
     return product;
@@ -42,10 +45,10 @@ export async function getOrderProductsByOrderId(orderId) {
     return orderProducts;
 }
 
-export async function createaUser(username, password) {
+export async function createaUser(username, password, email, first_name, last_name, address, phone) {
     try {
         const response = await fetch(
-            "https://localhost:3001/api/users/register",
+            "http://localhost:3001/api/users/register",
             {
                 method: "POST",
                 headers: {
@@ -54,6 +57,11 @@ export async function createaUser(username, password) {
                 body: JSON.stringify({
                     username: username,
                     password: password,
+                    email: email,
+                    first_name: first_name,
+                    last_name: last_name,
+                    address: address,
+                    phone: phone
                 }),
             }
         );
@@ -91,9 +99,6 @@ export async function getUser(token) {
 }
 
 export async function loginUser(username, password) {
-    console.log(username);
-    console.log(password)
-
 
         const response = await fetch(
             "http://localhost:3001/api/users/login",
@@ -115,10 +120,12 @@ export async function loginUser(username, password) {
         if (results.token) {
             const data = {
                 token: results.token,
-                username: results.username,
+                username: results.user.username,
+                is_admin: results.user.is_admin,
             };
             localStorage.setItem("user-token", results.token);
             localStorage.setItem("user-username", results.user.username);
+            localStorage.setItem("user-is_admin", results.user.is_admin);
             console.log(data);
             return data;
         }
@@ -129,6 +136,8 @@ export async function loginUser(username, password) {
 
 
 }
+
+
 
 // export async function attachOrderProductToOrder(orderId, orderProductId) {
 //     const response = await fetch(`http://localhost:3001/api/cart/${orderId}/items`, {
