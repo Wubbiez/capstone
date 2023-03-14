@@ -19,6 +19,7 @@ function OrderHistory({ user }) {
     useEffect(() => {
         getUserByUsername(user).then((user) => {
             getOrdersByUserId(user.user_id).then(async (orders) => {
+                console.log(orders);
                 const paidOrders = await Promise.all(
                     orders.map(async (order) => {
                         if (order.status === "paid") {
