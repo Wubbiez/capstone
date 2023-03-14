@@ -41,9 +41,9 @@ orderProductsRouter.get("/:order_id/items", async (req, res, next) => {
             return {
                 ...op,
                 title: product ? product.title : null,
+                image: product ? product.image : null,
             };
         });
-console.log(result)
         res.send(result);
     } catch (error) {
         next(error);

@@ -121,7 +121,7 @@ async function attachOrderProductsToOrder(order_id) {
         const productIds = orderProducts.map((op) => op.productId).join(',');
 
         const productQuery = `
-    SELECT product_id, title
+    SELECT product_id, title, image
     FROM products
     WHERE product_id IN (${productIds})
   `;
@@ -129,11 +129,13 @@ async function attachOrderProductsToOrder(order_id) {
 
         const result = orderProducts.map((op) => {
             const product = products.find((p) => p.product_id === op.productId);
+            console.log(product)
             return {
                 productId: op.productId,
                 title: product ? product.title : null,
                 price: op.price,
                 quantity: op.quantity,
+                image: product.image
             };
         });
 console.log(result)
