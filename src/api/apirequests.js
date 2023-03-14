@@ -30,9 +30,14 @@ export async function getOrderProductByOrderIdAndProductId(orderId, productId) {
 }
 
 export async function updateProduct(id, title, description, price, image, inStock, category, stripe_id) {
+    const token = localStorage.getItem('user-token');
+
     const response = await fetch(`http://localhost:3001/api/products/${id}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({ id, title, description, price, image, inStock, category, stripe_id }),
     });
     const product = await response.json();
@@ -145,6 +150,38 @@ export async function getOrdersByUserId(userId) {
 
 export async function getUserByUsername(username) {
     const response = await fetch(`http://localhost:3001/api/users/${username}`);
+    const user = await response.json();
+    return user;
+}
+
+export async function getAllUsers() {
+    const token = localStorage.getItem('user-token');
+    const response = await fetch(
+        `http://localhost:3001/api/users/`,
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+    const users = await response.json();
+    return users;
+}
+
+export async function updateUser(id, username, email, first_name, last_name, address, phone, is_admin, is_active, password) {
+    console.log()
+    const token = localStorage.getItem('user-token');
+
+    const response = await fetch(`http://localhost:3001/api/users/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ id, username, email, first_name, last_name, address, phone, is_admin, is_active, password }),
+    });
     const user = await response.json();
     return user;
 }

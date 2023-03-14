@@ -8,6 +8,7 @@ import {
     updateProduct,
     updateStripe
 } from "../../server/db/components/products.js";
+import {isAdmin} from "./isAdmin.js";
 
 
 const productsRouter = express.Router();
@@ -31,7 +32,7 @@ productsRouter.get("/:id", async (req, res, next) => {
         next(error);
     }
 });
-productsRouter.patch("/:id", async (req, res, next) => {
+productsRouter.patch("/:id", isAdmin,  async (req, res, next) => {
 
         try {
             const {id} = req.params;
