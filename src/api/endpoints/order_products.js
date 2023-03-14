@@ -1,4 +1,5 @@
 import express from "express";
+import stripe0 from "stripe";
 import {
     createOrderProduct,
     destroyOrderProducts,
@@ -9,9 +10,10 @@ import {
     getOrderProductByOrderIdAndProductId,
     destroyAllOrderProducts
 } from "../../server/db/components/order_products.js";
+import{config} from "dotenv";
+config();
 
-
-
+const stripe = stripe0(process.env.STRIPE_API_KEY);
 const orderProductsRouter = express.Router();
 
 
@@ -26,13 +28,23 @@ orderProductsRouter.get("/:id", async (req, res, next) => {
     }
 })
 
+
+
 orderProductsRouter.get("/:order_id/items", async (req, res, next) => {
     try {
         const {order_id} = req.params;
         const orderProducts = await getOrderProductsByOrderId(order_id);
-        console.log(orderProducts);
+
         const attach = await attachOrderProductsToOrder(order_id);
-        res.send(orderProducts);
+        const result = orderProducts.map((op) => {
+            const product = attach.find((a) => a.productId === op.productId);
+            return {
+                ...op,
+                title: product ? product.title : null,
+                image: product ? product.image : null,
+            };
+        });
+        res.send(result);
     } catch (error) {
         next(error);
     }

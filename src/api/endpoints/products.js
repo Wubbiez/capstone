@@ -5,8 +5,10 @@ import {
     destroyProduct,
     getAllProducts,
     getProductById,
-    updateProduct
+    updateProduct,
+    updateStripe
 } from "../../server/db/components/products.js";
+
 
 const productsRouter = express.Router();
 
@@ -34,8 +36,10 @@ productsRouter.patch("/:id", async (req, res, next) => {
         try {
             const {id} = req.params;
             const {product_id, title,description,price,image,inStock,category, stripe_id} = req.body
-            const product = await updateProduct({product_id: id, title, description, price, image, inStock, category, stripe_id})
-            res.send(product);
+            const updateStriped = await updateStripe({product_id: id, title, description, price, image, inStock, category, stripe_id});
+            const product = await updateProduct({product_id: id, title, description, price, image, inStock, category, stripe_id: updateStriped.id})
+
+            res.send(updateStriped);
         } catch (error) {
             next(error);
         }

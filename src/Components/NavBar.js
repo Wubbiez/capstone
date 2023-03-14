@@ -101,7 +101,7 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
                 sx={{ marginLeft: "auto" }}
                 indicatorColor="secondary"
                 textColor="inherit"
-                value={value}
+                value={false}
                 onChange={(e, value) => setValue(value)}
               >
                 <Tab label="Home"  component={Link} to="/" />

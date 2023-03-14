@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import {FormControlLabel, TextField} from "@mui/material/";
 import {updateProduct} from "../../api/apirequests.js";
-import editStripe from "../../api/editStripe.js";
 
 
 
@@ -53,8 +52,8 @@ function EditProductButton ({product_id , title: initialTitle, description: init
     async function handleSubmit() {
         setIsEditing(true);
         try {
-            const response = await editStripe(product_id, title, description, price, image, in_stock, category, stripe_id);
-            await updateProduct(product_id, title, description, price, image, in_stock, category, response.id);
+            // const response = await editStripe(product_id, title, description, price, image, in_stock, category, stripe_id);
+            const response = await updateProduct(product_id, title, description, price, image, in_stock, category, stripe_id);
 
             console.log(response);
             setRefresh(true);

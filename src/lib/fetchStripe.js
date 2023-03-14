@@ -34,7 +34,10 @@ const fetchStripe = async () => {
         const {unit_amount, id: stripe_price_id} = prices.data[0];
         const price = unit_amount / 100;
         const response2 = await stripe.products.retrieve(productId);
-        const {name, description, images} = response2;
+        console.log(response2);
+        const {name, description, images,metadata: {
+            category: category
+        }} = response2;
         const image = images[0];
         const productObject = {
             product_id: productId,
@@ -43,6 +46,7 @@ const fetchStripe = async () => {
             price,
             image,
             inStock: true,
+            category,
             stripe_id: prices.data[0].id,
         }
         // console.log(productObject);
