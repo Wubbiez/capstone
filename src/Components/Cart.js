@@ -101,11 +101,13 @@ const [isOpen, setIsOpen] = useState(false);
         }}>X</Button>
         </Box>
 
-        <Grid container spacing={2} direction="column" style={{ overflowY: 'scroll',
+        <Grid container spacing={2} style={{ overflowY: 'scroll',
+         display: 'flex',
+         flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
                     maxHeight: '85vh',
-                    width: '100%',
+                    width: '75vw',
                     margin: 0,}}>
 
           
@@ -119,7 +121,9 @@ const [isOpen, setIsOpen] = useState(false);
               display: 'flex',
               flexFlow: 'column',
               overflowY: 'scroll',
-              width: 'inherit ',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+              width: '75vw',
               marginTop: '0',
               }}>
 
@@ -128,27 +132,52 @@ const [isOpen, setIsOpen] = useState(false);
                   backgroundColor: '#F5F5F5',
                   color: '#333333',
                   display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-around',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
                   minHeight: '70px',
-                  width: 'inherit',
                   borderBottom: "1px solid #666666",
-                  paddingLeft: '5vh'
-
-
+                  paddingLeft: '5vh',
+                  width: 'inherit',
                   }}>
-                    <Typography variant="h5"
-                    >Name:  {orderProduct.title}</Typography>
-                    <Typography variant="h5"
-                    >Product Id:  {orderProduct.productId}</Typography>
-                    <Typography variant="h6">Price ${orderProduct.price}</Typography>
+                    
+                    <Box
+                      component="img"
+                      sx={{
+                        maxHeight:"45vh",
+                        maxWidth:  "20vw",
+                        padding: "15px 5px 15px 5px"
+                      }}
+                      alt="Product Image"
+                      src={orderProduct.image}
+                      />
+                    <Box sx={{
+                  backgroundColor: '#F5F5F5',
+                  color: '#333333',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                  minHeight: '70px',
+                  paddingLeft: '1rem'
+                  }}>
+                    <Typography variant="h6"
+                    >{orderProduct.title}</Typography>
+                    <Typography
+                      variant="h6"
+                      >${orderProduct.price}</Typography>
 
-                  <CardActions>
-                    <UpdateQuantityButton order_id={order} orderProductId={orderProduct.productId}
-                                                              price={orderProduct.price} setRefresh={setRefresh} refresh={refresh} />
+                  <CardActions sx={{
+                     }}>
+                    <UpdateQuantityButton order_id={order}
+                                          orderProductId={orderProduct.productId}
+                                          price={orderProduct.price}
+                                          setRefresh={setRefresh}
+                                          refresh={refresh}
+                    />
                     <DeleteOrderProductButton order_id={order} product_id={orderProduct.productId} setRefresh={setRefresh} refresh={refresh}/>
                   </CardActions>
+                  </Box>
                 </CardContent>
 
             </Card>

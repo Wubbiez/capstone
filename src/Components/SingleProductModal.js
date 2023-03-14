@@ -12,6 +12,9 @@ import {
 import AddToOrderButton from "./Buttons/AddToOrderButton.js";
 import UpdateQuantityButton from "./Buttons/UpdateQuantityButton.js";
 
+
+
+
 function SingleProductModal({product_id, title, description, price, image, in_stock, category, order, setRefresh, setOrder, stripe_id, refresh}) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -103,8 +106,13 @@ function SingleProductModal({product_id, title, description, price, image, in_st
 
                                         />
 
+                            
+                                            
+                                        <Box display="flex" alignItems="center" justifyContent="center"
+                                            style={{margin: '8px 0'}}>
                                             <UpdateQuantityButton order_id={order} orderProductId={product_id}
                                                                 price={price} setRefresh={setRefresh} refresh={refresh}/>
+                                        </Box>
             <Button variant="contained" component={Link}
                                             to={`/products/${product_id}`} sx={{
                                               marginBottom: '3rem',
