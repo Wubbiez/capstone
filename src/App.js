@@ -13,7 +13,7 @@ import Cart from './Components/Cart.js';
 import Success from './Components/Success.js';
 import Contact from './Components/Contact.js';
 import AdminDashboard from "./Components/AdminDashboard.js";
-
+import SingleProductModal from './Components/SingleProductModal.js';
 
 export const TOKEN_STORAGE_KEY = "user-token";
 export const USER_STORAGE_KEY = "user-username";
@@ -40,6 +40,10 @@ function App() {
       <Route
         path='/products'
         exact element={<SampleProducts order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>}></Route>
+      <Route
+        path='/products"/:id"'
+        exact element={<SingleProductModal order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>}></Route>
+
         <Route
         path='/login'
         exact element={<LogIn setToken={setToken} setIsAdmin={setIsAdmin} />}></Route>
