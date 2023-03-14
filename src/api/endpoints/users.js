@@ -111,6 +111,25 @@ userRouter.get("/logout", async (req, res, next) => {
     }
 })
 
+userRouter.get("/:username", async (req, res, next) => {
+    try {
+        const { username } = req.params;
+        const user = await getUserByUsername(username);
+        if (user) {
+            res.send(user);
+        } else {
+            res.status(404);
+            next({
+                error: "User not found",
+                name: "UserNotFoundError",
+                message: "User not found",
+            });
+        }
+    } catch (e) {
+        next(e);
+    }
+})
+
 
 
 export default userRouter; 

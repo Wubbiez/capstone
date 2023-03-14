@@ -13,6 +13,7 @@ import Cart from './Components/Cart.js';
 import Success from './Components/Success.js';
 import Contact from './Components/Contact.js';
 import AdminDashboard from "./Components/AdminDashboard.js";
+import OrderHistory from "./Components/OrderHistory.js";
 
 
 export const TOKEN_STORAGE_KEY = "user-token";
@@ -64,7 +65,9 @@ function App() {
         <Route
           path='/success'
             exact element={<Success order={order} setOrder={setOrder} />}></Route>
-
+        <Route
+          path='/orderhistory'
+            exact element={<OrderHistory user={user} />}></Route>
         
       </Routes>
       </BrowserRouter>
