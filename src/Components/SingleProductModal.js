@@ -32,9 +32,15 @@ function SingleProductModal({product_id, title, description, price, image, in_st
             variant="contained"
             color="primary"
             onClick={handleOpenModal}
-            sx={{marginBottom: '1rem'}}
-        >
-            {'View Item'}
+            sx={{
+              backgroundColor: '#457B9D',
+              transition: 'background-color 0.3s ease',
+
+              '&:hover': {
+              backgroundColor: '#457B9D',
+              boxShadow: '1px 2px 1px 1px #F1FAEE;',}
+           }}>
+            {'Quick View'}
         </Button>
 
         <Modal
@@ -57,7 +63,7 @@ function SingleProductModal({product_id, title, description, price, image, in_st
             padding: "5vh 10px 10px 10px",
             display: 'flex',
             flexDirection: 'row',
-            backgroundColor: '#f5f5f5',
+            backgroundColor: '#fff',
             position: 'relative'
           }}>
             <Box
@@ -114,10 +120,14 @@ function SingleProductModal({product_id, title, description, price, image, in_st
                                                                 price={price} setRefresh={setRefresh} refresh={refresh}/>
                                         </Box>
             <Button variant="contained" component={Link}
-                                            to={`/products/${product_id}`} sx={{
-                                              marginBottom: '3rem',
-                                              width: '100%'
-                                            }}>View Full Item</Button>
+                                            to={`/products/${product_id}`}  sx={{
+                                              backgroundColor: '#457B9D',
+                                              transition: 'background-color 0.3s ease',
+                                
+                                              '&:hover': {
+                                              backgroundColor: '#457B9D',
+                                              boxShadow: '1px 2px 1px 1px #1D3557;',}
+                                           }}>View Full Item</Button>
             </ButtonGroup>
       </Box>
           </Paper>

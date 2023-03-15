@@ -85,11 +85,16 @@ function AddToOrderButton({userId, product_id, status, price, quantity, stripe_i
     return (
         <Button
             variant="contained"
-            color="primary"
             disabled={isAddingToOrder}
             onClick={handleClick}
-            sx={{marginBottom: '1rem'}}
-        >
+            sx={{
+                backgroundColor: '#457B9D',
+                transition: 'background-color 0.3s ease',
+  
+                '&:hover': {
+                backgroundColor: '#457B9D',
+                boxShadow: '1px 2px 1px 1px #1D3557;',}
+             }}>
             {isAddingToOrder ? 'Adding to cart...' : <AddShoppingCartTwoTone />}
         </Button>
     );

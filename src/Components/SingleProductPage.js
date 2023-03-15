@@ -52,7 +52,7 @@ function SingleProductPage({ order, setOrder, stripe_id}) {
             padding: "5vh 10px 10px 10px",
             display: 'flex',
             flexDirection: 'row',
-            backgroundColor: '#f5f5f5',
+            backgroundColor: '#fff',
             position: 'relative'
           }}>
                 <Box
@@ -72,13 +72,19 @@ function SingleProductPage({ order, setOrder, stripe_id}) {
                       paddingRight: '3rem',
                       paddingTop: '3rem',
                     }}>
-                        <Typography variant='h1'>{product.title}</Typography>
+                        <Typography variant='h1'
+                        >{product.title}</Typography>
                         
-                        <Typography variant='h4'>$ {product.price}</Typography>
-                        <Typography variant='h4'>Category:</Typography>
-                        <Typography variant='p'>{product.category}</Typography>
-                        <Typography variant='h4'>Description:</Typography>
-                        <Typography variant='p'>{product.description}</Typography>
+                        <Typography variant='h4'>
+                             $ {product.price}
+                        </Typography>
+                        <Typography variant='h4' >Category:</Typography>
+                        <Typography variant='p'
+                        >{product.category}</Typography>
+                        <Typography variant='h4'
+                            >Description:</Typography>
+                        <Typography variant='p'
+                        >{product.description}</Typography>
 
                             <ButtonGroup sx={{
                                 marginTop: '5rem',

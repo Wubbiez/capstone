@@ -72,9 +72,15 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
                 <>
                     <Button
                         variant="contained"
-                        color="primary"
                         disabled={quantity === 1 || isUpdating}
                         onClick={handleDecrementClick}
+                        sx={{backgroundColor: '#457B9D',
+        color: '#F1FAEE',
+        '&:hover': {
+            backgroundColor: '#F1FAEE',
+            color: '#457B9D'
+     }
+    }}
                     >
                         -
                     </Button>
@@ -83,9 +89,15 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
                     </Typography>
                     <Button
                         variant="contained"
-                        color="primary"
                         disabled={isUpdating}
                         onClick={handleIncrementClick}
+                        sx={{backgroundColor: '#84a98c',
+        color: '#F1FAEE',
+        '&:hover': {
+            backgroundColor: '#F1FAEE',
+            color: '#84a98c'
+     }
+    }}
                     >
                         +
                     </Button>

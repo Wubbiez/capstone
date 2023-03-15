@@ -84,9 +84,8 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
 
   return (
     <React.Fragment>
-      <AppBar sx={{ background: "#00008B"}}  position="sticky" >
+      <AppBar sx={{ background: "#1D3557"}}  position="sticky" >
         <Toolbar>
-          <AddShoppingCart sx={{ transform: "scale(2)" }} />
           {isMatch ? (
             <>
               <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>

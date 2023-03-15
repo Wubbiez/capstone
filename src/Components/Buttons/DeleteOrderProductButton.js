@@ -30,12 +30,18 @@ function DeleteOrderProductButton ({order_id, product_id, setRefresh,}) {
     return (
         <Button
             variant="contained"
-            color="error"
+
             disabled={isDeleting}
             onClick={handleClick}
+            sx={{backgroundColor: '#E63946',
+        color: '#F1FAEE',
+        '&:hover': {
+            backgroundColor: '#F1FAEE',
+            color: '#E63946'
+     }
+    }}
         >
-            <RemoveShoppingCartTwoTone /> Remove
-        </Button>
+            <RemoveShoppingCartTwoTone />        </Button>
     );
 }
 

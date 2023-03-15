@@ -12,7 +12,8 @@ import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
 import UpdateQuantityButton from './Buttons/UpdateQuantityButton.js';
 
 import CheckoutButton from './Buttons/CheckoutButton.js';
-
+import EmptyCartButton from './Buttons/EmptyCartButton.js';
+import { ShoppingCartTwoTone } from '@mui/icons-material';
 
 const Cart = ({order, setOrder}) => {
 
@@ -58,12 +59,29 @@ const [isOpen, setIsOpen] = useState(false);
           {orderProducts.length > 0 ? (
               <Button
                   variant="contained"
-                  color="primary"
                   onClick={handleOpenCart}
-              >
-                  {'View Cart'}
+                  sx={{
+                    backgroundColor: '#457B9D',
+                    transition: 'background-color 0.3s ease',
+    
+        '&:hover': {
+            backgroundColor: '#457B9D',
+          boxShadow: '1px 2px 1px 1px #F1FAEE;',}
+                 }}>
+        <ShoppingCartTwoTone /> ({Number(
+    orderProducts.reduce(
+        (total, orderProduct) =>
+            total + orderProduct.quantity,
+        0
+    )
+).toFixed(0)}
+        )
               </Button>
           ) : null}
+
+
+
+
 
         <Modal open={isOpen} onClose={handleCloseCart}>
        <Paper
@@ -74,32 +92,41 @@ const [isOpen, setIsOpen] = useState(false);
       maxHeight: "85vh",
       width: "75vw",
       overflowY: 'scroll',
+      disply: 'flex',
+      flexDirection: 'column'
     }}
     open={isOpen}>
       <Box 
         p={2}
         role='presentation'
         sx={{
-          backgroundColor: 'primary.main',
-          color: 'white',
+          backgroundColor: '#1D3557',
+          color: '#f8edeb',
           width: '100%',
           textAlign: 'center',
           justifyContent: "center",
-          overflowY: 'scroll'
-          
         }}
         >
-        <Typography variant='h4' component='div'> My Cart</Typography>
-        <CheckoutButton  order_id={order}/>
-        <Button
-        onClick={handleCloseCart}
-        sx={{
-          backgroundColor: "#333333",
-          position: 'absolute',
-          top: '5vh',
-          right: '15vw',
-        }}>X</Button>
+          <Typography variant='h4' component='div' sx={{color: '#f8edeb'}}> My Cart</Typography>
+          <CheckoutButton  order_id={order}/>
+          <EmptyCartButton order_id={order} setRefresh={setRefresh} />
+          <Button
+            onClick={handleCloseCart}
+            sx={{
+              backgroundColor: "#333333",
+              position: 'absolute',
+              top: '5vh',
+              right: '15vw',
+
+              '&:hover': {
+                backgroundColor: '#F1FAEE',
+              }}}>
+                X
+          </Button>
         </Box>
+
+
+
 
         <Grid container spacing={2} style={{ overflowY: 'scroll',
          display: 'flex',
@@ -136,7 +163,7 @@ const [isOpen, setIsOpen] = useState(false);
                   alignItems: 'center',
                   justifyContent: 'space-around',
                   minHeight: '70px',
-                  borderBottom: "1px solid #666666",
+                  borderBottom: "2px solid #212529",
                   paddingLeft: '5vh',
                   width: 'inherit',
                   }}>
@@ -153,21 +180,26 @@ const [isOpen, setIsOpen] = useState(false);
                       />
                     <Box sx={{
                   backgroundColor: '#F5F5F5',
-                  color: '#333333',
+                  color: '#343a40',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'space-around',
                   minHeight: '70px',
-                  paddingLeft: '1rem'
+                  paddingLeft: '1rem',
                   }}>
                     <Typography variant="h6"
+                    sx={{color: '#343a40',}}
                     >{orderProduct.title}</Typography>
                     <Typography
                       variant="h6"
+                      sx={{color: '#343a40',
+                                      paddingBottom: '1rem'}}
                       >${orderProduct.price}</Typography>
 
                   <CardActions sx={{
+                     display: 'flex',
+                  flexDirection: 'row',
                      }}>
                     <UpdateQuantityButton order_id={order}
                                           orderProductId={orderProduct.productId}

@@ -43,38 +43,47 @@ const Success = ({order, setOrder}) => {
         };
 
         fetchData();
-        localStorage.removeItem('order_id');
-        setOrder(null);
+        // localStorage.removeItem('order_id');
+        // setOrder(null);
 
     }, []);
 
 
     return (
-        <React.Fragment sx={{
-            
-        }}>
+        <React.Fragment >
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                backgroundColor: '#F5F5F5',
+                backgroundColor: '#F1FAEE',
             }}>< CheckCircleOutlineTwoTone sx={{
                       fontSize: '5rem',
                       color: theme.palette.success.main,
                 }} />
             <Typography variant ="h1" sx={{
-                paddingTop: '1.5rem',
+                paddingTop: '2rem',
                 paddingLeft: '1rem'
             }}>
                            
                 Order placed, thanks! </Typography>
                 </Box>
+                <Typography variant ="h4" sx={{
+                paddingTop: '10px',
+                paddingLeft: '1rem',
+                paddingBottom: '10px',
+                marginBottom: '0',
+                borderBottom: "2px solid #333333",
+                backgroundColor: '#F1FAEE',
+            }}>
+                           
+                Check your profile's order history for confirmation.</Typography>
+
             <Grid container spacing={2} direction="column" style={{ overflowY: 'scroll',
                     display: 'flex',
                     flexFlow: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    maxHeight: '85vh',
+
+                    height: '85vh',
                     width: '100%',
+
                     margin: 0,}}>
 
           
@@ -87,39 +96,70 @@ const Success = ({order, setOrder}) => {
         flexDirection: 'row',
         width: 'inherit ',
         marginTop: '0',
+        maxHeight: '90vh',
+        overflowY: 'scroll',
         }}>
 
-        <CardContent sx={{
+<CardContent sx={{
                   backgroundColor: '#F5F5F5',
                   color: '#333333',
                   display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-around',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'left',
                   minHeight: '70px',
-                  width: 'inherit',
+                  maxHeight: '20vh',
                   borderBottom: "1px solid #666666",
-                  paddingLeft: '5vw',
-                  paddingRight: '20vw'
-
-
+                  paddingLeft: '5vh',
+                  width: 'inherit',
                   }}>
+                    
+                    <Box
+                      component="img"
+                      sx={{
+                        maxHeight: '20vh',
+                        maxWidth:  "20vw",
+                        padding: "15px 5px 15px 5px"
+                      }}
+                      alt="Product Image"
+                      src={orderProduct.image}
+                      />
+                    <Box sx={{
+                  backgroundColor: '#F5F5F5',
+                  color: '#333333',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                  minHeight: '70px',
+                  paddingLeft: '1rem'
+                  }}>
+                    <Typography variant="h6"
+                    ></Typography>
+                    <Typography
+                      variant="h6"
+                      ># Ordered: {orderProduct.quantity}</Typography>
 
-
-            <Typography variant="h5">Product Id:  {orderProduct.productId}</Typography>
-            <Typography variant="h6">Quantity: {orderProduct.quantity}</Typography>
-
-        </CardContent>
+                          </Box>
+                </CardContent>
 
     </Card>
   )})}
-
          
          <Link to='/products' sx={{
-            marginTop: '1rem'
+            marginTop: '1rem',
          }}>
             
-             <Button variant="contained"> <ShoppingBagTwoTone /> View Products
+             <Button variant="contained" sx={{
+                backgroundColor: '#457B9D',
+                transition: 'background-color 0.3s ease',
+                marginTop: '3rem',
+                marginLeft: '45vw',
+
+    '&:hover': {
+        backgroundColor: '#457B9D',
+      boxShadow: '3px 5px 5px 3px #1D3557;',}
+             }}> <ShoppingBagTwoTone /> Products
              </Button>
          </Link>
         
