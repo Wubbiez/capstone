@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {Button} from "@mui/material";
 
-<EditOrderProductButton orderProductId={product.product_id} price={product.price}
-                        quantity={1} />
+// <EditOrderProductButton orderProductId={product.product_id} price={product.price}
+//                         quantity={1} />
 function EditOrderProductButton({orderProductId: id, price, quantity}) {
     const [isEditing, setIsEditing] = useState(false);
 

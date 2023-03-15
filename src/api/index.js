@@ -11,6 +11,8 @@ const { JWT_SECRET } = process.env;
 
 const apiRouter = express.Router();
 
+
+
 apiRouter.use(async (req, res, next) => {
     const prefix = "Bearer ";
     const auth = req.header("Authorization");
@@ -21,10 +23,10 @@ apiRouter.use(async (req, res, next) => {
         const token = auth.slice(prefix.length);
 
         try {
-            const { id } = jwt.verify(token, JWT_SECRET);
+            const decodedToken = jwt.verify(token, JWT_SECRET);
 
-            if (id) {
-                req.user = await getUserById(id);
+            if (decodedToken.user_id) {
+                req.user = await getUserById(decodedToken.user_id);
                 next();
             }
         } catch ({ name, message }) {
@@ -69,5 +71,6 @@ apiRouter.use((error, req, res, next) => {
         message: error.message,
     });
 });
+
 
 export default apiRouter;

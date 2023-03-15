@@ -37,9 +37,14 @@ export async function getOrderProductByOrderIdAndProductId(orderId, productId) {
 }
 
 export async function updateProduct(id, title, description, price, image, inStock, category, stripe_id) {
+    const token = localStorage.getItem('user-token');
+
     const response = await fetch(`http://localhost:3001/api/products/${id}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({ id, title, description, price, image, inStock, category, stripe_id }),
     });
     const product = await response.json();
@@ -144,50 +149,46 @@ export async function loginUser(username, password) {
 
 }
 
+export async function getOrdersByUserId(userId) {
+    const response = await fetch(`http://localhost:3001/api/orders/users/${userId}`);
+    const orders = await response.json();
+    return orders;
+}
 
+export async function getUserByUsername(username) {
+    const response = await fetch(`http://localhost:3001/api/users/${username}`);
+    const user = await response.json();
+    return user;
+}
 
-// export async function attachOrderProductToOrder(orderId, orderProductId) {
-//     const response = await fetch(`http://localhost:3001/api/cart/${orderId}/items`, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ orderProductId }),
-//     });
-//     const orderProduct = await response.json();
-//     return orderProduct;
-// }
+export async function getAllUsers() {
+    const token = localStorage.getItem('user-token');
+    const response = await fetch(
+        `http://localhost:3001/api/users/`,
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+    const users = await response.json();
+    return users;
+}
 
-// export async function addProductToCart(productId) {
-//     const response = await fetch(`http://localhost:3001/api/cart/${productId}`, {
-//         method: "POST",
-//     });
-//     const cart = await response.json();
-//     return cart;
-// }
+export async function updateUser(id, username, email, first_name, last_name, address, phone, is_admin, is_active, password) {
+    console.log()
+    const token = localStorage.getItem('user-token');
 
-
-// export async function addToOrder(userId, status, price, quantity) {
-//     const response = await fetch(`http://localhost:3001/api/orders`, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ userId, status, price, quantity }),
-//     });
-//     const order = await response.json();
-//     return order;
-// }
-
-
-// if(order.find(order_product => order_product.product_id === product_id)) {
-//     quantity = incompleteOrder['order_products'].find(order_product => order_product.product_id === product_id).quantity + 1;
-//     const response3 = await fetch(`http://localhost:3001/api/cart/${product_id}`, {
-//         method: 'PUT',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({order_id, product_id, price, quantity}),
-//     });
-//     if (response3.ok) {
-//         const item = await response3.json();
-//         console.log(item);
-//     }
-//     console.log('This item already exists in the order');
-//     return;
-//
-// }
+    const response = await fetch(`http://localhost:3001/api/users/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ id, username, email, first_name, last_name, address, phone, is_admin, is_active, password }),
+    });
+    const user = await response.json();
+    return user;
+}

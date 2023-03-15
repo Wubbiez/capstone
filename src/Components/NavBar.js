@@ -31,7 +31,7 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [settings, setSettings] = useState([
     { label: 'Profile', onClick: () => console.log('Profile clicked') },
-    { label: 'Account', onClick: () => console.log('Account clicked') },
+    { label: 'Order History', onClick: () => window.location.href="/orderhistory" },
     { label: 'Logout', onClick: () => handleLogout(setToken,setIsAdmin) }
   ]);
 
@@ -66,16 +66,16 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
     setHasToken(Boolean(token));
     if (!token) {
       // If there's no token, update the settings to remove the "Logout" option
-      setSettings(settings.filter(setting => setting.label !== "Logout"));
+      setSettings(settings.filter(setting => setting.label !== "Logout" && setting.label !== "Order History"));
       setSettings(prevSettings => [...prevSettings, { label: 'Sign Up', onClick: () => window.location.href="/signup" }, { label: 'Log In', onClick: () => window.location.href = "/login" }]);
     }
     if(admin){
-      setSettings(prevSettings => [...prevSettings, { label: 'Admin Dashboard', onClick: () => window.location.href = "/admin" }]);
+      setSettings(prevSettings => [{ label: 'Admin Dashboard', onClick: () => window.location.href = "/admin" }, ...prevSettings ]);
     }
     else {
       // If there is a token, make sure the "Logout" option is available
       if (!settings.find(setting => setting.label === "Logout")) {
-        setSettings(prevSettings => [...prevSettings, { label: 'Log Out', onClick: () => handleLogout(setToken,setIsAdmin) }]);
+        setSettings(prevSettings => [...prevSettings, { label: 'Log Out', onClick: () => handleLogout(setToken,setIsAdmin) }, { label: 'Order History', onClick: () => window.location.href="/orderhistory" }]);
       }
     }
   }, [setIsAdmin, setToken]);

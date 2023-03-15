@@ -70,6 +70,8 @@ async function getUserByUsername(username) {
     }
 }
 
+
+
 async function getUserById(userId) {
     try {
         const {
@@ -85,10 +87,39 @@ async function getUserById(userId) {
     }
 }
 
+async function updateUser({user_id, username, email, first_name, last_name, address, phone, is_admin, is_active, password}) {
+    try {
+        const {rows: [user]} = await client.query(`
+            UPDATE users
+            SET username = $1, email = $2, first_name = $3, last_name = $4, address = $5, phone = $6, is_admin = $7, is_active = $8, password = $9
+            WHERE user_id = $10
+            RETURNING user_id, username, email, is_admin, first_name, last_name, address, phone, is_active, password;
+        `, [username, email, first_name, last_name, address, phone, is_admin, is_active, password, user_id]);
+        return user;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+async function getAllUsers() {
+    try {
+        const {rows: users} = await client.query(`
+            SELECT user_id, username, email, is_admin, first_name, last_name, address, phone, is_active, password FROM users;
+        `);
+        return users;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
 export {
  createUser,
  getUser,
  getUserByUsername,
  bcrypt,
-    getUserById
+    getUserById,
+    updateUser,
+    getAllUsers
 }

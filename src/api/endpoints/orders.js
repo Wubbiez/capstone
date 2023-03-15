@@ -1,6 +1,7 @@
 import express from "express";
 
 import {getAllOrders, getOrderById, destroyOrder, updateOrder, getOrdersByUser, createOrder} from "../../server/db/components/orders.js";
+import {isAdmin} from "./isAdmin.js";
 
 const ordersRouter = express.Router();
 
