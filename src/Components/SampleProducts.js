@@ -55,7 +55,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                                     alignItems: 'center',
                                 }}>
                                     <img src={product.image} alt={product.description}
-                                         style={{maxWidth: '100%', height: 'auto'}}/>
+                                         style={{maxWidth: '100%', maxHeight: 'auto'}}/>
                                     <Typography variant="h1">{product.title}</Typography>
                                     <Typography variant="h4">$ {product.price}</Typography>
                                     <Box sx={{
