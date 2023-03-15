@@ -7,6 +7,13 @@ export async function getAllProducts() {
     return products;
 }
 
+export async function getSingleProduct(id) {
+    const response = await fetch(`http://localhost:3001/api/products/${id}`);
+    const product = await response.json();
+    console.log(product)
+    return product;
+}
+
 export async function updateOrderProduct(productId, price, quantity, orderId) {
     const response = await fetch(`http://localhost:3001/api/cart/${orderId}/${productId}`, {
         method: "PATCH",

@@ -56,7 +56,16 @@ const CheckoutButton = ({order_id}) => {
 
     return (
 
-<Button variant="contained" color="success" onClick={handleClick}>
+<Button variant="contained" onClick={handleClick}
+    sx={{
+        backgroundColor: '#84a98c',
+        color: '#f8edeb',
+        '&:hover': {
+            backgroundColor: '#ccd5ae',
+            color: '#343a40'
+     }
+    }}
+>
     <ShoppingCartCheckoutTwoTone />    Checkout
 </Button>
     );

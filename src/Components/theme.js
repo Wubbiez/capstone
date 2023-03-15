@@ -17,23 +17,50 @@ const theme = createTheme({
     fontFamily: 'Roboto, sans-serif',
     fontSize: 14,
     h1: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      marginBottom: 16,
+      fontFamily: 'acumin-pro',
+      fontWeight: '500',
+      fontStyle: 'normal',
+      letterSpacing: '0em',
+      textTransform: 'none',
+      lineHeight: '1.4em',
+      fontSize: '2.8rem'
     },
     h2: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      marginBottom: 12,
+      fontFamily: 'acumin-pro',
+      fontWeight: '500',
+      fontStyle: 'normal',
+      letterSpacing: '0em',
+      textTransform: 'none',
+      lineHeight: '1.4em',
+      fontSize: '2rem'
     },
     h4: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      marginBottom: 10,
+      fontfamily: 'Poppins',
+      fontWeight: '300',
+      fontStyle: 'normal',
+      letterSpacing: '0em',
+      textTransform: 'none',
+      lineHeight: '1.8em',
+      fontSize: '1.5rem'
+    },
+    h5: {
+      fontfamily: 'Poppins',
+      fontWeight: '300',
+      fontStyle: 'normal',
+      letterSpacing: '0em',
+      textTransform: 'none',
+      lineHeight: '1.4em',
+      fontSize: '1.2rem'
     },
     p: {
-      fontSize: '16px',
-      marginBottom: '10px',
+      fontfamily: 'Poppins',
+      fontWeight: '200',
+      fontStyle: 'normal',
+      letterSpacing: '0em',
+      textTransform: 'none',
+      lineHeight: '1.2em',
+      fontSize: '1rem',
+      paddingTop: '0.3rem'
     },
 
     body1: {

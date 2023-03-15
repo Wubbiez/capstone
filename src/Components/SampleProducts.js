@@ -41,18 +41,26 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
         <React.Fragment>
 
             <Grid container spacing={2} sx={{
-                                      backgroundColor: '#f5f5f5'
+                                      backgroundColor: '#f4eee9',
+                                      display: 'flex',
+                                flexWrap: 'wrap',
+                                marginLeft: '-10px',
+                                marginRight: '-10px',
             }}>
                 {products.sort((a, b) => a.product_id - b.product_id).map((product) => {
 
                     return (
                         <Grid item xs={12} sm={6} md={4} lg={3} key={product.product_id}>
-                            <Card>
+                            <Card sx={{maxHeight: '50vh',
+                              flex: '1',
+                            backgroundColor: '#fff'}}>
                                 <CardContent sx={{
                                     display: 'flex',
-                                    flexFlow: 'column',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
+                                    flexWrap: 'wrap',
+                                    flexDirection: 'column',
+                                    marginLeft: '-10px',
+                                    marginRight: '-10px',
+                                    paddingLeft: '2vw'
                                 }}>
                                     <img src={product.image} alt={product.description}
                                          style={{maxWidth: '100%', maxHeight: 'auto'}}/>
@@ -81,28 +89,19 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                                                             refresh={refresh}
                                                             setRefresh={setRefresh}
                                             />
-                                        <AddToOrderButton userId={1} product_id={product.product_id} status="created"
-                                                        price={product.price} quantity={1} setOrder={setOrder}
-                                                        stripe_id={product.stripe_id} order_id={order} setRefresh={setRefresh}
-
-                                        />
-
-                            
-                                            
-                                        <Box display="flex" alignItems="center" justifyContent="center"
-                                            style={{margin: '8px 0'}}>
-                                            <UpdateQuantityButton order_id={order} orderProductId={product.product_id}
-                                                                price={product.price} setRefresh={setRefresh} refresh={refresh}/>
-                                        </Box>
                                         
-                                        <Box display="flex" alignItems="center" justifyContent="center"
-                                            style={{margin: '8px 0'}}>
+                                        {/* <Box display="flex" alignItems="center" justifyContent="center"
+                                            style={{margin: '8px 0',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            backgroundColor: '#A8DADC'}}>
+                                                Admin Tools
                                             { isAdmin &&   <EditProductButton variant="contained" color="secondary" title={product.title}
                                                            description={product.description}
                                                            price={product.price} image={product.image}
                                                            product_id={product.product_id} category={product.category}
                                                            in_stock={product.in_stock} stripeId={product.stripe_id} /> }
-                                        </Box>
+                                        </Box> */}
                                         
                                         <Box display="flex" alignItems="center" justifyContent="center"
                                             style={{margin: '8px 0'}}>
@@ -110,10 +109,9 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                                         </Box>
                                          <Box display="flex" alignItems="center" justifyContent="center"
                                          style={{margin: '8px 0'}}>
-                                        <DeleteOrderProductButton product_id={product.product_id} order_id={order} setRefresh={setRefresh} />
                                     </Box>
                                      {order && <Box display="flex" alignItems="center" justifyContent="center" style={{margin: '8px 0'}}>
-                                        <EmptyCartButton order_id={order} setRefresh={setRefresh} />
+
                                     </Box>}
                                     </Box>
 
