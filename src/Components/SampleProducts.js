@@ -63,8 +63,8 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                                     paddingLeft: '2vw'
                                 }}>
                                     <img src={product.image} alt={product.description}
-                                         style={{maxWidth: '50%', height: 'auto'}}/>
-                                    <Typography variant="h2">{product.title}</Typography>
+                                         style={{maxWidth: '100%', maxHeight: 'auto'}}/>
+                                    <Typography variant="h1">{product.title}</Typography>
                                     <Typography variant="h4">$ {product.price}</Typography>
                                     <Box sx={{
                                     display: 'flex',
