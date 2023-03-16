@@ -8,7 +8,6 @@ import{config} from "dotenv";
 config();
 
 
-
 const app = express();
 
 // Middleware
@@ -16,23 +15,8 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 
-//admin authorization
-export async function is_admin (req, res, next) {
-   if (req.user.role === "is_admin") {
-    return next();
-   }else{
-    res.status.json({error: "Sorry But You Can't Do That!"})
-   }
-};
-
-
-// Routes
-
-
 app.post('/success', async (req, res) => {
     const { session_id } = req.query;
-    console.log(session_id);
-    console.log("session_id", session_id);
     try {
         const stripe = stripe0(process.env.STRIPE_API_KEY);
         const session = await stripe.checkout.sessions.retrieve(session_id);
@@ -43,7 +27,7 @@ app.post('/success', async (req, res) => {
             // res.redirect(`/orders/${order_id}`);
         } else {
             console.log('Payment not successful');
-            res.redirect('/cancel');
+            res.redirect('/products');
         }
     } catch (error) {
         console.error('Error in stripe checkout', error);
@@ -52,6 +36,14 @@ app.post('/success', async (req, res) => {
 });
 
 app.use("/api", apiRouter);
+
+app.use((req, res, next) => {
+    console.log("<____Body Logger START____>");
+    console.log(req.body);
+    console.log("<_____Body Logger END_____>");
+
+    next();
+});
 
 // Error handling
 app.use((err, req, res, next) => {

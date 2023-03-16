@@ -7,7 +7,7 @@ import {
 } from "../../api/apirequests.js";
 import { Typography } from "@mui/material";
 
-function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , refresh}) {
+function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , refresh, setRefreshCart}) {
     const [isUpdating, setIsUpdating] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const [isInCart, setIsInCart] = useState(false);
@@ -19,21 +19,24 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
                     order_id,
                     orderProductId
                 );
-                if (quantity) {
+                if (quantity>0) {
                     setQuantity(quantity);
                     setIsInCart(true);
                 } else {
-                    setQuantity(1);
+                    setQuantity(0);
                     setIsInCart(false);
                 }
             } catch (error) {
                 console.error(error);
             }
+
         }
+        setRefresh(false);
         getQuantity();
     }, [orderProductId, order_id, refresh]);
 
     async function handleDecrementClick() {
+
         if (quantity > 1 && !isUpdating) {
             setIsUpdating(true);
             try {
@@ -45,6 +48,8 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
             }
             setIsUpdating(false);
         }
+        setRefresh(true);
+        setRefreshCart(true);
     }
 
     async function handleIncrementClick() {
@@ -59,6 +64,8 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
             }
             setIsUpdating(false);
         }
+        setRefresh(true);
+        setRefreshCart(true);
     }
 
     return (
@@ -67,9 +74,15 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
                 <>
                     <Button
                         variant="contained"
-                        color="primary"
                         disabled={quantity === 1 || isUpdating}
                         onClick={handleDecrementClick}
+                        sx={{backgroundColor: '#457B9D',
+        color: '#F1FAEE',
+        '&:hover': {
+            backgroundColor: '#F1FAEE',
+            color: '#457B9D'
+     }
+    }}
                     >
                         -
                     </Button>
@@ -78,9 +91,15 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
                     </Typography>
                     <Button
                         variant="contained"
-                        color="primary"
                         disabled={isUpdating}
                         onClick={handleIncrementClick}
+                        sx={{backgroundColor: '#84a98c',
+        color: '#F1FAEE',
+        '&:hover': {
+            backgroundColor: '#F1FAEE',
+            color: '#84a98c'
+     }
+    }}
                     >
                         +
                     </Button>
@@ -88,6 +107,7 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
             )}
         </>
     );
+
 }
 
 export default UpdateQuantityButton;

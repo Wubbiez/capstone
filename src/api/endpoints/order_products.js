@@ -1,23 +1,21 @@
 import express from "express";
+import stripe0 from "stripe";
 import {
-    createOrderProduct, destroyOrderProducts, getOrderProductById,
-    updateOrderProduct, getOrderProductsByOrderId, attachOrderProductsToOrder, getOrderProductByOrderIdAndProductId
+    createOrderProduct,
+    destroyOrderProducts,
+    getOrderProductById,
+    updateOrderProduct,
+    getOrderProductsByOrderId,
+    attachOrderProductsToOrder,
+    getOrderProductByOrderIdAndProductId,
+    destroyAllOrderProducts
 } from "../../server/db/components/order_products.js";
+import{config} from "dotenv";
+config();
 
-
-
+const stripe = stripe0(process.env.STRIPE_API_KEY);
 const orderProductsRouter = express.Router();
 
-// orderProductsRouter.get("/", async (req, res, next) => {
-//     try {
-//         const orderProducts = await getAllOrderProducts();
-//
-//         res.send(orderProducts);
-//     } catch (error) {
-//         next(error);
-//     }
-// })
-//
 
 
 orderProductsRouter.get("/:id", async (req, res, next) => {
@@ -30,13 +28,23 @@ orderProductsRouter.get("/:id", async (req, res, next) => {
     }
 })
 
+
+
 orderProductsRouter.get("/:order_id/items", async (req, res, next) => {
     try {
         const {order_id} = req.params;
         const orderProducts = await getOrderProductsByOrderId(order_id);
-        console.log(orderProducts);
+
         const attach = await attachOrderProductsToOrder(order_id);
-        res.send(orderProducts);
+        const result = orderProducts.map((op) => {
+            const product = attach.find((a) => a.productId === op.productId);
+            return {
+                ...op,
+                title: product ? product.title : null,
+            };
+        });
+console.log(result)
+        res.send(result);
     } catch (error) {
         next(error);
     }
@@ -85,6 +93,16 @@ console.log(productId, order_id)
         const orderProduct = await destroyOrderProducts(productId, order_id);
         console.log(orderProduct);
         res.send(orderProduct);
+    } catch (error) {
+        next(error);
+    }
+})
+
+orderProductsRouter.delete("/:order_id", async (req, res, next) => {
+    try {
+        const {order_id} = req.params;
+        const orderProducts = await destroyAllOrderProducts(order_id);
+        res.send(orderProducts);
     } catch (error) {
         next(error);
     }

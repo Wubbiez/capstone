@@ -1,19 +1,19 @@
 import { Box, Container, Stack } from "@mui/material";
 import React from "react";
-import Catagory from './Catagory.js';
+import Category from './Category.js';
 import Back from './Back.js';
-import Rightbar from './Rightbar.js';
+
 import NavBar from "./NavBar.js";
-import Footer from './Footer.js';
+
 
 
 const Main = () => {
   return (
     <Box>
-        <NavBar />
+      
       <Back />
       <Container>
-        <Catagory />
+        <Category />
         
         <hr />
         <Stack
@@ -23,8 +23,8 @@ const Main = () => {
         >
          
           <Box flex={1}>
-            <Rightbar />
-            <Footer />
+            
+            
           </Box>
         </Stack>
       </Container>
