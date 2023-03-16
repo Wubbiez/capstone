@@ -7,7 +7,7 @@ import {
 } from "../../api/apirequests.js";
 import { Typography } from "@mui/material";
 
-function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , refresh}) {
+function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , refresh, setRefreshCart}) {
     const [isUpdating, setIsUpdating] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const [isInCart, setIsInCart] = useState(false);
@@ -49,6 +49,7 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
             setIsUpdating(false);
         }
         setRefresh(true);
+        setRefreshCart(true);
     }
 
     async function handleIncrementClick() {
@@ -64,6 +65,7 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
             setIsUpdating(false);
         }
         setRefresh(true);
+        setRefreshCart(true);
     }
 
     return (

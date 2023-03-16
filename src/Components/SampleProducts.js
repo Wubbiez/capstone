@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {useLocation} from "react-router-dom";
 import {Link} from "react-router-dom";
 import {Card, Paper, Grid, styled, Typography, Button, CardContent, Box, Popover} from "@mui/material";
 import AddToOrderButton from "./Buttons/AddToOrderButton.js";
@@ -11,19 +12,24 @@ import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
 import CheckoutButton from "./Buttons/CheckoutButton.js";
 import SingleProductModal from "./SingleProductModal.js";
 import EmptyCartButton from "./Buttons/EmptyCartButton.js";
-import Category from "./Category.js";
-function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
+import category from "./Category.js";
+
+function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshCart}) {
     const [products, setProducts] = useState([]);
     const [refresh, setRefresh] = useState(false);
+    const location = useLocation();
+    const category = new URLSearchParams(location.search).get('category');
     const [category, setCategory] = useState(null);
+    
     const [anchorEl, setAnchorEl] = useState(null);
     const [popoverTimeout, setPopoverTimeout] = useState(null);
     const [open, setOpen] = useState(false);
 
 
 
-
     useEffect(() => {
+
+
         if (!order) {
             const order_id = localStorage.getItem('order_id');
             if (order_id) {
@@ -49,7 +55,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
 
     return (
         <React.Fragment>
-            <Category setCategory={setCategory} />
+
             <Grid container spacing={2} sx={{
                 backgroundColor: '#f4eee9',
                 display: 'flex',
@@ -151,6 +157,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                                         stripe_id={product.stripe_id}
                                         refresh={refresh}
                                         setRefresh={setRefresh}
+                                        setRefreshCart={setRefreshCart}
                                         /> 
                                             <Box display="flex" alignItems="center" justifyContent="center"
                                                 style={{margin: '8px 0',

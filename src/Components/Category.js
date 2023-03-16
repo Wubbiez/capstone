@@ -5,6 +5,7 @@ import LapTop from "../Components/Images/laptop.png";
 import Fridge from "../Components/Images/fridge.jpg";
 import VideoGame from "../Components/Images/video_game.jpeg";
 import Tv from "../Components/Images/tv.jpeg";
+import {Link} from "react-router-dom";
 
 
 const StyledBox = styled(Box)({
@@ -22,13 +23,9 @@ const StyledTypography = styled(Typography)({
     background: "white",
     opacity: "0.8",
 });
-const Category = ({setCategory}) => {
 
-    const handleClick = (categoryName) => {
-        categoryName.toUpperCase();
-        setCategory(categoryName);
-        console.log(categoryName)
-    };
+const Category = () => {
+
 
     return (
         <Box>
@@ -37,45 +34,40 @@ const Category = ({setCategory}) => {
                 spacing={{ xs: 1, sm: 2, md: 4 }}
                 mt={6}
             >
-                <StyledBox
-                    sx={{ backgroundImage: `url(${Fridge})` }}
-                    onClick={() => handleClick("FRIDGE")}
-                >
-                    <StyledTypography align="center" variant="h6">
-                        Refrigerator
-                    </StyledTypography>
+                <StyledBox sx={{ backgroundImage: `url(${Fridge})` }}>
+                    <Link to="/products?category=FRIDGE">
+                        <StyledTypography align="center" variant="h6">
+                            Refrigerator
+                        </StyledTypography>
+                    </Link>
                 </StyledBox>
-                <StyledBox
-                    sx={{ backgroundImage: `url(${LapTop})` }}
-                    onClick={() => handleClick("LAPTOP")}
-                >
-                    <StyledTypography align="center" variant="h6">
-                        Laptops
-                    </StyledTypography>
+                <StyledBox sx={{ backgroundImage: `url(${LapTop})` }}>
+                    <Link to="/products?category=LAPTOP">
+                        <StyledTypography align="center" variant="h6">
+                            Laptops
+                        </StyledTypography>
+                    </Link>
                 </StyledBox>
-                <StyledBox
-                    sx={{ backgroundImage: `url(${Watch})` }}
-                    onClick={() => handleClick("SMART-WATCHES")}
-                >
-                    <StyledTypography align="center" variant="h6">
-                        Smart-Watches
-                    </StyledTypography>
+                <StyledBox sx={{ backgroundImage: `url(${Watch})` }}>
+                    <Link to="/products?category=SMART-WATCHES">
+                        <StyledTypography align="center" variant="h6">
+                            Smart-Watches
+                        </StyledTypography>
+                    </Link>
                 </StyledBox>
-                <StyledBox
-                    sx={{ backgroundImage: `url(${VideoGame})` }}
-                    onClick={() => handleClick("VIDEO-GAMES")}
-                >
-                    <StyledTypography align="center" variant="h6">
-                        Video-Games
-                    </StyledTypography>
+                <StyledBox sx={{ backgroundImage: `url(${VideoGame})` }}>
+                    <Link to="/products?category=VIDEO-GAMES">
+                        <StyledTypography align="center" variant="h6">
+                            Video-Games
+                        </StyledTypography>
+                    </Link>
                 </StyledBox>
-                <StyledBox
-                    sx={{ backgroundImage: `url(${Tv})` }}
-                    onClick={() => handleClick("TV")}
-                >
-                    <StyledTypography align="center" variant="h6">
-                        TV's
-                    </StyledTypography>
+                <StyledBox sx={{ backgroundImage: `url(${Tv})` }}>
+                    <Link to="/products?category=TV">
+                        <StyledTypography align="center" variant="h6">
+                            TV's
+                        </StyledTypography>
+                    </Link>
                 </StyledBox>
             </Stack>
         </Box>
