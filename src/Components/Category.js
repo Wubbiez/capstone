@@ -1,10 +1,10 @@
 import { Box, Stack, styled, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-// import Watch from "../Components/Images/watch.jpg";
-// import LapTop from "../Components/Images/laptop.png";
-// import Fridge from "../Components/Images/fridge.jpg";
-// import VideoGame from "../Components/Images/video_game.jpeg";
-// import Tv from "../Components/Images/tv.jpeg";
+import Watch from "../Components/Images/watch.jpg";
+import LapTop from "../Components/Images/laptop.png";
+import Fridge from "../Components/Images/fridge.jpg";
+import VideoGame from "../Components/Images/video_game.jpeg";
+import Tv from "../Components/Images/tv.jpeg";
 
 
 const StyledBox = styled(Box)({
@@ -38,7 +38,7 @@ const Category = ({setCategory}) => {
                 mt={6}
             >
                 <StyledBox
-                    // sx={{ backgroundImage: `url(${Fridge})` }}
+                    sx={{ backgroundImage: `url(${Fridge})` }}
                     onClick={() => handleClick("FRIDGE")}
                 >
                     <StyledTypography align="center" variant="h6">
@@ -46,7 +46,7 @@ const Category = ({setCategory}) => {
                     </StyledTypography>
                 </StyledBox>
                 <StyledBox
-                    // sx={{ backgroundImage: `url(${LapTop})` }}
+                    sx={{ backgroundImage: `url(${LapTop})` }}
                     onClick={() => handleClick("LAPTOP")}
                 >
                     <StyledTypography align="center" variant="h6">
@@ -54,7 +54,7 @@ const Category = ({setCategory}) => {
                     </StyledTypography>
                 </StyledBox>
                 <StyledBox
-                    // sx={{ backgroundImage: `url(${Watch})` }}
+                    sx={{ backgroundImage: `url(${Watch})` }}
                     onClick={() => handleClick("SMART-WATCHES")}
                 >
                     <StyledTypography align="center" variant="h6">
@@ -62,7 +62,7 @@ const Category = ({setCategory}) => {
                     </StyledTypography>
                 </StyledBox>
                 <StyledBox
-                    // sx={{ backgroundImage: `url(${VideoGame})` }}
+                    sx={{ backgroundImage: `url(${VideoGame})` }}
                     onClick={() => handleClick("VIDEO-GAMES")}
                 >
                     <StyledTypography align="center" variant="h6">
@@ -70,7 +70,7 @@ const Category = ({setCategory}) => {
                     </StyledTypography>
                 </StyledBox>
                 <StyledBox
-                    // sx={{ backgroundImage: `url(${Tv})` }}
+                    sx={{ backgroundImage: `url(${Tv})` }}
                     onClick={() => handleClick("TV")}
                 >
                     <StyledTypography align="center" variant="h6">

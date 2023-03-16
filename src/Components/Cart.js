@@ -69,14 +69,14 @@ const [isOpen, setIsOpen] = useState(false);
           boxShadow: '1px 2px 1px 1px #F1FAEE;',}
                  }}>
         <ShoppingCartTwoTone /> ({Number(
-    orderProducts.reduce(
-        (total, orderProduct) =>
+          orderProducts.reduce(
+          (total, orderProduct) =>
             total + orderProduct.quantity,
-        0
-    )
-).toFixed(0)}
+            0
         )
-              </Button>
+        ).toFixed(0)}
+            )
+                  </Button>
 
 
 
