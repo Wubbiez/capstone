@@ -139,7 +139,7 @@ async function createInitialProducts() {
 
 async function seedProducts() {
     const csvData = await fs.promises.readFile('./src/server/db/excelData/bbfridges.csv', 'utf8');
-    const rows = csvData.trim().split('\n');
+    const rows = csvData.trim().split(/\r?\n/);
     const headers = rows.shift().split(',');
     const tableName = 'products';
 

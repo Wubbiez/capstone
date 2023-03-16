@@ -11,9 +11,11 @@ import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
 import CheckoutButton from "./Buttons/CheckoutButton.js";
 import SingleProductModal from "./SingleProductModal.js";
 import EmptyCartButton from "./Buttons/EmptyCartButton.js";
+import Category from "./Category.js";
 function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
     const [products, setProducts] = useState([]);
     const [refresh, setRefresh] = useState(false);
+    const [category, setCategory] = useState(null);
 
 
 
@@ -24,22 +26,26 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                 setOrder(order_id);
             }
         }
-            const checkAdmin = localStorage.getItem('user-is_admin');
-        if(checkAdmin==="true"){
+        const checkAdmin = localStorage.getItem('user-is_admin');
+        if (checkAdmin === "true") {
             setIsAdmin(true);
         }
         getAllProducts().then((products) => {
             products = products.filter(product => product.in_stock === true)
+            console.log(products);
+            if(category) {
+                products = products.filter(product => product.category === category)
+            }
             setProducts(products);
         });
         setRefresh(false);
-    }, [order, setOrder, refresh, isAdmin]);
+    }, [order, setOrder, refresh, isAdmin, category]);
 
 
 
     return (
         <React.Fragment>
-
+            <Category setCategory={setCategory} />
             <Grid container spacing={2} sx={{
                                       backgroundColor: '#f4eee9',
                                       display: 'flex',
