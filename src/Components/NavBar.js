@@ -91,8 +91,9 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder, token, refreshCart, setR
           {isMatch ? (
             <>
               <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>
-                The BroZ Store
+                GadgetGalaxy
               </Typography>
+              <Cart order={order} setOrder={setOrder} />
               <DrawerComp />
 
             </>

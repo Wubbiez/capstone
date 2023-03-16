@@ -37,8 +37,9 @@ function SingleProductModal({product_id, title, description, price, image, in_st
               transition: 'background-color 0.3s ease',
 
               '&:hover': {
-              backgroundColor: '#457B9D',
-              boxShadow: '1px 2px 1px 1px #F1FAEE;',}
+              backgroundColor: '#A8DADC',
+              color: '#333333',
+              boxShadow: '1px 2px 1px 1px #1D3557;',}
            }}>
             {'Quick View'}
         </Button>
@@ -57,14 +58,16 @@ function SingleProductModal({product_id, title, description, price, image, in_st
           <Paper sx={{
             margin: "5vh 10vw 5vh 10vw",
             boxShadow: "10px 10px 2px 1px rgba(0, 0, 0, 0.2)",
-            height: "60vh",
+            height: "80vh",
             maxHeight: "85vh",
             maxWidth: "75vw",
             padding: "5vh 10px 10px 10px",
             display: 'flex',
             flexDirection: 'row',
+            flex: '1',
             backgroundColor: '#fff',
-            position: 'relative'
+            position: 'relative',
+            
           }}>
             <Box
         component="img"
@@ -79,9 +82,11 @@ function SingleProductModal({product_id, title, description, price, image, in_st
       <Box sx={{
                       display: 'flex',
                       flexDirection: 'column',
+                      flex: '1',
                       paddingLeft: '3rem',
                       paddingRight: '3rem',
                       paddingTop: '3rem',
+                      backgroundColor: 'red'
                     }}>
             <Typography variant='h1'>{title}</Typography>
             
@@ -96,7 +101,8 @@ function SingleProductModal({product_id, title, description, price, image, in_st
               justifyContent: 'center',
               display: 'flex',
               flexDirection: 'column',
-              maxWidth: '50%'
+              maxWidth: '50%',
+              flex: '1',
             }}>
             <Button onClick={handleCloseModal} s sx={{
           backgroundColor: "#333333",
@@ -106,7 +112,7 @@ function SingleProductModal({product_id, title, description, price, image, in_st
         }}>X</Button>
 
 
-<AddToOrderButton userId={1} product_id={product_id} status="created"
+<AddToOrderButton userId={3} product_id={product_id} status="created"
                                                         price={price} quantity={1} setOrder={setOrder}
                                                         stripe_id={stripe_id} order_id={order} setRefresh={setRefresh} setRefreshCart={setRefreshCart}
 
@@ -121,13 +127,18 @@ function SingleProductModal({product_id, title, description, price, image, in_st
                                         </Box>
             <Button variant="contained" component={Link}
                                             to={`/products/${product_id}`}  sx={{
-                                              backgroundColor: '#457B9D',
-                                              transition: 'background-color 0.3s ease',
-                                
-                                              '&:hover': {
-                                              backgroundColor: '#457B9D',
-                                              boxShadow: '1px 2px 1px 1px #1D3557;',}
-                                           }}>View Full Item</Button>
+                boxSizing: 'border-box',
+                backgroundColor: '#457B9D',
+                padding: '1.8em 4.6em',
+                transition: 'background-color 0.3s ease',
+  
+                '&:hover': {
+                boxSizing: 'border-box',
+                backgroundColor: '#A8DADC',
+                color: '#333333',
+                boxShadow: '1px 2px 1px 1px #1D3557;',
+                padding: '1.8em 4.6em',}
+             }}>View Full Item</Button>
             </ButtonGroup>
       </Box>
           </Paper>

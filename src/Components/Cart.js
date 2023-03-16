@@ -57,7 +57,7 @@ const [isOpen, setIsOpen] = useState(false);
 
   return (
       <React.Fragment>
-          {orderProducts.length > 0 ? (
+
               <Button
                   variant="contained"
                   onClick={handleOpenCart}
@@ -70,15 +70,15 @@ const [isOpen, setIsOpen] = useState(false);
           boxShadow: '1px 2px 1px 1px #F1FAEE;',}
                  }}>
         <ShoppingCartTwoTone /> ({Number(
-    orderProducts.reduce(
-        (total, orderProduct) =>
+          orderProducts.reduce(
+          (total, orderProduct) =>
             total + orderProduct.quantity,
-        0
-    )
-).toFixed(0)}
+            0
         )
-              </Button>
-          ) : null}
+        ).toFixed(0)}
+            )
+                  </Button>
+
 
 
 
@@ -93,8 +93,10 @@ const [isOpen, setIsOpen] = useState(false);
       maxHeight: "85vh",
       width: "75vw",
       overflowY: 'scroll',
-      disply: 'flex',
-      flexDirection: 'column'
+      overflowX: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+      flex: '1',
     }}
     open={isOpen}>
       <Box 
@@ -103,13 +105,24 @@ const [isOpen, setIsOpen] = useState(false);
         sx={{
           backgroundColor: '#1D3557',
           color: '#f8edeb',
-          width: '100%',
+          width: '75vw',
           textAlign: 'center',
           justifyContent: "center",
+          
         }}
         >
           <Typography variant='h4' component='div' sx={{color: '#f8edeb'}}> My Cart</Typography>
-          <CheckoutButton  order_id={order}/>
+          <Typography variant="h4">
+            Order Total: $ {Number(
+            orderProducts.reduce(
+                    (total, orderProduct) =>
+                        total + orderProduct.quantity * orderProduct.price,
+                    0
+                )
+            ).toFixed(2)}
+                                    
+          </Typography>
+          <CheckoutButton  order_id={order} />
           <EmptyCartButton order_id={order} setRefresh={setRefresh} />
           <Button
             onClick={handleCloseCart}
@@ -129,17 +142,19 @@ const [isOpen, setIsOpen] = useState(false);
 
 
 
-        <Grid container spacing={2} style={{ overflowY: 'scroll',
+        <Grid container spacing={2} style={{ 
          display: 'flex',
-         flexDirection: 'column',
-                    justifyContent: 'center',
+         flexDirection: 'row',
+                    justifyContent: 'left',
                     alignItems: 'center',
                     maxHeight: '85vh',
                     width: '75vw',
+                    overflowY: 'scroll',
+                    overflowX: 'hidden',
                     margin: 0,}}>
 
-
         {orderProducts.length > 0 ? orderProducts.sort((a, b) => a.productId - b.productId).map((orderProduct) => {
+
             console.log("orderProduct is", orderProduct)
 
           return (
@@ -147,11 +162,9 @@ const [isOpen, setIsOpen] = useState(false);
             <Card key={orderProduct.id}
             sx={{
               display: 'flex',
-              flexFlow: 'column',
-              overflowY: 'scroll',
               alignItems: 'center',
               justifyContent: 'space-around',
-              width: '75vw',
+              width: 'inherit',
               marginTop: '0',
               }}>
 
@@ -165,7 +178,6 @@ const [isOpen, setIsOpen] = useState(false);
                   justifyContent: 'space-around',
                   minHeight: '70px',
                   borderBottom: "2px solid #212529",
-                  paddingLeft: '5vh',
                   width: 'inherit',
                   }}>
 
@@ -187,7 +199,6 @@ const [isOpen, setIsOpen] = useState(false);
                   alignItems: 'center',
                   justifyContent: 'space-around',
                   minHeight: '70px',
-                  paddingLeft: '1rem',
                   }}>
                     <Typography variant="h6"
                     sx={{color: '#343a40',}}
@@ -217,7 +228,78 @@ const [isOpen, setIsOpen] = useState(false);
             </Card>
           )}) : null}
 
+        {orderProducts.length > 0 ? orderProducts.map((orderProduct) => {
+            console.log("orderProduct is", orderProduct)
 
+          return (
+          
+            <Card key={orderProduct.id}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+              width: 'inherit',
+              marginTop: '0',
+              }}>
+
+                
+                <CardContent sx={{
+                  backgroundColor: '#F5F5F5',
+                  color: '#333333',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                  minHeight: '70px',
+                  borderBottom: "2px solid #212529",
+                  width: 'inherit',
+                  }}>
+                    
+                    <Box
+                      component="img"
+                      sx={{
+                        maxHeight:"45vh",
+                        maxWidth:  "20vw",
+                        padding: "15px 5px 15px 5px"
+                      }}
+                      alt="Product Image"
+                      src={orderProduct.image}
+                      />
+                    <Box sx={{
+                  backgroundColor: '#F5F5F5',
+                  color: '#343a40',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                  minHeight: '70px',
+                  }}>
+                    <Typography variant="h6"
+                    sx={{color: '#343a40',}}
+                    >{orderProduct.title}</Typography>
+                    <Typography
+                      variant="h6"
+                      sx={{color: '#343a40',
+                                      paddingBottom: '1rem'}}
+                      >${orderProduct.price}</Typography>
+
+                  <CardActions sx={{
+                     display: 'flex',
+                  flexDirection: 'row',
+                     }}>
+                    <UpdateQuantityButton order_id={order}
+                                          orderProductId={orderProduct.productId}
+                                          price={orderProduct.price}
+                                          setRefresh={setRefresh}
+                                          refresh={refresh}
+                    />
+                    <DeleteOrderProductButton order_id={order} product_id={orderProduct.productId} setRefresh={setRefresh} refresh={refresh}/>
+                  </CardActions>
+                  </Box>
+                </CardContent>
+
+            </Card>
+          )}) : null}
         </Grid>
       </Paper>
 </Modal>
