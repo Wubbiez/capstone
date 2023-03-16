@@ -11,11 +11,12 @@ import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
 import CheckoutButton from "./Buttons/CheckoutButton.js";
 import SingleProductModal from "./SingleProductModal.js";
 import EmptyCartButton from "./Buttons/EmptyCartButton.js";
+import Category from './category.js';
+
 function SampleProducts({ order, setOrder, user, setIsAdmin, isAdmin }) {
     const [products, setProducts] = useState([]);
+    const [category, setCategory] = useState(null);
     const [refresh, setRefresh] = useState(false);
-
-
 
     useEffect(() => {
         if (!order) {
@@ -30,20 +31,24 @@ function SampleProducts({ order, setOrder, user, setIsAdmin, isAdmin }) {
         }
         getAllProducts().then((products) => {
             products = products.filter(product => product.in_stock === true)
+            console.log(products);
+            if(category) {
+                products = products.filter(product => product.category === category)
+            }
             setProducts(products);
         });
         setRefresh(false);
-    }, [order, setOrder, refresh, isAdmin]);
-
-
+    }, [order, setOrder, refresh, isAdmin, category]);
 
     return (
         <React.Fragment>
-
+            <Category setCategory={setCategory} />
             <Grid container spacing={2} sx={{
                 backgroundColor: '#f5f5f5'
             }}>
                 {products.sort((a, b) => a.product_id - b.product_id).map((product) => {
+
+                    // const category = category.find(cat => cat.id === product.category);
 
                     return (
                         <Grid item xs={12} sm={6} md={4} lg={3} key={product.product_id}>
@@ -58,11 +63,11 @@ function SampleProducts({ order, setOrder, user, setIsAdmin, isAdmin }) {
                                         style={{ maxWidth: '100%', height: 'auto' }} />
                                     <Typography variant="h1">{product.title}</Typography>
                                     <Typography variant="h4">$ {product.price}</Typography>
+                                    <Typography variant="subtitle1">Category: {category ? category.name : ""}</Typography>
                                     <Box sx={{
                                         display: 'flex',
                                         flexFlow: 'column',
                                         maxWidth: '50%',
-
                                     }}>
                                         <SingleProductModal variant="contained"
                                             userId={1}
@@ -86,9 +91,7 @@ function SampleProducts({ order, setOrder, user, setIsAdmin, isAdmin }) {
                                             stripe_id={product.stripe_id} order_id={order} setRefresh={setRefresh}
 
                                         />
-
-
-
+                                      
                                         <Box display="flex" alignItems="center" justifyContent="center"
                                             style={{ margin: '8px 0' }}>
                                             <UpdateQuantityButton order_id={order} orderProductId={product.product_id}
