@@ -91,28 +91,28 @@ const Success = ({order, setOrder}) => {
 
   return (
   
-    <Card key={orderProduct.id} sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        width: 'inherit ',
-        marginTop: '0',
-        maxHeight: '90vh',
-        overflowY: 'scroll',
-        }}>
+    <Card key={orderProduct.id}
+    sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      width: 'inherit',
+      marginTop: '0',
+      }}>
 
-<CardContent sx={{
-                  backgroundColor: '#F5F5F5',
-                  color: '#333333',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'left',
-                  minHeight: '70px',
-                  maxHeight: '20vh',
-                  borderBottom: "1px solid #666666",
-                  paddingLeft: '5vh',
-                  width: 'inherit',
-                  }}>
+        
+        <CardContent sx={{
+          backgroundColor: '#F5F5F5',
+          color: '#333333',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'start',
+          minHeight: '70px',
+          borderBottom: "2px solid #212529",
+          paddingLeft: '5vh',
+          width: 'inherit',
+          }}>
                     
                     <Box
                       component="img"
@@ -130,9 +130,9 @@ const Success = ({order, setOrder}) => {
                   display: 'flex',
                   flexDirection: 'row',
                   alignItems: 'center',
-                  justifyContent: 'space-around',
+                  justifyContent: 'space-between',
                   minHeight: '70px',
-                  paddingLeft: '1rem'
+                  paddingLeft: '3rem'
                   }}>
                     <Typography variant="h6"
                     ></Typography>
