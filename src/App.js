@@ -13,6 +13,7 @@ import AdminDashboard from "./Components/AdminDashboard.js";
 
 import SingleProductPage from './Components/SingleProductPage.js';
 import OrderHistory from "./Components/OrderHistory.js";
+import Category from "./Components/Category.js";
 
 
 
@@ -29,23 +30,28 @@ const storageIsAdmin = localStorage.getItem(ADMIN_STORAGE_KEY);
 function App() {
   const [order, setOrder] = useState(null);
   const [token, setToken] = useState(storageToken);
-    const [user, setUser] = useState(storageUser);
-    const [isAdmin, setIsAdmin] = useState(storageIsAdmin);
+  const [user, setUser] = useState(storageUser);
+  const [isAdmin, setIsAdmin] = useState(storageIsAdmin);
+  const [refreshCart, setRefreshCart] = useState(false);
+
+
+
+
+
   return (
     <React.Fragment>
     <BrowserRouter>
-    <NavBar setIsAdmin={setIsAdmin} setToken={setToken}  order={order} setOrder={setOrder}/>
+    <NavBar setIsAdmin={setIsAdmin} setToken={setToken}  order={order} setOrder={setOrder} token={token} refreshCart={refreshCart} setRefreshCart={setRefreshCart}/>
       <Routes>
-      <Route
-        path='/'
-        exact element={<SampleProducts order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>}></Route>
+        <Route
+            path='/'
+            exact element={<Category />} />
       <Route
         path='/products'
-        exact element={<SampleProducts order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>}></Route>
+        exact element={<SampleProducts order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin} setRefreshCart={setRefreshCart} />}></Route>
       <Route
         path='/products/:id'
-        exact element={<SingleProductPage order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>}></Route>
-
+        exact element={<SingleProductPage order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>} />
         <Route
         path='/login'
         exact element={<LogIn setToken={setToken} setIsAdmin={setIsAdmin} />}></Route>

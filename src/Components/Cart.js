@@ -15,7 +15,7 @@ import CheckoutButton from './Buttons/CheckoutButton.js';
 import EmptyCartButton from './Buttons/EmptyCartButton.js';
 import { ShoppingCartTwoTone } from '@mui/icons-material';
 
-const Cart = ({order, setOrder}) => {
+const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
 
 
 const [orderProducts, setOrderProducts] = useState([]);
@@ -30,10 +30,11 @@ const [isOpen, setIsOpen] = useState(false);
                 console.log("orderProducts are", orderProducts);
                 setOrderProducts(orderProducts);
                 setRefresh(false);
+                setRefreshCart(false)
                 console.log("orderProducts are still", orderProducts);
             });
         }
-    }, [order, refresh]);
+    }, [order, refresh, refreshCart]);
 
 
     function handleOpenCart() {

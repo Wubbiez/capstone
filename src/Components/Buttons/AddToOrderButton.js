@@ -4,11 +4,12 @@ import {getOrderProductsByOrderId} from "../../api/apirequests.js";
 import { AddShoppingCartTwoTone } from '@mui/icons-material';
 
 
-function AddToOrderButton({userId, product_id, status, price, quantity, stripe_id, setOrder, setRefresh}) {
+function AddToOrderButton({userId, product_id, status, price, quantity, stripe_id, setOrder, setRefresh, setRefreshCart}) {
     const [isAddingToOrder, setIsAddingToOrder] = useState(false);
 
     async function handleClick() {
         setIsAddingToOrder(true);
+
 
         try {
             const response = await fetch(`http://localhost:3001/api/orders?userId=${userId}`, {
@@ -80,6 +81,7 @@ function AddToOrderButton({userId, product_id, status, price, quantity, stripe_i
         }
         setIsAddingToOrder(false);
         setRefresh(true);
+        setRefreshCart(true);
     }
 
     return (

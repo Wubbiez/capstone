@@ -26,7 +26,7 @@ import { Link } from "react-router-dom";
 import {handleLogout} from "./Buttons/LogoutButton.js";
 import Cart from "./Cart.js";
 
-const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
+const NavBar = ({setIsAdmin, setToken, order, setOrder, token, refreshCart, setRefreshCart}) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [settings, setSettings] = useState([
@@ -34,6 +34,7 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
     { label: 'Order History', onClick: () => window.location.href="/orderhistory" },
     { label: 'Logout', onClick: () => handleLogout(setToken,setIsAdmin) }
   ]);
+
 
 
   const [value, setValue] = useState();
@@ -78,7 +79,8 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
         setSettings(prevSettings => [...prevSettings, { label: 'Log Out', onClick: () => handleLogout(setToken,setIsAdmin) }, { label: 'Order History', onClick: () => window.location.href="/orderhistory" }]);
       }
     }
-  }, [setIsAdmin, setToken]);
+
+  }, [setIsAdmin, setToken,token]);
 
 
 
@@ -107,7 +109,7 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
                 <Tab label="Products"  component={Link} to="/products" />
                 <Tab label="Contact" component={Link} to="/contact"/>
               </Tabs>
-              <Cart order={order} setOrder={setOrder} />
+              <Cart order={order} setOrder={setOrder} setRefreshCart={setRefreshCart} refreshCart={refreshCart} />
               <ButtonGroup>
                 <Container maxWidth="xl">
                   <Toolbar disableGutters>

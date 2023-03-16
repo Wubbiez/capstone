@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {useLocation} from "react-router-dom";
 import {Link} from "react-router-dom";
 import {Card, Paper, Grid, styled, Typography, Button, CardContent, Box} from "@mui/material";
 import AddToOrderButton from "./Buttons/AddToOrderButton.js";
@@ -11,15 +12,19 @@ import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
 import CheckoutButton from "./Buttons/CheckoutButton.js";
 import SingleProductModal from "./SingleProductModal.js";
 import EmptyCartButton from "./Buttons/EmptyCartButton.js";
-import Category from "./Category.js";
-function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
+import category from "./Category.js";
+
+function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshCart}) {
     const [products, setProducts] = useState([]);
     const [refresh, setRefresh] = useState(false);
-    const [category, setCategory] = useState(null);
+    const location = useLocation();
+    const category = new URLSearchParams(location.search).get('category');
 
 
 
     useEffect(() => {
+
+
         if (!order) {
             const order_id = localStorage.getItem('order_id');
             if (order_id) {
@@ -45,7 +50,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
 
     return (
         <React.Fragment>
-            <Category setCategory={setCategory} />
+
             <Grid container spacing={2} sx={{
                                       backgroundColor: '#f4eee9',
                                       display: 'flex',
@@ -57,7 +62,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
 
                     return (
                         <Grid item xs={12} sm={6} md={4} lg={3} key={product.product_id}>
-                            <Card sx={{maxHeight: '50vh',
+                            <Card sx={{
                               flex: '1',
                             backgroundColor: '#fff'}}>
                                 <CardContent sx={{
@@ -69,7 +74,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                                     paddingLeft: '2vw'
                                 }}>
                                     <img src={product.image} alt={product.description}
-                                         style={{maxWidth: '100%', maxHeight: 'auto'}}/>
+                                         style={{maxWidth: '50%', maxHeight: 'auto'}}/>
                                     <Typography variant="h1">{product.title}</Typography>
                                     <Typography variant="h4">$ {product.price}</Typography>
                                     <Box sx={{
@@ -94,6 +99,8 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                                                             stripe_id={product.stripe_id}
                                                             refresh={refresh}
                                                             setRefresh={setRefresh}
+                                                            setRefreshCart={setRefreshCart}
+
                                             />
                                         
                                         {/* <Box display="flex" alignItems="center" justifyContent="center"

@@ -15,7 +15,7 @@ import UpdateQuantityButton from "./Buttons/UpdateQuantityButton.js";
 
 
 
-function SingleProductModal({product_id, title, description, price, image, in_stock, category, order, setRefresh, setOrder, stripe_id, refresh}) {
+function SingleProductModal({product_id, title, description, price, image, in_stock, category, order, setRefresh, setOrder, stripe_id, refresh, setRefreshCart}) {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleOpenModal() {
@@ -108,7 +108,7 @@ function SingleProductModal({product_id, title, description, price, image, in_st
 
 <AddToOrderButton userId={1} product_id={product_id} status="created"
                                                         price={price} quantity={1} setOrder={setOrder}
-                                                        stripe_id={stripe_id} order_id={order} setRefresh={setRefresh}
+                                                        stripe_id={stripe_id} order_id={order} setRefresh={setRefresh} setRefreshCart={setRefreshCart}
 
                                         />
 
@@ -117,7 +117,7 @@ function SingleProductModal({product_id, title, description, price, image, in_st
                                         <Box display="flex" alignItems="center" justifyContent="center"
                                             style={{margin: '8px 0'}}>
                                             <UpdateQuantityButton order_id={order} orderProductId={product_id}
-                                                                price={price} setRefresh={setRefresh} refresh={refresh}/>
+                                                                price={price} setRefresh={setRefresh} refresh={refresh} setRefreshCart={setRefreshCart}/>
                                         </Box>
             <Button variant="contained" component={Link}
                                             to={`/products/${product_id}`}  sx={{
