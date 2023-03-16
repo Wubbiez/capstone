@@ -32,7 +32,7 @@ const theme = createTheme({
       letterSpacing: '0em',
       textTransform: 'none',
       lineHeight: '1.4em',
-      fontSize: '2rem'
+      fontSize: '1.6rem'
     },
     h4: {
       fontfamily: 'Poppins',
@@ -41,7 +41,7 @@ const theme = createTheme({
       letterSpacing: '0em',
       textTransform: 'none',
       lineHeight: '1.8em',
-      fontSize: '1.5rem'
+      fontSize: '1.3rem'
     },
     h5: {
       fontfamily: 'Poppins',

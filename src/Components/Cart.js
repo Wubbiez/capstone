@@ -92,7 +92,8 @@ const [isOpen, setIsOpen] = useState(false);
       maxHeight: "85vh",
       width: "75vw",
       overflowY: 'scroll',
-      disply: 'flex',
+      overflowX: 'hidden',
+      display: 'flex',
       flexDirection: 'column'
     }}
     open={isOpen}>
@@ -102,9 +103,12 @@ const [isOpen, setIsOpen] = useState(false);
         sx={{
           backgroundColor: '#1D3557',
           color: '#f8edeb',
-          width: '100%',
+          width: '75vw',
           textAlign: 'center',
           justifyContent: "center",
+          overflowY: 'scroll',
+          overflowX: 'hidden',
+          
         }}
         >
           <Typography variant='h4' component='div' sx={{color: '#f8edeb'}}> My Cart</Typography>
@@ -128,13 +132,15 @@ const [isOpen, setIsOpen] = useState(false);
 
 
 
-        <Grid container spacing={2} style={{ overflowY: 'scroll',
+        <Grid container spacing={2} style={{ 
          display: 'flex',
-         flexDirection: 'column',
-                    justifyContent: 'center',
+         flexDirection: 'row',
+                    justifyContent: 'left',
                     alignItems: 'center',
                     maxHeight: '85vh',
                     width: '75vw',
+                    overflowY: 'scroll',
+                    overflowX: 'hidden',
                     margin: 0,}}>
 
           
@@ -146,11 +152,9 @@ const [isOpen, setIsOpen] = useState(false);
             <Card key={orderProduct.id}
             sx={{
               display: 'flex',
-              flexFlow: 'column',
-              overflowY: 'scroll',
               alignItems: 'center',
               justifyContent: 'space-around',
-              width: '75vw',
+              width: 'inherit',
               marginTop: '0',
               }}>
 

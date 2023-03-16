@@ -5,8 +5,10 @@ import {
     ButtonGroup,
     Typography,
     Paper,
-    Box
+    Box,
+    Breadcrumbs
 } from "@mui/material";
+
 
 
 import AddToOrderButton from "./Buttons/AddToOrderButton.js";
@@ -21,9 +23,6 @@ function SingleProductPage({ order, setOrder, stripe_id}) {
     const [product, setProduct] = useState();
     const [refresh, setRefresh] = useState(false);
    
-    
-
-
     
     useEffect(() => {
 
@@ -44,12 +43,26 @@ function SingleProductPage({ order, setOrder, stripe_id}) {
 
   return (
     <React.Fragment>
+        <Breadcrumbs sx={{
+            paddingTop: '2rem',
+            color: '#333333',
+            fontWeight: 'bold'
+        }}>
+            
+             <Typography variant='h4'>
+             Home
+             </Typography>
+             <Typography variant='h4'>
+             Products
+             </Typography>
+      <Typography variant='h4'>{product.title}</Typography>
+    </Breadcrumbs>
       
         <Box sx={{
 
             height: "100vh",
             width: "100vw",
-            padding: "5vh 10px 10px 10px",
+            padding: "2vh 10px 10px 10px",
             display: 'flex',
             flexDirection: 'row',
             backgroundColor: '#fff',
@@ -58,8 +71,11 @@ function SingleProductPage({ order, setOrder, stripe_id}) {
                 <Box
                     component="img"
                     sx={{
-                    maxHeight:"45vh",
-                    maxWidth:  "20vw",
+                    
+                    minWidth: '200px',
+                    minHeight: '400px',
+                    maxHeight:"80%",
+                    maxWidth:  "80%",
                     padding: "15px 5px 15px 5px"
                     }}
                     alt="title"
@@ -71,6 +87,10 @@ function SingleProductPage({ order, setOrder, stripe_id}) {
                       paddingLeft: '3rem',
                       paddingRight: '3rem',
                       paddingTop: '3rem',
+                      width: '80%',
+                      height: '80%',
+                      maxHeight:"100%",
+                      maxWidth:  "100%",
                     }}>
                         <Typography variant='h1'
                         >{product.title}</Typography>
@@ -92,7 +112,9 @@ function SingleProductPage({ order, setOrder, stripe_id}) {
                                 justifyContent: 'center',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                maxWidth: '50%'
+                                maxWidth: '50%',
+                                position: 'relative'
+                                                      
                             }}>
            
                                 <AddToOrderButton userId={1}
@@ -108,8 +130,17 @@ function SingleProductPage({ order, setOrder, stripe_id}) {
 
 
                             </ButtonGroup>
-                            <UpdateQuantityButton order_id={order} orderProductId={product.product_id}
+                            <Box sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                marginTop: '1.5rem',
+                                paddingRight: '33vw'
+                            }}>
+                                <UpdateQuantityButton order_id={order} orderProductId={product.product_id}
                                                         price={product.price} setRefresh={setRefresh} refresh={refresh}/>
+                            </Box>
                         </Box>
                     </Box>
     </React.Fragment>
