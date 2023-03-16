@@ -138,12 +138,12 @@ const [isOpen, setIsOpen] = useState(false);
                     width: '75vw',
                     margin: 0,}}>
 
-          
-        {orderProducts.length > 0 ? orderProducts.map((orderProduct) => {
+
+        {orderProducts.length > 0 ? orderProducts.sort((a, b) => a.productId - b.productId).map((orderProduct) => {
             console.log("orderProduct is", orderProduct)
 
           return (
-          
+
             <Card key={orderProduct.id}
             sx={{
               display: 'flex',
@@ -155,7 +155,7 @@ const [isOpen, setIsOpen] = useState(false);
               marginTop: '0',
               }}>
 
-                
+
                 <CardContent sx={{
                   backgroundColor: '#F5F5F5',
                   color: '#333333',
@@ -168,7 +168,7 @@ const [isOpen, setIsOpen] = useState(false);
                   paddingLeft: '5vh',
                   width: 'inherit',
                   }}>
-                    
+
                     <Box
                       component="img"
                       sx={{
@@ -207,8 +207,9 @@ const [isOpen, setIsOpen] = useState(false);
                                           price={orderProduct.price}
                                           setRefresh={setRefresh}
                                           refresh={refresh}
+                                          key={`quantity_${orderProduct.id}`}
                     />
-                    <DeleteOrderProductButton order_id={order} product_id={orderProduct.productId} setRefresh={setRefresh} refresh={refresh}/>
+                    <DeleteOrderProductButton order_id={order} product_id={orderProduct.productId} setRefresh={setRefresh} refresh={refresh} key={`delete_${orderProduct.id}`}/>
                   </CardActions>
                   </Box>
                 </CardContent>
