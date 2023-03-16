@@ -91,6 +91,7 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
               <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>
                 GadgetGalaxy
               </Typography>
+              <Cart order={order} setOrder={setOrder} />
               <DrawerComp />
 
             </>

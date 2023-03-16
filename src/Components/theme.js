@@ -14,8 +14,8 @@ const theme = createTheme({
   },
   spacing: 8,
   typography: {
-    fontFamily: 'Roboto, sans-serif',
-    fontSize: 14,
+    fontFamily: 'Poppins, sans-serif',
+    fontSize: '16',
     h1: {
       fontFamily: 'acumin-pro',
       fontWeight: '500',
@@ -59,7 +59,6 @@ const theme = createTheme({
       letterSpacing: '0em',
       textTransform: 'none',
       lineHeight: '1.2em',
-      fontSize: '1rem',
       paddingTop: '0.3rem'
     },
 

@@ -66,7 +66,8 @@ function SingleProductModal({product_id, title, description, price, image, in_st
             flexDirection: 'row',
             flex: '1',
             backgroundColor: '#fff',
-            position: 'relative'
+            position: 'relative',
+            
           }}>
             <Box
         component="img"
@@ -85,6 +86,7 @@ function SingleProductModal({product_id, title, description, price, image, in_st
                       paddingLeft: '3rem',
                       paddingRight: '3rem',
                       paddingTop: '3rem',
+                      backgroundColor: 'red'
                     }}>
             <Typography variant='h1'>{title}</Typography>
             
