@@ -89,7 +89,7 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder}) => {
           {isMatch ? (
             <>
               <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>
-                The BroZ Store
+                GadgetGalaxy
               </Typography>
               <DrawerComp />
 

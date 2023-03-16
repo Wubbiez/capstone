@@ -43,6 +43,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
             <Grid container spacing={2} sx={{
                                       backgroundColor: '#f4eee9',
                                       display: 'flex',
+                                      flexDirection: 'row',
                                 flexWrap: 'wrap',
                                 marginLeft: '-10px',
                                 marginRight: '-10px',
@@ -50,17 +51,30 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                 {products.sort((a, b) => a.product_id - b.product_id).map((product) => {
 
                     return (
-                        <Grid item xs={12} sm={6} md={4} lg={3} key={product.product_id}>
-                            <Card sx={{maxHeight: '50vh',
-                              flex: '1',
-                            backgroundColor: '#fff'}}>
+                        <Grid item xs={12} sm={6} md={4} lg={3} key={product.product_id}sx={{
+                            backgroundColor: '#f4eee9',
+                            display: 'flex',
+                      flexWrap: 'wrap',
+                      marginLeft: '-10px',
+                      marginRight: '-10px',
+  }}>
+                            <Card sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: 'inherit',
+                                paddingLeft: '2vw',
+                                flex: '1',
+                                backgroundColor: '#fff'}}>
                                 <CardContent sx={{
                                     display: 'flex',
                                     flexWrap: 'wrap',
                                     flexDirection: 'column',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'space-between',
                                     marginLeft: '-10px',
                                     marginRight: '-10px',
-                                    paddingLeft: '2vw'
+
                                 }}>
                                     <img src={product.image} alt={product.description}
                                          style={{maxWidth: '100%', maxHeight: 'auto'}}/>
@@ -71,50 +85,62 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                                     flexFlow: 'column',
                                     maxWidth: '50%',
                                     
-                                }}>
-                                        <SingleProductModal variant="contained" 
-                                                            userId={1}
-                                                            order_id={order}
-                                                            title={product.title}
+                                    <Box sx={{marginTop: '3rem',
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                flexDirection: 'column',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'space-between',
+                                    maxWidth: '80%'}}>
+                                        <Typography variant="h2">{product.title}</Typography>
+                                        <Typography variant="h4">$ {product.price}</Typography>
+                                        <Box sx={{
+                                        display: 'flex',
+                                        flexFlow: 'column',
+                                        maxWidth: '100%',
+                                        
+                                        }}>
+                                            <SingleProductModal variant="contained" 
+                                                                userId={3}
+                                                                order_id={order}
+                                                                title={product.title}
+                                                                description={product.description}
+                                                                price={product.price}
+                                                                image={product.image}
+                                                                product_id={product.product_id}
+                                                                category={product.category}
+                                                                in_stock={product.in_stock}
+                                                                status="created"
+                                                                quantity={1}
+                                                                setOrder={setOrder}
+                                                                stripe_id={product.stripe_id}
+                                                                refresh={refresh}
+                                                                setRefresh={setRefresh}
+                                                />
+                                            
+                                            {/* <Box display="flex" alignItems="center" justifyContent="center"
+                                                style={{margin: '8px 0',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                backgroundColor: '#A8DADC'}}>
+                                                    Admin Tools
+                                                { isAdmin &&   <EditProductButton variant="contained" color="secondary" title={product.title}
                                                             description={product.description}
-                                                            price={product.price}
-                                                            image={product.image}
-                                                            product_id={product.product_id}
-                                                            category={product.category}
-                                                            in_stock={product.in_stock}
-                                                            status="created"
-                                                            quantity={1}
-                                                            setOrder={setOrder}
-                                                            stripe_id={product.stripe_id}
-                                                            refresh={refresh}
-                                                            setRefresh={setRefresh}
-                                            />
-                                        
-                                        {/* <Box display="flex" alignItems="center" justifyContent="center"
-                                            style={{margin: '8px 0',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            backgroundColor: '#A8DADC'}}>
-                                                Admin Tools
-                                            { isAdmin &&   <EditProductButton variant="contained" color="secondary" title={product.title}
-                                                           description={product.description}
-                                                           price={product.price} image={product.image}
-                                                           product_id={product.product_id} category={product.category}
-                                                           in_stock={product.in_stock} stripeId={product.stripe_id} /> }
-                                        </Box> */}
-                                        
-                                        <Box display="flex" alignItems="center" justifyContent="center"
+                                                            price={product.price} image={product.image}
+                                                            product_id={product.product_id} category={product.category}
+                                                            in_stock={product.in_stock} stripeId={product.stripe_id} /> }
+                                            </Box> */}
+                                            
+                                            <Box display="flex" alignItems="center" justifyContent="center"
+                                                style={{margin: '8px 0'}}>
+                                                {/*<DeleteProductButton product_id={product.product_id} setRefresh={setRefresh}/>*/}
+                                            </Box>
+
+                                            <Box display="flex" alignItems="center" justifyContent="center"
                                             style={{margin: '8px 0'}}>
-                                            {/*<DeleteProductButton product_id={product.product_id} setRefresh={setRefresh}/>*/}
+                                            </Box>
                                         </Box>
-                                         <Box display="flex" alignItems="center" justifyContent="center"
-                                         style={{margin: '8px 0'}}>
                                     </Box>
-                                     {order && <Box display="flex" alignItems="center" justifyContent="center" style={{margin: '8px 0'}}>
-
-                                    </Box>}
-                                    </Box>
-
                                 </CardContent>
                             </Card>
                         </Grid>
