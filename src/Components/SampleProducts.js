@@ -95,7 +95,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin}) {
                                         
                                         }}>
                                             <SingleProductModal variant="contained" 
-                                                                userId={1}
+                                                                userId={3}
                                                                 order_id={order}
                                                                 title={product.title}
                                                                 description={product.description}

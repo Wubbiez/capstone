@@ -58,7 +58,6 @@ function SingleProductModal({product_id, title, description, price, image, in_st
           <Paper sx={{
             margin: "5vh 10vw 5vh 10vw",
             boxShadow: "10px 10px 2px 1px rgba(0, 0, 0, 0.2)",
-            minWidth: '40vw',
             height: "80vh",
             maxHeight: "85vh",
             maxWidth: "75vw",
@@ -111,7 +110,7 @@ function SingleProductModal({product_id, title, description, price, image, in_st
         }}>X</Button>
 
 
-<AddToOrderButton userId={1} product_id={product_id} status="created"
+<AddToOrderButton userId={3} product_id={product_id} status="created"
                                                         price={price} quantity={1} setOrder={setOrder}
                                                         stripe_id={stripe_id} order_id={order} setRefresh={setRefresh}
 

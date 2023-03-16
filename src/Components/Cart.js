@@ -112,6 +112,10 @@ const [isOpen, setIsOpen] = useState(false);
         }}
         >
           <Typography variant='h4' component='div' sx={{color: '#f8edeb'}}> My Cart</Typography>
+          <Typography variant="h4">
+                                    Order Total: $
+                                    
+                                </Typography>
           <CheckoutButton  order_id={order}/>
           <EmptyCartButton order_id={order} setRefresh={setRefresh} />
           <Button
