@@ -19,7 +19,6 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
     const [refresh, setRefresh] = useState(false);
     const location = useLocation();
     const category = new URLSearchParams(location.search).get('category');
-    const [category, setCategory] = useState(null);
     
     const [anchorEl, setAnchorEl] = useState(null);
     const [popoverTimeout, setPopoverTimeout] = useState(null);
