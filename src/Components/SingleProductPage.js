@@ -18,7 +18,7 @@ import { getSingleProduct } from '../api/apirequests.js';
 
 
 
-function SingleProductPage({ order, setOrder, stripe_id}) {
+function SingleProductPage({ order, setOrder, stripe_id, setRefreshCart}) {
     const { id } = useParams();
     const [product, setProduct] = useState();
     const [refresh, setRefresh] = useState(false);
@@ -126,6 +126,7 @@ function SingleProductPage({ order, setOrder, stripe_id}) {
                                     stripe_id={product.stripe_id}
                                     order_id={order}
                                     setRefresh={setRefresh}
+                                                  setRefreshCart={setRefreshCart}
                                 />
 
 
@@ -139,7 +140,7 @@ function SingleProductPage({ order, setOrder, stripe_id}) {
                                 paddingRight: '33vw'
                             }}>
                                 <UpdateQuantityButton order_id={order} orderProductId={product.product_id}
-                                                        price={product.price} setRefresh={setRefresh} refresh={refresh}/>
+                                                        price={product.price} setRefresh={setRefresh} refresh={refresh} setRefreshCart={setRefreshCart}/>
                             </Box>
                         </Box>
                     </Box>

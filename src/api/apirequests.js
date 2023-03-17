@@ -192,3 +192,9 @@ export async function updateUser(id, username, email, first_name, last_name, add
     const user = await response.json();
     return user;
 }
+
+export async function getOrderById(id) {
+    const response = await fetch(`http://localhost:3001/api/orders/${id}`);
+    const order = await response.json();
+    return order;
+}

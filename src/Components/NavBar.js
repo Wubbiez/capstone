@@ -34,23 +34,18 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder, token, refreshCart, setR
     { label: 'Logout', onClick: () => handleLogout(setToken,setIsAdmin) }
   ]);
 
-
-
   const [value, setValue] = useState();
-
   const [hasToken, setHasToken] = useState(Boolean(localStorage.getItem("user-token")));
-
-
 
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
   const styles = {
     cartContainer: css`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  `
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    `
   };
 
 
@@ -74,93 +69,89 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder, token, refreshCart, setR
     const token = localStorage.getItem("user-token");
     const admin = localStorage.getItem("user-is_admin");
     setHasToken(Boolean(token));
+    let updatedSettings = [
+      { label: 'Profile', onClick: () => console.log('Profile clicked') },
+      { label: 'Order History', to: '/orderhistory' },
+      { label: 'Logout', onClick: () => handleLogout(setToken,setIsAdmin) }
+    ];
     if (!token) {
-      // If there's no token, update the settings to remove the "Logout" option
-      setSettings(settings.filter(setting => setting.label !== "Logout" && setting.label !== "Order History"));
-      setSettings(prevSettings => [...prevSettings, { label: 'Sign Up', onClick: () => window.location.href="/signup" }, { label: 'Log In', onClick: () => window.location.href = "/login" }]);
+      // If there's no token, update the settings to remove the "Logout" and "Order History" options
+      updatedSettings = updatedSettings.filter(setting => setting.label !== "Logout" && setting.label !== "Order History");
+      updatedSettings = [...updatedSettings, { label: 'Sign Up', to: '/signup'}, { label: 'Log In', to: '/login' }];
     }
     if(admin){
-      setSettings(prevSettings => [{ label: 'Admin Dashboard', onClick: () => window.location.href = "/admin" }, ...prevSettings ]);
+      updatedSettings = [{ label: 'Admin Dashboard', to: '/admin'}, ...updatedSettings ];
     }
-    else {
-      // If there is a token, make sure the "Logout" option is available
-      if (!settings.find(setting => setting.label === "Logout")) {
-        setSettings(prevSettings => [...prevSettings, { label: 'Log Out', onClick: () => handleLogout(setToken,setIsAdmin) }, { label: 'Order History', onClick: () => window.location.href="/orderhistory" }]);
-      }
-    }
-
-
+    setSettings(updatedSettings);
   }, [setIsAdmin, setToken,token]);
 
-
-
   return (
-    <React.Fragment>
-      <AppBar sx={{ background: "#1D3557"}}  position="sticky" >
-        <Toolbar disableGutters>
-          {isMatch ? (
-              <>
-                <Typography sx={{ fontSize: "2rem" }}>
-                  GadgetGalaxy
-                </Typography>
-                <Box sx={{ flexGrow: 1 }} />
-                <Cart order={order} setOrder={setOrder} sx={{ mr: theme.spacing(2) }} />
-                <DrawerComp />
-              </>
-          ) : (
-            <>
-              <Tabs
-                sx={{ marginLeft: "auto" }}
-                indicatorColor="secondary"
-                textColor="inherit"
-                value={false}
-                onChange={(e, value) => setValue(value)}
-              >
-                <Tab label="Home"  component={Link} to="/" />
-                <Tab label="Products"  component={Link} to="/products" />
-                <Tab label="Contact" component={Link} to="/contact"/>
-              </Tabs>
-              <Cart order={order} setOrder={setOrder} setRefreshCart={setRefreshCart} refreshCart={refreshCart} />
-              <ButtonGroup>
-                <Container maxWidth="xl">
-                  <Toolbar disableGutters>
-                    <Box sx={{ flexGrow: 0 }}>
-                      <Tooltip title="Open settings">
-                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                          <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                        </IconButton>
-                      </Tooltip>
-                      <Menu
-                          sx={{ mt: '45px' }}
-                          id="menu-appbar"
-                          anchorEl={anchorElUser}
-                          anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                          }}
-                          keepMounted
-                          transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                          }}
-                          open={Boolean(anchorElUser)}
-                          onClose={handleCloseUserMenu}
-                      >
-                        {settings.map((setting) => (
-                            <MenuItem key={setting.label} onClick={setting.onClick}>
-                              <Typography textAlign="center">{setting.label}</Typography>
-                            </MenuItem>
-                        ))}
-                      </Menu>
-                    </Box>
-                    </Toolbar>
+      <React.Fragment>
+        <AppBar sx={{ background: "#1D3557"}}  position="sticky" >
+          <Toolbar disableGutters>
+            {isMatch ? (
+                <>
+                  <Typography sx={{ fontSize: "2rem" }}>
+                    GadgetGalaxy
+                  </Typography>
+                  <Box sx={{ flexGrow: 1 }} />
+                  <Cart order={order} setOrder={setOrder} setRefreshCart={setRefreshCart} refreshCart={refreshCart} sx={{ mr: theme.spacing(2) }} />
+                  <DrawerComp />
+                </>
+            ) : (
+                <>
+                  <Tabs
+                      sx={{ marginLeft: "auto" }}
+                      indicatorColor="secondary"
+                      textColor="inherit"
+                      value={false}
+                      onChange={(e, value) => setValue(value)}
+                  >
+                    <Tab label="Home"  component={Link} to="/" />
+                    <Tab label="Products"  component={Link} to="/products" />
+                    <Tab label="Contact" component={Link} to="/contact"/>
+                  </Tabs>
+                  <Cart order={order} setOrder={setOrder} setRefreshCart={setRefreshCart} refreshCart={refreshCart}  />
+                  <ButtonGroup>
+                    <Container maxWidth="xl">
+                      <Toolbar disableGutters>
+                        <Box sx={{ flexGrow: 0 }}>
+                          <Tooltip title="Open settings">
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                            </IconButton>
+                          </Tooltip>
+                          <Menu
+                              sx={{ mt: '45px' }}
+                              id="menu-appbar"
+                              anchorEl={anchorElUser}
+                              anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                              }}
+                              keepMounted
+                              transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                              }}
+                              open={Boolean(anchorElUser)}
+                              onClose={handleCloseUserMenu}
+                          >
+                            {settings.map((setting) => (
+                                <MenuItem key={setting.label} onClick={setting.onClick} component={Link} to={setting.to}>
+                                  <Typography textAlign="center">{setting.label}</Typography>
+                                </MenuItem>
+                            ))}
+                          </Menu>
+                        </Box>
+                      </Toolbar>
                     </Container>
-              </ButtonGroup>
-            </>
-          )}
-        </Toolbar>
-      </AppBar>
-    </React.Fragment>
+                  </ButtonGroup>
+                </>
+            )}
+          </Toolbar>
+        </AppBar>
+      </React.Fragment>
   );
 };
 

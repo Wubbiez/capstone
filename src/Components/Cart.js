@@ -116,16 +116,16 @@ const [isOpen, setIsOpen] = useState(false);
         }}
         >
           <Typography variant='h4' component='div' sx={{color: '#f8edeb'}}> My Cart</Typography>
-          <Typography variant="h4">
-            {/*Order Total: $ {Number(*/}
-            {/*orderProducts.reduce(*/}
-            {/*        (total, orderProduct) =>*/}
-            {/*            total + orderProduct.quantity * orderProduct.price,*/}
-            {/*        0*/}
-            {/*    )*/}
-            {/*).toFixed(2)}*/}
-                                    
-          </Typography>
+          {orderProducts.length > 0 ?  <Typography variant="h4">
+            Order Total: $ {Number(
+            orderProducts.reduce(
+                    (total, orderProduct) =>
+                        total + orderProduct.quantity * orderProduct.price,
+                    0
+                )
+            ).toFixed(2)}
+
+          </Typography> : null }
           <CheckoutButton  order_id={order} />
           <EmptyCartButton order_id={order} setRefresh={setRefresh} />
           <Button
@@ -225,79 +225,6 @@ const [isOpen, setIsOpen] = useState(false);
                                           key={`quantity_${orderProduct.id}`}
                     />
                     <DeleteOrderProductButton order_id={order} product_id={orderProduct.productId} setRefresh={setRefresh} refresh={refresh} key={`delete_${orderProduct.id}`}/>
-                  </CardActions>
-                  </Box>
-                </CardContent>
-
-            </Card>
-          )}) : null}
-
-        {orderProducts.length > 0 ? orderProducts.map((orderProduct) => {
-            console.log("orderProduct is", orderProduct)
-
-          return (
-          
-            <Card key={orderProduct.id}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-around',
-              width: 'inherit',
-              marginTop: '0',
-              }}>
-
-                
-                <CardContent sx={{
-                  backgroundColor: '#F5F5F5',
-                  color: '#333333',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-around',
-                  minHeight: '70px',
-                  borderBottom: "2px solid #212529",
-                  width: 'inherit',
-                  }}>
-                    
-                    <Box
-                      component="img"
-                      sx={{
-                        maxHeight:"45vh",
-                        maxWidth:  "20vw",
-                        padding: "15px 5px 15px 5px"
-                      }}
-                      alt="Product Image"
-                      src={orderProduct.image}
-                      />
-                    <Box sx={{
-                  backgroundColor: '#F5F5F5',
-                  color: '#343a40',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'space-around',
-                  minHeight: '70px',
-                  }}>
-                    <Typography variant="h6"
-                    sx={{color: '#343a40',}}
-                    >{orderProduct.title}</Typography>
-                    <Typography
-                      variant="h6"
-                      sx={{color: '#343a40',
-                                      paddingBottom: '1rem'}}
-                      >${orderProduct.price}</Typography>
-
-                  <CardActions sx={{
-                     display: 'flex',
-                  flexDirection: 'row',
-                     }}>
-                    <UpdateQuantityButton order_id={order}
-                                          orderProductId={orderProduct.productId}
-                                          price={orderProduct.price}
-                                          setRefresh={setRefresh}
-                                          refresh={refresh}
-                    />
-                    <DeleteOrderProductButton order_id={order} product_id={orderProduct.productId} setRefresh={setRefresh} refresh={refresh}/>
                   </CardActions>
                   </Box>
                 </CardContent>
