@@ -30,7 +30,7 @@ const [isOpen, setIsOpen] = useState(false);
                 console.log("orderProducts are", orderProducts);
                 setOrderProducts(orderProducts);
                 setRefresh(false);
-                setRefreshCart(false)
+                setRefreshCart(false);
                 console.log("orderProducts are still", orderProducts);
             });
         }
@@ -69,14 +69,18 @@ const [isOpen, setIsOpen] = useState(false);
             backgroundColor: '#457B9D',
           boxShadow: '1px 2px 1px 1px #F1FAEE;',}
                  }}>
-        <ShoppingCartTwoTone /> ({Number(
-          orderProducts.reduce(
-          (total, orderProduct) =>
-            total + orderProduct.quantity,
-            0
-        )
-        ).toFixed(0)}
-            )
+                  <ShoppingCartTwoTone />
+
+                  {
+                      orderProducts.length > 0
+                      ? Number(
+                          orderProducts.reduce(
+                              (total, orderProduct) => total + orderProduct.quantity,
+                              0
+                          )
+                      ).toFixed(0)
+                      : 0
+              }
                   </Button>
 
 
@@ -113,13 +117,13 @@ const [isOpen, setIsOpen] = useState(false);
         >
           <Typography variant='h4' component='div' sx={{color: '#f8edeb'}}> My Cart</Typography>
           <Typography variant="h4">
-            Order Total: $ {Number(
-            orderProducts.reduce(
-                    (total, orderProduct) =>
-                        total + orderProduct.quantity * orderProduct.price,
-                    0
-                )
-            ).toFixed(2)}
+            {/*Order Total: $ {Number(*/}
+            {/*orderProducts.reduce(*/}
+            {/*        (total, orderProduct) =>*/}
+            {/*            total + orderProduct.quantity * orderProduct.price,*/}
+            {/*        0*/}
+            {/*    )*/}
+            {/*).toFixed(2)}*/}
                                     
           </Typography>
           <CheckoutButton  order_id={order} />
