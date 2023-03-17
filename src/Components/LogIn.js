@@ -3,6 +3,7 @@ import { Grid,Paper, Avatar, TextField, Button, Typography,Link, FormControlLabe
 import {LockOutlined} from '@mui/icons-material';
 import { loginUser } from '../api/apirequests.js';
 import {styled} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 const LoginForm = styled("form")(({ theme }) => ({
     width: "100%", // Fix IE 11 issue.
@@ -12,7 +13,7 @@ const LoginForm = styled("form")(({ theme }) => ({
 const Login=({setToken, setIsAdmin})=>{
     const [password, setPassword] = useState("");
     const [username,setUsername] = useState("");
-
+    const history = useNavigate();
     useEffect(() => {
         const token = localStorage.getItem("user-token");
         if (token) {
@@ -34,9 +35,9 @@ const Login=({setToken, setIsAdmin})=>{
                     setToken(r.token);
                     setIsAdmin(r.is_admin);
                 })
-                .then(() => {
-                    window.location.href = "/";
-                });
+        .then(() => {
+            history("/");
+        })
 
         } catch (error) {
             console.error(error);
