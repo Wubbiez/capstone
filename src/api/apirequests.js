@@ -84,6 +84,19 @@ export async function createaUser(username, password, email, first_name, last_na
         if (results.error) {
             alert(results.error);
         }
+        if (results.token) {
+            const data = {
+                token: results.token,
+                username: results.user.username,
+                is_admin: results.user.is_admin,
+            };
+            localStorage.setItem("user-token", results.token);
+            localStorage.setItem("user-username", results.user.username);
+            localStorage.setItem("user-is_admin", results.user.is_admin);
+            localStorage.setItem("user-id", results.user.user_id);
+            console.log(data);
+            return data;
+        }
         return results;
     } catch (e) {
         throw ("err", e);
@@ -134,10 +147,12 @@ export async function loginUser(username, password) {
                 token: results.token,
                 username: results.user.username,
                 is_admin: results.user.is_admin,
+                user_id: results.user.user_id
             };
             localStorage.setItem("user-token", results.token);
             localStorage.setItem("user-username", results.user.username);
             localStorage.setItem("user-is_admin", results.user.is_admin);
+            localStorage.setItem("user-id", results.user.user_id);
             console.log(data);
             return data;
         }
@@ -145,9 +160,25 @@ export async function loginUser(username, password) {
             alert(results.error);
         }
 
-
-
 }
+
+export async function getLatestOrderId(user_id) {
+    console.log(user_id);
+    const response = await fetch(`http://localhost:3001/api/orders/users/${user_id}/latest`);
+    if (!response || !response.ok) {
+        const newOrder = await fetch(`http://localhost:3001/api/orders`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id, status: 'created' }),
+        });
+        return newOrder.json();
+    } else {
+        const order = await response.json();
+        console.log(order);
+        return order;
+    }
+}
+
 
 export async function getOrdersByUserId(userId) {
     const response = await fetch(`http://localhost:3001/api/orders/users/${userId}`);

@@ -14,7 +14,7 @@ import SingleProductModal from "./SingleProductModal.js";
 import EmptyCartButton from "./Buttons/EmptyCartButton.js";
 import category from "./Category.js";
 
-function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshCart}) {
+function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshCart, userId}) {
     const [products, setProducts] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const location = useLocation();
@@ -141,7 +141,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                                     <Typography variant="h4">$ {product.price}</Typography>
                                     <SingleProductModal 
                                         variant="contained" 
-                                        userId={3}
+                                        userId={userId}
                                         order_id={order}
                                         title={product.title}
                                         description={product.description}

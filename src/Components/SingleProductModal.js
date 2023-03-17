@@ -15,7 +15,7 @@ import UpdateQuantityButton from "./Buttons/UpdateQuantityButton.js";
 
 
 
-function SingleProductModal({product_id, title, description, price, image, in_stock, category, order, setRefresh, setOrder, stripe_id, refresh, setRefreshCart}) {
+function SingleProductModal({product_id, title, description, price, image, in_stock, category, order, setRefresh, setOrder, stripe_id, refresh, setRefreshCart, userId}) {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleOpenModal() {
@@ -112,7 +112,7 @@ function SingleProductModal({product_id, title, description, price, image, in_st
         }}>X</Button>
 
 
-<AddToOrderButton userId={3} product_id={product_id} status="created"
+<AddToOrderButton userId={userId} product_id={product_id} status="created"
                                                         price={price} quantity={1} setOrder={setOrder}
                                                         stripe_id={stripe_id} order_id={order} setRefresh={setRefresh} setRefreshCart={setRefreshCart}
 
