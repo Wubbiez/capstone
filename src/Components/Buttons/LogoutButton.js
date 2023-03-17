@@ -11,6 +11,8 @@ export async function handleLogout(setToken, setIsAdmin) {
             localStorage.removeItem('user-token');
             localStorage.removeItem('user-username');
             localStorage.removeItem('user-is_admin');
+            localStorage.removeItem('user-id');
+            localStorage.removeItem('order_id');
             window.location.href = '/';
         }
     } catch (error) {

@@ -81,11 +81,28 @@ async function destroyOrder(orderId) {
     }
 }
 
+async function getLatestOrderId(userId) {
+    try {
+        const {rows: [order]} = await client.query(`
+            SELECT order_id
+            FROM orders
+            WHERE user_id = $1 AND status = 'created'
+            ORDER BY order_id DESC
+            LIMIT 1;
+        `, [userId]);
+        return order;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
 export {
     createOrder,
     getAllOrders,
     getOrderById,
     getOrdersByUser,
     updateOrder,
-    destroyOrder
+    destroyOrder,
+    getLatestOrderId,
 }

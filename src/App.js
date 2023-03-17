@@ -16,18 +16,23 @@ import OrderHistory from "./Components/OrderHistory.js";
 import Category from "./Components/Category.js";
 import Main from "./Components/Main.js";
 import Back from "./Components/Back.js";
-import {getOrderById, getOrderProductsByOrderId} from "./api/apirequests.js";
+import {getLatestOrderId, getOrderById, getOrderProductsByOrderId} from "./api/apirequests.js";
 
 
 
 export const TOKEN_STORAGE_KEY = "user-token";
 export const USER_STORAGE_KEY = "user-username";
 export const ADMIN_STORAGE_KEY = "user-admin";
+export const ORDER_STORAGE_KEY = "order_id";
+export const USER_ID = "user-id";
 
 const storageToken = localStorage.getItem(TOKEN_STORAGE_KEY);
 const storageUser = localStorage.getItem(USER_STORAGE_KEY);
 const storageIsAdmin = localStorage.getItem(ADMIN_STORAGE_KEY);
-const storageOrder = localStorage.getItem("order_id");
+const storageOrder = localStorage.getItem(ORDER_STORAGE_KEY);
+const storageUserId = localStorage.getItem(USER_ID);
+
+
 
 
 
@@ -35,6 +40,7 @@ function App() {
   const [order, setOrder] = useState(storageOrder);
   const [token, setToken] = useState(storageToken);
   const [user, setUser] = useState(storageUser);
+  const [userId, setUserId] = useState(storageUserId);
   const [isAdmin, setIsAdmin] = useState(storageIsAdmin);
   const [refreshCart, setRefreshCart] = useState(false);
   const [navBarKey, setNavBarKey] = useState(0);
@@ -45,7 +51,6 @@ function App() {
     // if there is an open order and its status is 'paid', populate the cart on page load
 
     if (order) {
-      console.log("order id: ", order)
       try {
         getOrderById(order).then((r) => {
           console.log(r.status)
@@ -85,10 +90,10 @@ function App() {
             exact element={<Main />} />
       <Route
         path='/products'
-        exact element={<SampleProducts order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin} setRefreshCart={setRefreshCart} />}></Route>
+        exact element={<SampleProducts order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin} setRefreshCart={setRefreshCart} userId={userId}/>}></Route>
       <Route
         path='/products/:id'
-        exact element={<SingleProductPage order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin} setRefreshCart={setRefreshCart}/>} />
+        exact element={<SingleProductPage order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin} setRefreshCart={setRefreshCart} userId={userId}/>} />
         <Route
         path='/login'
         exact element={<LogIn setToken={setToken} setIsAdmin={setIsAdmin} />}></Route>
@@ -115,7 +120,7 @@ function App() {
             exact element={<Success order={order} setOrder={setOrder} />}></Route>
         <Route
           path='/orderhistory'
-            exact element={<OrderHistory user={user} />}></Route>
+            exact element={<OrderHistory userId={userId} />}></Route>
 
         <Route
             path='/back'

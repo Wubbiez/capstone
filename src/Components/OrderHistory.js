@@ -9,31 +9,31 @@ import {
     Typography,
 } from "@mui/material/";
 
-import { getOrderProductsByOrderId, getUserByUsername } from "../api/apirequests.js";
+import { getOrderProductsByOrderId } from "../api/apirequests.js";
 import { getOrdersByUserId } from "../api/apirequests.js";
 import {Divider, Paper} from "@mui/material";
 
-function OrderHistory({ user }) {
+function OrderHistory({ userId }) {
     const [orders, setOrders] = useState([]);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
-        getUserByUsername(user).then((user) => {
-            getOrdersByUserId(user.user_id).then(async (orders) => {
-                console.log(orders);
-                const paidOrders = await Promise.all(
-                    orders.map(async (order) => {
-                        if (order.status === "paid") {
-                            const orderProducts = await getOrderProductsByOrderId(order.order_id);
-                            return { ...order, orderProducts };
-                        }
-                    })
-                );
-
-                // filter out undefined orders
-                setOrders(paidOrders.filter((order) => order));
-            });
+        getOrdersByUserId(userId).then(async (orders) => {
+            const paidOrders = await Promise.all(
+                orders.map(async (order) => {
+                    if (order.status === "paid") {
+                        const orderProducts = await getOrderProductsByOrderId(order.order_id);
+                        console.log(orderProducts)
+                        return {...order, orderProducts};
+                    }
+                })
+            );
+            // filter out undefined orders
+            setOrders(paidOrders.filter((order) => order));
+            setRefresh(false)
         });
-    }, [user]);
+    }, [userId, refresh]);
+
 
     return (
         <React.Fragment>

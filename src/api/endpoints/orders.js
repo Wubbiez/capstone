@@ -1,6 +1,14 @@
 import express from "express";
 
-import {getAllOrders, getOrderById, destroyOrder, updateOrder, getOrdersByUser, createOrder} from "../../server/db/components/orders.js";
+import {
+    getAllOrders,
+    getOrderById,
+    destroyOrder,
+    updateOrder,
+    getOrdersByUser,
+    createOrder,
+    getLatestOrderId
+} from "../../server/db/components/orders.js";
 import {isAdmin} from "./isAdmin.js";
 
 const ordersRouter = express.Router();
@@ -73,6 +81,18 @@ ordersRouter.get("/users/:id", async (req, res, next) => {
         const orders = await getOrdersByUser(id);
 
         res.send(orders);
+    } catch (error) {
+        next(error);
+    }
+})
+
+ordersRouter.get("/users/:id/latest", async (req, res, next) => {
+    try {
+        const {id} = req.params;
+        console.log(id);
+        const order = await getLatestOrderId(id);
+        console.log(order)
+        res.send(order);
     } catch (error) {
         next(error);
     }

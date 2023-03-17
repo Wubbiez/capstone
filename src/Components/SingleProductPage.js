@@ -18,7 +18,7 @@ import { getSingleProduct } from '../api/apirequests.js';
 
 
 
-function SingleProductPage({ order, setOrder, stripe_id, setRefreshCart}) {
+function SingleProductPage({ order, setOrder, stripe_id, setRefreshCart, userId}) {
     const { id } = useParams();
     const [product, setProduct] = useState();
     const [refresh, setRefresh] = useState(false);
@@ -117,7 +117,7 @@ function SingleProductPage({ order, setOrder, stripe_id, setRefreshCart}) {
                                                       
                             }}>
            
-                                <AddToOrderButton userId={1}
+                                <AddToOrderButton userId={userId}
                                     product_id={product.product_id}
                                     status="created"        
                                     price={product.price}

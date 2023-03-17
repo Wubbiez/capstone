@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { Grid,Paper, Avatar, TextField, Button, Typography,Link, FormControlLabel, Checkbox } from '@mui/material/'
 import {LockOutlined} from '@mui/icons-material';
-import { loginUser } from '../api/apirequests.js';
+import {getLatestOrderId, loginUser} from '../api/apirequests.js';
 import {styled} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
@@ -13,6 +13,7 @@ const LoginForm = styled("form")(({ theme }) => ({
 const Login=({setToken, setIsAdmin})=>{
     const [password, setPassword] = useState("");
     const [username,setUsername] = useState("");
+    const [userId, setUserId] = useState("");
     const history = useNavigate();
     useEffect(() => {
         const token = localStorage.getItem("user-token");
@@ -30,22 +31,23 @@ const Login=({setToken, setIsAdmin})=>{
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await loginUser(username, password)
-                .then((r) => {
-                    setToken(r.token);
-                    setIsAdmin(r.is_admin);
-                })
-        .then(() => {
-            history("/");
-        })
-
+            const response = await loginUser(username, password);
+            const { user_id, token, is_admin } = response;
+            console.log(user_id, token, is_admin);
+            setToken(token);
+            setIsAdmin(is_admin);
+            setUserId(user_id);
+            const orderResponse = await getLatestOrderId(user_id);
+            localStorage.setItem("order_id", orderResponse.order_id);
+            history('/');
         } catch (error) {
             console.error(error);
         } finally {
             setUsername("");
             setPassword("");
         }
-    }
+    };
+
 
     return(
         <Grid>
