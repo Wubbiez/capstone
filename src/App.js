@@ -14,6 +14,8 @@ import AdminDashboard from "./Components/AdminDashboard.js";
 import SingleProductPage from './Components/SingleProductPage.js';
 import OrderHistory from "./Components/OrderHistory.js";
 import Category from "./Components/Category.js";
+import Main from "./Components/Main.js";
+import Back from "./Components/Back.js";
 
 
 
@@ -45,7 +47,7 @@ function App() {
       <Routes>
         <Route
             path='/'
-            exact element={<Category />} />
+            exact element={<Main />} />
       <Route
         path='/products'
         exact element={<SampleProducts order={order} setOrder={setOrder} user={user} isAdmin={isAdmin} setIsAdmin={setIsAdmin} setRefreshCart={setRefreshCart} />}></Route>
@@ -79,6 +81,10 @@ function App() {
         <Route
           path='/orderhistory'
             exact element={<OrderHistory user={user} />}></Route>
+
+        <Route
+            path='/back'
+            exact element={<Back />}></Route>
         
       </Routes>
       </BrowserRouter>

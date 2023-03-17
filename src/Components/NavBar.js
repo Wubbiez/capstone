@@ -16,9 +16,8 @@ Tooltip,
     Container,
     Menu,
     MenuItem,
-
-
 } from "@mui/material";
+import {css} from '@emotion/react';
 import {AddShoppingCart} from '@mui/icons-material';
 import DrawerComp from "./Drawer.js";
 
@@ -45,6 +44,16 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder, token, refreshCart, setR
 
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+
+  const styles = {
+    cartContainer: css`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  `
+  };
+
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -80,6 +89,7 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder, token, refreshCart, setR
       }
     }
 
+
   }, [setIsAdmin, setToken,token]);
 
 
@@ -87,16 +97,16 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder, token, refreshCart, setR
   return (
     <React.Fragment>
       <AppBar sx={{ background: "#1D3557"}}  position="sticky" >
-        <Toolbar>
+        <Toolbar disableGutters>
           {isMatch ? (
-            <>
-              <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>
-                GadgetGalaxy
-              </Typography>
-              <Cart order={order} setOrder={setOrder} />
-              <DrawerComp />
-
-            </>
+              <>
+                <Typography sx={{ fontSize: "2rem" }}>
+                  GadgetGalaxy
+                </Typography>
+                <Box sx={{ flexGrow: 1 }} />
+                <Cart order={order} setOrder={setOrder} sx={{ mr: theme.spacing(2) }} />
+                <DrawerComp />
+              </>
           ) : (
             <>
               <Tabs

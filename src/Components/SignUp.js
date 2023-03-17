@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 import {
     Grid,
     Paper,
@@ -23,6 +24,8 @@ const SignUp=({setUser, setToken})=>{
 
     const [isSigningUp, setIsSigningUp] = useState(false);
 
+    const history = useNavigate();
+
     useEffect(() => {
         const token = localStorage.getItem("user-token");
         if (token) {
@@ -39,7 +42,7 @@ const SignUp=({setUser, setToken})=>{
                 setToken(r.token);
                 setUser(r.username);
             }).then(() => {
-                window.location.href = "/";
+                history("/");
             })
         } catch (error) {
             console.error(error);
