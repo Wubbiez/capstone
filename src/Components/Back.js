@@ -3,7 +3,9 @@ import { Box, Typography } from "@mui/material";
 import main from "../Components/Images/main.jpg";
 const Back = () => {
     return (
-        <Box>
+        <Box sx={{
+            backgroundColor: "#F1FAEE"
+        }}>
             <Typography align="center" variant="h3" sx={{ fontWeight: 900 }}>
                 Gadget<b style={{ color: "#E63946" }}>Galaxy</b>
             </Typography>
@@ -30,7 +32,7 @@ const Back = () => {
                         padding: { xs: 3, sm: 2, md: 20 },
                     }}
                 >
-                    <Box sx={{ background: "#fff", opacity: "0.8" }}>
+                    <Box sx={{backgroundColor: "#F1FAEE", opacity: "0.8" }}>
                         <Typography variant={"h6"} color="#E63946" align="center" pt={7}>
                             Trending Technologies
                         </Typography>

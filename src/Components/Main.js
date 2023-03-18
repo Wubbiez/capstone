@@ -11,7 +11,7 @@ import {getOrderProductsByOrderId} from "../api/apirequests.js";
 const Main = () => {
 
     return (
-        <Box>
+        <Box sx={{backgroundColor: "#F5F5F5"}}>
 
             <Back />
             <Container>

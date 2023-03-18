@@ -56,7 +56,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
         <React.Fragment>
 
             <Grid container spacing={2} sx={{
-                backgroundColor: '#f4eee9',
+                backgroundColor: '#F5F5F5',
                 display: 'flex',
                 flexDirection: 'row',
                 flexWrap: 'wrap',
@@ -76,7 +76,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
 
                     return (
                         <Grid item xs={12} sm={6} md={4} lg={3} key={product.product_id}sx={{
-                            backgroundColor: '#f4eee9',
+                            backgroundColor: '#F1FAEE',
                             display: 'flex',
                             flexWrap: 'wrap',
                             marginLeft: '-10px',
@@ -129,6 +129,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                                         justifyContent: 'center',
                                         alignItems: 'space-around',
                                         marginBottom: '1rem',
+                                        width: '100%'
                                         // height: '30%',
                                         // maxWidth: '60%',
                                         // maxHeight: '40%',

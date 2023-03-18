@@ -76,9 +76,8 @@ const theme = createTheme({
     },
     h6: {
       fontWeight: '400',
-      fontStyle: 'normal',
+      textShadow: '2px 2px 2px #f5f5f5',
       letterSpacing: '0em',
-      textTransform: 'none',
       lineHeight: '1.4em',
       fontSize: 'calc(1.5rem + 1vw)',
       '@media (min-width:600px)': {

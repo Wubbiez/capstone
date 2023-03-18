@@ -92,7 +92,7 @@ function AddToOrderButton({userId, product_id, status, price, quantity, stripe_i
             sx={{
                 backgroundColor: '#457B9D',
                 height: '100%',
-                width: '100%',
+                width: '80px',
                 fontSize: 'calc(1rem + 0.2vw)',
                 padding: 'calc(0.5rem + 0.1vw)',
                 transition: 'background-color 0.3s ease',
@@ -101,6 +101,12 @@ function AddToOrderButton({userId, product_id, status, price, quantity, stripe_i
                     color: '#333333',
                     boxShadow: '1px 2px 1px 1px #1D3557;',
                 },
+                '@media (min-width:600px)': {
+                    width: '120px',
+                    },
+                    '@media (min-width:960px)': {
+                      width: '160px',
+                    },
                 // '@media (min-width:600px)': {
                 //     padding: 'calc(1.2rem + 0.6vw)',
                 //     fontSize: 'calc(1.3rem + 0.8vw)',
