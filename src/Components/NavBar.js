@@ -87,7 +87,7 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder, token, refreshCart, setR
 
   return (
       <React.Fragment>
-        <AppBar sx={{ background: "#1D3557"}}  position="sticky" >
+        <AppBar sx={{ background: "#1D3557", padding: "0", margin: "0"}}  position="sticky" >
           <Toolbar disableGutters>
             {isMatch ? (
                 <>
@@ -118,7 +118,7 @@ const NavBar = ({setIsAdmin, setToken, order, setOrder, token, refreshCart, setR
                         <Box sx={{ flexGrow: 0 }}>
                           <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                              <Avatar alt="Z" src="/static/images/avatar/2.jpg" />
                             </IconButton>
                           </Tooltip>
                           <Menu

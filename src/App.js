@@ -17,6 +17,7 @@ import Category from "./Components/Category.js";
 import Main from "./Components/Main.js";
 import Back from "./Components/Back.js";
 import {getLatestOrderId, getOrderById, getOrderProductsByOrderId} from "./api/apirequests.js";
+import {Box} from "@mui/material";
 
 
 
@@ -73,6 +74,8 @@ function App() {
 
   return (
     <React.Fragment>
+
+
     <BrowserRouter>
       <NavBar
           key={navBarKey} // add key prop
@@ -83,7 +86,14 @@ function App() {
           token={token}
           refreshCart={refreshCart}
           setRefreshCart={setRefreshCart}
+          style={{
+            position: 'fixed',
+            width: '100%',
+            zIndex: 1,
+            margin: '0',
+          }}
       />
+      <Box style={{ position: 'relative', top: '1rem',}}>
       <Routes>
         <Route
             path='/'
@@ -127,7 +137,9 @@ function App() {
             exact element={<Back />}></Route>
         
       </Routes>
+      </Box>
       </BrowserRouter>
+
     </React.Fragment>
   );
 }
