@@ -81,16 +81,17 @@ export async function createTables() {
                                  FOREIGN KEY ("productId") REFERENCES products (product_id)
                              );
         `);
-        await client.query(` CREATE TABLE reviews
-                             (
-                                 review_id    SERIAL PRIMARY KEY,
-                                 username     VARCHAR(255) REFERENCES users (username) UNIQUE NOT NULL,
-                                 productid   INTEGER REFERENCES products (product_id) NOT NULL,
-                                 title        VARCHAR(255)                             NOT NULL,
-                                 content      TEXT                                     NOT NULL,
-                                 rating       INTEGER                                  NOT NULL,
-                                 date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                             );
+        await client.query(`
+            CREATE TABLE reviews (
+                                     review_id SERIAL PRIMARY KEY,
+                                     username VARCHAR(255) REFERENCES users (username)  NOT NULL,
+                                     productid INTEGER REFERENCES products (product_id) NOT NULL,
+                                     title VARCHAR(255) NOT NULL,
+                                     content TEXT NOT NULL,
+                                     rating DECIMAL,
+                                     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                     CONSTRAINT rating_check CHECK (rating BETWEEN 0 AND 5 OR rating IS NULL)
+            );
         `);
         await client.query(` CREATE TABLE payments
                              (

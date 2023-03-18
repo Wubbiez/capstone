@@ -37,7 +37,7 @@ const storageUserId = localStorage.getItem(USER_ID);
 
 
 function App() {
-  const [order, setOrder] = useState(storageOrder);
+  const [order, setOrder] = useState(storageOrder || null);
   const [token, setToken] = useState(storageToken);
   const [user, setUser] = useState(storageUser);
   const [userId, setUserId] = useState(storageUserId);
@@ -120,7 +120,7 @@ function App() {
             exact element={<Success order={order} setOrder={setOrder} />}></Route>
         <Route
           path='/orderhistory'
-            exact element={<OrderHistory userId={userId} />}></Route>
+            exact element={<OrderHistory userId={userId} user={user} />}></Route>
 
         <Route
             path='/back'

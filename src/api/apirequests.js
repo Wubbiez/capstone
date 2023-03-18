@@ -73,7 +73,8 @@ export async function createaUser(username, password, email, first_name, last_na
                     first_name: first_name,
                     last_name: last_name,
                     address: address,
-                    phone: phone
+                    phone: phone,
+                    is_admin: false
                 }),
             }
         );
@@ -89,6 +90,7 @@ export async function createaUser(username, password, email, first_name, last_na
                 token: results.token,
                 username: results.user.username,
                 is_admin: results.user.is_admin,
+                user_id: results.user.user_id
             };
             localStorage.setItem("user-token", results.token);
             localStorage.setItem("user-username", results.user.username);
@@ -226,6 +228,22 @@ export async function updateUser(id, username, email, first_name, last_name, add
 
 export async function getOrderById(id) {
     const response = await fetch(`http://localhost:3001/api/orders/${id}`);
+    const order = await response.json();
+    return order;
+}
+
+export async function getReviewsByProductId(id) {
+    const response = await fetch(`http://localhost:3001/api/reviews/${id}`);
+    const reviews = await response.json();
+    return reviews;
+}
+
+export async function createOrder(user_id) {
+    const response = await fetch(`http://localhost:3001/api/orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id, status: 'created' }),
+    });
     const order = await response.json();
     return order;
 }

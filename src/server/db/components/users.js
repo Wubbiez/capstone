@@ -2,7 +2,7 @@ import client from "../client.js";
 import  bcrypt from "bcrypt";
 export const SALT_COUNT = 10;
 
-async function createUser({ username, password, email, first_name, last_name, address, phone, is_admin }) {
+async function createUser({ username, password, email, first_name, last_name, address, phone, is_admin=false }) {
 
     try {
         const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
@@ -12,7 +12,7 @@ async function createUser({ username, password, email, first_name, last_name, ad
             INSERT INTO users(username,password,email,first_name,last_name,address,phone,is_admin)
             VALUES($1,$2,$3,$4,$5,$6,$7,$8)
             ON CONFLICT (username) DO NOTHING
-            RETURNING user_id, username, email;
+            RETURNING user_id, username, email, is_admin;
         `, [username, hashedPassword, email, first_name, last_name, address, phone,is_admin]);
             if (user) {
                 delete user.password;
