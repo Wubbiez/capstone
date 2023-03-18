@@ -63,12 +63,12 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                 marginLeft: '-10px',
                 marginRight: '-10px',
                 '& > .MuiGrid-item': {
-                    flexBasis: '100%', // set to 100% for xs and sm
+                    flexBasis: '100%',
                     '@media (min-width: 600px)': {
-                      flexBasis: '50%', // set to 50% for md
+                      flexBasis: '50%',
                     },
                     '@media (min-width: 960px)': {
-                      flexBasis: '33.33%', // set to 33.33% for lg and xl
+                      flexBasis: '33.33%',
                     },
                   },
             }}>
@@ -93,13 +93,15 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                                 justifyContent: 'left',
                                 alignItems: 'center',
                                 flex: '1',
-                                backgroundColor: '#fff'}}>
+                                backgroundColor: '#f1faee',
+                                backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'105\' viewBox=\'0 0 80 105\'%3E%3Cg fill-rule=\'evenodd\'%3E%3Cg id=\'death-star\' fill=\'%231d3557\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M20 10a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V10zm15 35a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V45zM20 75a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V75zm30-65a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V10zm0 65a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V75zM35 10a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V10zM5 45a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V45zm0-35a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V10zm60 35a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V45zm0-35a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V10z\' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+                                }}>
 
                                 <CardContent sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
                                     justifyContent: 'center',
-                                    alignItems: 'center',
+                                    alignItems: 'left',
                                     height: '100%',
                                     width: '100%'
 
@@ -110,9 +112,9 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                                             sx={{
                                             display: 'flex',
                                             flexFlow: 'column',
-                                            maxWidth: '100%',
-                                            height: '50%',
-                                            width: '70%',
+                                            aspectRatio: '16/9',
+                                            maxHeight:"100%",
+                                            maxWidth:  "80%",
                                             flex: '1',
                                             padding: '1vh',
                                             }}
@@ -122,23 +124,19 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
 
 
                                     <Box sx={{ display: 'flex',
-                                        flexFlow: 'column',
                                         flexDirection: 'column',
+                                        flex: '1',
                                         justifyContent: 'center',
                                         alignItems: 'space-around',
                                         marginBottom: '1rem',
-                                        height: '30%',
-                                        maxWidth: '80%',
-                                        maxHeight: '50%',
-                                        width: '70%',
-                                        flex: '1',}}>
-                                    <Typography variant="h2"
-                                        sx={{
-                                            flexShrink: '1',
-                                            maxWidth: '100%',
-                                            textOverflow: 'ellipsis'
-                                        }}>{product.title}</Typography>
-                                    <Typography variant="h4">$ {product.price}</Typography>
+                                        // height: '30%',
+                                        // maxWidth: '60%',
+                                        // maxHeight: '40%',
+                                        // width: '70%',
+                                        
+                                       }}>
+                                    <Typography variant="h6">{product.title}</Typography>
+                                    <Typography variant="h6" gutterBottom>$ {product.price}</Typography>
                                     <SingleProductModal 
                                         variant="contained" 
                                         userId={userId}
@@ -158,7 +156,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                                         setRefresh={setRefresh}
                                         setRefreshCart={setRefreshCart}
                                         /> 
-                                            <Box display="flex" alignItems="center" justifyContent="center"
+                                            {/* <Box display="flex" alignItems="center" justifyContent="center"
                                                 style={{margin: '8px 0',
                                                 display: 'flex',
                                                 flexDirection: 'column',
@@ -180,7 +178,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                                                 style={{margin: '8px 0'}}>
                                                     <DeleteProductButton product_id={product.product_id} setRefresh={setRefresh}/>
                                                 </Box>
-                                            </Box>
+                                            </Box> */}
                                         </Box>
                                 </CardContent>
                             </Card>

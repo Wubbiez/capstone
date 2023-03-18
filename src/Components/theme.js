@@ -9,7 +9,7 @@ const theme = createTheme({
       main: '#ff4d4f',
     },
     background: {
-      default: '#f5f5f5',
+      default: '#fff',
     },
   },
   spacing: 8,
@@ -23,7 +23,13 @@ const theme = createTheme({
       letterSpacing: '0em',
       textTransform: 'none',
       lineHeight: '1.4em',
-      fontSize: '2.8rem'
+      fontSize: 'calc(1.5rem + 0.5vw)',
+      '@media (min-width:600px)': {
+        fontSize: 'calc(2rem + 1vw)',
+      },
+      '@media (min-width:960px)': {
+        fontSize: 'calc(3rem + 1.5vw)',
+      },
     },
     h2: {
       fontFamily: 'acumin-pro',
@@ -32,34 +38,70 @@ const theme = createTheme({
       letterSpacing: '0em',
       textTransform: 'none',
       lineHeight: '1.4em',
-      fontSize: '1.6rem'
+      fontSize: 'calc(1.3rem + 0.5vw)',
+      '@media (min-width:600px)': {
+        fontSize: 'calc(1.8rem + 1vw)',
+      },
+      '@media (min-width:960px)': {
+        fontSize: 'calc(2.8rem + 1.5vw)',
+      },
     },
     h4: {
-      fontfamily: 'Poppins',
       fontWeight: '300',
       fontStyle: 'normal',
       letterSpacing: '0em',
       textTransform: 'none',
       lineHeight: '1.8em',
-      fontSize: '1.3rem'
+      fontSize: 'calc(1.2rem + 0.3vw)',
+      '@media (min-width:600px)': {
+        fontSize: 'calc(1.6rem + 0.8vw)',
+      },
+      '@media (min-width:960px)': {
+        fontSize: 'calc(2.5rem + 1.3vw)',
+      },
     },
     h5: {
-      fontfamily: 'Poppins',
       fontWeight: '300',
       fontStyle: 'normal',
       letterSpacing: '0em',
       textTransform: 'none',
       lineHeight: '1.4em',
-      fontSize: '1.2rem'
+      fontSize: 'calc(1.1rem + 0.3vw)',
+      '@media (min-width:600px)': {
+        fontSize: 'calc(1.3rem + 0.8vw)',
+      },
+      '@media (min-width:960px)': {
+        fontSize: 'calc(2.2rem + 1.2vw)',
+      },
+    },
+    h6: {
+      fontWeight: '400',
+      fontStyle: 'normal',
+      letterSpacing: '0em',
+      textTransform: 'none',
+      lineHeight: '1.4em',
+      fontSize: 'calc(1.5rem + 1vw)',
+      '@media (min-width:600px)': {
+        fontSize: 'calc(1.3rem + 1vw)',
+      },
+      '@media (min-width:900px)': {
+        fontSize: 'calc(1.3rem + .5vw)',
+      },
     },
     p: {
-      fontfamily: 'Poppins',
       fontWeight: '200',
       fontStyle: 'normal',
       letterSpacing: '0em',
       textTransform: 'none',
       lineHeight: '1.2em',
-      paddingTop: '0.3rem'
+      paddingTop: '0.3rem',
+      fontSize: 'calc(1rem + 0.2vw)',
+      '@media (min-width:600px)': {
+        fontSize: 'calc(1.2rem + 0.6vw)',
+      },
+      '@media (min-width:960px)': {
+        fontSize: 'calc(1.6rem + 1.2vw)',
+      },
     },
 
     body1: {
