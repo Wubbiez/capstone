@@ -12,7 +12,8 @@ import {
     Card,
     CardContent
 } from '@mui/material'
-import {createaUser} from "../api/apirequests.js";
+import {createaUser, createOrder,} from "../api/apirequests.js";
+
 const SignUp=({setUser, setToken})=>{
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -21,6 +22,8 @@ const SignUp=({setUser, setToken})=>{
     const [last_name, setLastName] = useState("");
     const [phone, setPhoneNumber] = useState("");
     const [address, setAddress] = useState("");
+    const [is_admin, setIsAdmin] = useState(false);
+    const [user_id, setUserId] = useState("");
 
     const [isSigningUp, setIsSigningUp] = useState(false);
 
@@ -38,12 +41,20 @@ const SignUp=({setUser, setToken})=>{
         event.preventDefault();
         setIsSigningUp(true);
         try {
-            await createaUser(username, password, email,first_name, last_name, address, phone).then((r) => {
-                setToken(r.token);
-                setUser(r.username);
-            }).then(() => {
-                history("/");
-            })
+            const response = await createaUser(username, password, email,first_name, last_name, address, phone);
+            const { user_id, token, is_admin } = response;
+            console.log(user_id, token, is_admin);
+            setToken(token);
+            setIsAdmin(is_admin);
+            setUserId(user_id);
+            const orderResponse = await createOrder(user_id);
+            localStorage.setItem("order_id", orderResponse.order_id);
+
+            // Check for errors in the response before redirecting
+            if (!response.error) {
+                history('/');
+            }
+
         } catch (error) {
             console.error(error);
         } finally {

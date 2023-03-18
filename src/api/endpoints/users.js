@@ -19,7 +19,7 @@ const userRouter = express.Router();
 
 userRouter.post("/register", async (req, res, next) => {
     try {
-        const { username, password, email, first_name, last_name, address, phone } = req.body;
+        const { username, password, email, first_name, last_name, address, phone, is_admin } = req.body;
 
         const queriedUser = await getUserByUsername(username);
 
@@ -45,7 +45,8 @@ userRouter.post("/register", async (req, res, next) => {
                 first_name,
                 last_name,
                 address,
-                phone
+                phone,
+                is_admin
             });
             if (!user) {
                 next({
@@ -53,6 +54,7 @@ userRouter.post("/register", async (req, res, next) => {
                     message: "There was a problem registering you. Please try again.",
                 });
             } else {
+                console.log(user)
                 const token = jwt.sign(
                     { user_id: user.user_id, username: user.username, is_admin: user.is_admin },
                     JWT_SECRET,

@@ -1,39 +1,36 @@
-// import { createReviews } from "../server/db/endpoints/reviews";
-// import { getProductById } from "../server/db/endpoints/products";
-// import express from "express";
+import { Router } from "express";
+import { getReviewsByProductId, createReviews, deleteReview } from "../../server/db/components/reviews.js"
+import express from "express";
+import {isAdmin} from "./isAdmin.js";
 
-// const reviewRouter = express.Router();
+const reviewRouter = express.Router();
 
-// //get all reviews for product
-// reviewRouter.post ("/products/:product_id/reviews", async (req,res) => {
-//     const product_id = req.params.product_id;
-//     const reviews = await reviewRouter.find({ product_id: product_id });
-//     res.json(reviews);
-// });
+//get all reviews for product
+reviewRouter.get ("/:product_id", async (req,res) => {
+ const product_id = req.params.product_id;
+    const reviews = await getReviewsByProductId(product_id);
+    res.json(reviews);
 
-// //add new review to product
-// reviewRouter.post("/products/:product_id/reviews", async (req,res) => {
-//     const product_id = req.params.product_id;
-//     const { title, content, rating, username, date_created } = req.body;
-    
-//     const review = new review ({
-//         product_id,
-//         title,
-//         content,
-//         rating,
-//         username,
-//         date_created,
-//     });
-//     await review.save();
-//     res.json(review);
-// });
+});
 
-// //delete review by id
-// reviewRouter.delete("/reviews/:id", async (res,req) => {
-//     const review_id = req.params.review_id;
-//     await review.findByIdAndDelete(review_id);
-//     res.sendStatus(204);
-// });
+//add new review to product
+reviewRouter.post("/:product_id", async (req,res) => {
+    const product_id = req.params.product_id;
+    const {title, content, rating, user} = req.body;
+    console.log(title, content, rating, user, product_id);
+    const review = await createReviews({user, product_id, title, content, rating});
+    res.json(review);
+});
+
+//delete review by id
+reviewRouter.delete("/:review_id", isAdmin, async (req,res, next) => {
+    console.log(req)
+
+    const review_id = req.params.review_id;
+    const review = await deleteReview(review_id);
+    console.log(review)
+    res.json(review);
+});
 
 
-// export default reviewRouter;
+export default reviewRouter;
