@@ -17,6 +17,7 @@ import Category from "./Components/Category.js";
 import Main from "./Components/Main.js";
 import Back from "./Components/Back.js";
 import {getLatestOrderId, getOrderById, getOrderProductsByOrderId} from "./api/apirequests.js";
+import {Box} from "@mui/material";
 
 
 
@@ -37,7 +38,7 @@ const storageUserId = localStorage.getItem(USER_ID);
 
 
 function App() {
-  const [order, setOrder] = useState(storageOrder);
+  const [order, setOrder] = useState(storageOrder || null);
   const [token, setToken] = useState(storageToken);
   const [user, setUser] = useState(storageUser);
   const [userId, setUserId] = useState(storageUserId);
@@ -73,6 +74,8 @@ function App() {
 
   return (
     <React.Fragment>
+
+
     <BrowserRouter>
       <NavBar
           key={navBarKey} // add key prop
@@ -83,7 +86,14 @@ function App() {
           token={token}
           refreshCart={refreshCart}
           setRefreshCart={setRefreshCart}
+          style={{
+            position: 'fixed',
+            width: '100%',
+            zIndex: 1,
+            margin: '0',
+          }}
       />
+      <Box style={{ position: 'relative', top: '1rem',}}>
       <Routes>
         <Route
             path='/'
@@ -120,14 +130,16 @@ function App() {
             exact element={<Success order={order} setOrder={setOrder} />}></Route>
         <Route
           path='/orderhistory'
-            exact element={<OrderHistory userId={userId} />}></Route>
+            exact element={<OrderHistory userId={userId} user={user} />}></Route>
 
         <Route
             path='/back'
             exact element={<Back />}></Route>
         
       </Routes>
+      </Box>
       </BrowserRouter>
+
     </React.Fragment>
   );
 }

@@ -12,8 +12,9 @@ import {
 import { getOrderProductsByOrderId } from "../api/apirequests.js";
 import { getOrdersByUserId } from "../api/apirequests.js";
 import {Divider, Paper} from "@mui/material";
+import CreateReviewButton from "./Buttons/CreateReviewButton.js";
 
-function OrderHistory({ userId }) {
+function OrderHistory({ userId, user }) {
     const [orders, setOrders] = useState([]);
     const [refresh, setRefresh] = useState(false);
 
@@ -66,6 +67,7 @@ function OrderHistory({ userId }) {
                                         <Typography variant="h6">Product ID: {orderProduct.title}</Typography>
                                         <Typography variant="h6">Quantity: {orderProduct.quantity}</Typography>
                                         <Typography variant="h6">Price: {orderProduct.price}</Typography>
+                                        <CreateReviewButton userId={userId} user={user} setRefresh={setRefresh} product_id={orderProduct.productId} />
                                     </Box>
                                 ))}
                             </CardContent>

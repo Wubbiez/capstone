@@ -39,7 +39,12 @@ const Login=({setToken, setIsAdmin})=>{
             setUserId(user_id);
             const orderResponse = await getLatestOrderId(user_id);
             localStorage.setItem("order_id", orderResponse.order_id);
-            history('/');
+
+            // Check for errors in the response before redirecting
+            if (!response.error) {
+                history('/');
+            }
+
         } catch (error) {
             console.error(error);
         } finally {
@@ -47,6 +52,7 @@ const Login=({setToken, setIsAdmin})=>{
             setPassword("");
         }
     };
+
 
 
     return(

@@ -60,8 +60,9 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                 display: 'flex',
                 flexDirection: 'row',
                 flexWrap: 'wrap',
-                marginLeft: '-10px',
-                marginRight: '-10px',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                width: '100%',
                 '& > .MuiGrid-item': {
                     flexBasis: '100%', // set to 100% for xs and sm
                     '@media (min-width: 600px)': {
@@ -79,8 +80,8 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                             backgroundColor: '#f4eee9',
                             display: 'flex',
                             flexWrap: 'wrap',
-                            marginLeft: '-10px',
-                            marginRight: '-10px',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
                             '& > .MuiCard-root': {
                                 maxWidth: '100%',
                               },
@@ -188,6 +189,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                     );
                 })}
             </Grid>
+
         </React.Fragment>
     );
 }

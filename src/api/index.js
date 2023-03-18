@@ -6,6 +6,7 @@ import userRouter from "./endpoints/users.js"
 import orderProductsRouter from "./endpoints/order_products.js";
 import {getUser, getUserById} from "../server/db/components/users.js";
 import jwt from "jsonwebtoken";
+import reviewRouter from "./endpoints/reviews.js";
 const { JWT_SECRET } = process.env;
 
 
@@ -55,7 +56,7 @@ apiRouter.use("/products", productsRouter);
 apiRouter.use("/orders", ordersRouter);
 
 //ROUTER: /api/reviews
-// apiRouter.use("/reviews", reviewRouter);
+apiRouter.use("/reviews", reviewRouter);
 
 // ROUTER: /api/users
 apiRouter.use("/users", userRouter);
