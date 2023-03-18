@@ -15,6 +15,7 @@ const StyledBox = styled(Box)({
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
     backgroundSize: "cover",
+    backgroundColor: "#F1FAEE",
     border: 1,
     borderRadius: '17px',
 });
@@ -28,7 +29,7 @@ const Category = () => {
 
 
     return (
-        <Box>
+        <Box sx={{backgroundColor: "#F1FAEE"}}>
             <Stack
                 direction={{ xs: "column", sm: "row" }}
                 spacing={{ xs: 1, sm: 2, md: 4 }}

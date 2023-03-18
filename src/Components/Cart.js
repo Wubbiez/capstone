@@ -67,20 +67,9 @@ const [isOpen, setIsOpen] = useState(false);
     
         '&:hover': {
             backgroundColor: '#457B9D',
-          boxShadow: '1px 2px 1px 1px #F1FAEE;',}
+            boxShadow: '1px 2px 1px 1px #F1FAEE;',}
                  }}>
                   <ShoppingCartTwoTone />
-
-                  {
-                      orderProducts.length > 0
-                      ? Number(
-                          orderProducts.reduce(
-                              (total, orderProduct) => total + orderProduct.quantity,
-                              0
-                          )
-                      ).toFixed(0)
-                      : 0
-              }
                   </Button>
 
 
@@ -90,19 +79,19 @@ const [isOpen, setIsOpen] = useState(false);
 
         <Modal open={isOpen} onClose={handleCloseCart}>
        <Paper
-    sx={{
-      margin: "5vh 10vw 5vh 10vw",
-      boxShadow: "10px 10px 2px 1px rgba(0, 0, 0, 0.2)",
-      height: "70vh",
-      maxHeight: "85vh",
-      width: "75vw",
-      overflowY: 'scroll',
-      overflowX: 'hidden',
-      display: 'flex',
-      flexDirection: 'column',
-      flex: '1',
-    }}
-    open={isOpen}>
+          sx={{
+            margin: "5vh 10vw 5vh 10vw",
+            boxShadow: "10px 10px 2px 1px rgba(0, 0, 0, 0.2)",
+            height: "70vh",
+            maxHeight: "85vh",
+            width: "75vw",
+            overflowY: 'scroll',
+            overflowX: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            flex: '1',
+          }}
+          open={isOpen}>
       <Box 
         p={2}
         role='presentation'

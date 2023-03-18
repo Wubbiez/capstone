@@ -91,16 +91,33 @@ function AddToOrderButton({userId, product_id, status, price, quantity, stripe_i
             onClick={handleClick}
             sx={{
                 backgroundColor: '#457B9D',
-                padding: '2em 5em',
+                height: '100%',
+                width: '80px',
+                fontSize: 'calc(1rem + 0.2vw)',
+                padding: 'calc(0.5rem + 0.1vw)',
                 transition: 'background-color 0.3s ease',
-  
                 '&:hover': {
-                backgroundColor: '#A8DADC',
-                color: '#333333',
-                boxShadow: '1px 2px 1px 1px #1D3557;',
-                padding: '2em 5em',}
+                    backgroundColor: '#A8DADC',
+                    color: '#333333',
+                    boxShadow: '1px 2px 1px 1px #1D3557;',
+                },
+                '@media (min-width:600px)': {
+                    width: '120px',
+                    },
+                    '@media (min-width:960px)': {
+                      width: '160px',
+                    },
+                // '@media (min-width:600px)': {
+                //     padding: 'calc(1.2rem + 0.6vw)',
+                //     fontSize: 'calc(1.3rem + 0.8vw)',
+                // },
+                // '@media (min-width:960px)': {
+                //     padding: 'calc(1.6rem + 1.2vw)',
+                //     fontSize: 'calc(2.2rem + 1.2vw)',
+                // },
              }}>
-            {isAddingToOrder ? 'Adding to Cart...' : 'Add to Cart'}
+            
+            <AddShoppingCartTwoTone />
         </Button>
     );
 }

@@ -3,9 +3,11 @@ import { Box, Typography } from "@mui/material";
 import main from "../Components/Images/main.jpg";
 const Back = () => {
     return (
-        <Box>
+        <Box sx={{
+            backgroundColor: "#F1FAEE"
+        }}>
             <Typography align="center" variant="h3" sx={{ fontWeight: 900 }}>
-                Team 4's<b style={{ color: "red" }}>Store</b>
+                Gadget<b style={{ color: "#E63946" }}>Galaxy</b>
             </Typography>
             <Typography align="center" variant="subtitle1" sx={{ fontWeight: 100 }}>
                 We Make Shopping Fun!
@@ -30,15 +32,15 @@ const Back = () => {
                         padding: { xs: 3, sm: 2, md: 20 },
                     }}
                 >
-                    <Box sx={{ background: "#fbeeee", opacity: "0.6" }}>
-                        <Typography variant={"h6"} color="#e90909" align="center" pt={7}>
+                    <Box sx={{backgroundColor: "#F1FAEE", opacity: "0.8" }}>
+                        <Typography variant={"h6"} color="#E63946" align="center" pt={7}>
                             Trending Technologies
                         </Typography>
                         <Typography variant="h4" align="center">
                             Life is Boring without Shopping!
                         </Typography>
                         <Typography variant="body1" align="center" pb={7}>
-                            Check our available items below ..
+                            View our available items below ..
                         </Typography>
 
                     </Box>
