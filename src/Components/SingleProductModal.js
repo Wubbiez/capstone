@@ -69,7 +69,7 @@ function SingleProductModal({product_id, title, description, price, image, in_st
             display: 'flex',
             flexDirection: 'row',
             flex: '1',
-            backgroundColor: '#F5F5F5 ',
+            backgroundColor: '#f1faee ',
 
             position: 'relative',
             "& > *": {
