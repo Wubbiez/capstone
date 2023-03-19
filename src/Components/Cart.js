@@ -69,6 +69,16 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
                     }
                 }}>
                 <ShoppingCartTwoTone/>
+                {
+                      orderProducts.length > 0
+                      ? Number(
+                          orderProducts.reduce(
+                              (total, orderProduct) => total + orderProduct.quantity,
+                              0
+                          )
+                      ).toFixed(0)
+                      : 0
+                }
             </Button>
 
 

@@ -58,14 +58,15 @@ const Success = ({order, setOrder}) => {
                 fontSize: '5rem',
                 color: theme.palette.success.main,
             }}/>
-                <Typography variant="h1" sx={{
+                <Typography variant="h6" sx={{
                     paddingTop: '2rem',
-                    paddingLeft: '1rem'
+                    paddingLeft: '1rem',
+                    fontWeight: 700
                 }}>
 
                     Order placed, thanks! </Typography>
             </Box>
-            <Typography variant="h4" sx={{
+            <Typography variant="h6" sx={{
                 paddingTop: '10px',
                 paddingLeft: '1rem',
                 paddingBottom: '10px',

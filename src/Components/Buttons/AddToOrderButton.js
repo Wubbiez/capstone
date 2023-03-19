@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Button} from '@mui/material';
+import {Button, Tooltip} from '@mui/material';
 import {getOrderProductsByOrderId, getOrdersByUser} from "../../api/apirequests.js";
 import {AddShoppingCartTwoTone} from '@mui/icons-material';
 import {toast} from "react-toastify";
@@ -105,6 +105,7 @@ function AddToOrderButton({
     }
 
     return (
+        <Tooltip title="Add Item to Cart" arrow>
         <Button
             variant="contained"
             disabled={isAddingToOrder}
@@ -139,6 +140,7 @@ function AddToOrderButton({
 
             <AddShoppingCartTwoTone/>
         </Button>
+        </Tooltip>
     );
 }
 

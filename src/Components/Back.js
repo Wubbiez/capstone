@@ -1,15 +1,24 @@
 import React from "react";
-import {Box, Typography} from "@mui/material";
+import {Box, styled, Typography} from "@mui/material";
 import main from "../Components/Images/main.jpg";
+
+const StyledTypography = styled(Typography)({
+    fontWeight: 900,
+    fontSize: 'calc(2rem + 2vw)',
+    '@media (max-width: 600px)': {
+        fontSize: 'calc(1.5rem + 1.5vw)',
+    },
+});
+
 
 const Back = () => {
     return (
         <Box sx={{
             backgroundColor: "#F1FAEE"
         }}>
-            <Typography align="center" variant="h3" sx={{fontWeight: 900}}>
+            <StyledTypography align="center" variant="h3" sx={{fontWeight: 900}}>
                 Gadget<b style={{color: "#E63946"}}>Galaxy</b>
-            </Typography>
+            </StyledTypography>
             <Typography align="center" variant="subtitle1" sx={{fontWeight: 100}}>
                 We Make Shopping Fun!
             </Typography>

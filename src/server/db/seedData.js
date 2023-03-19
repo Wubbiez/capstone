@@ -213,7 +213,7 @@ async function rebuildDB() {
         await createTables();
         await createInitialUsers();
         await seedProducts();
-        await createInitialReviews();
+        // await createInitialReviews();
         // await updateProduct({product_id: 1, title: "RF", description: "test",price: 1000})
         // await createInitialProducts();
 
