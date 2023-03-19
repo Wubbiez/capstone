@@ -92,7 +92,7 @@ function App() {
                         margin: '0',
                     }}
                 />
-                <Box style={{position: 'relative', top: '1rem',}}>
+                <Box style={{position: 'relative'}}>
                     <Routes>
                         <Route
                             path='/'

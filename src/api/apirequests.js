@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export async function getAllProducts() {
     const response = await fetch("http://localhost:3001/api/products");
     const products = await response.json();
@@ -76,12 +78,16 @@ export async function createaUser(username, password, email, first_name, last_na
             }
         );
         const results = await response.json();
-        if (results.message) {
-            alert(results.message);
-        }
+        if (results.message === 'Signup Successful!') {
+            toast.success(results.message);
+        } else
         if (results.error) {
-            alert(results.error);
-        }
+            toast.error(results.message);
+        } else
+        if (results.message) {
+            toast.warn(results.message);
+        } 
+        
         if (results.token) {
             const data = {
                 token: results.token,
@@ -138,9 +144,15 @@ export async function loginUser(username, password) {
         }
     );
     const results = await response.json();
+    if (results.message === 'Login Successful!') {
+        toast.success(results.message);
+    } else
+    if (results.error) {
+        toast.error(results.message);
+    } else
     if (results.message) {
-        alert(results.message);
-    }
+        toast.warn(results.message);
+    } 
     if (results.token) {
         const data = {
             token: results.token,
@@ -154,9 +166,6 @@ export async function loginUser(username, password) {
         localStorage.setItem("user-id", results.user.user_id);
         console.log(data);
         return data;
-    }
-    if (results.error) {
-        alert(results.error);
     }
 
 }
