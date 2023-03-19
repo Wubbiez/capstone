@@ -276,3 +276,10 @@ export async function getAverageProductRating(productId) {
     const average = await response.json();
     return average;
 }
+
+export async function getAllProductsBySearchTerm(searchTerm) {
+    const response = await fetch(`http://localhost:3001/api/products/search/${searchTerm}`);
+    const products = await response.json();
+    console.log(products);
+    return products;
+}

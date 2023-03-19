@@ -3,7 +3,7 @@ import express from "express";
 import {
     checkIfProductInStock,
     destroyProduct,
-    getAllProducts,
+    getAllProducts, getAllProductsBySearchTerm,
     getProductById,
     updateProduct,
     updateStripe
@@ -17,6 +17,16 @@ productsRouter.get("/", async (req, res, next) => {
     try {
         const products = await getAllProducts();
 
+        res.send(products);
+    } catch (error) {
+        next(error);
+    }
+})
+
+productsRouter.get('/search/:searchTerm', async (req, res, next) => {
+    try {
+        const {searchTerm} = req.params;
+        const products = await getAllProductsBySearchTerm(searchTerm);
         res.send(products);
     } catch (error) {
         next(error);
