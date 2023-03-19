@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {
+    alpha,
     AppBar,
     Avatar,
     Box,
@@ -7,7 +8,7 @@ import {
     Container,
     IconButton,
     Menu,
-    MenuItem,
+    MenuItem, styled,
     Tab,
     Tabs,
     Toolbar,
@@ -15,6 +16,8 @@ import {
     Typography,
     useMediaQuery,
     useTheme,
+    InputBase,
+    Icon
 } from "@mui/material";
 import {css} from '@emotion/react';
 import DrawerComp from "./Drawer.js";
@@ -22,6 +25,7 @@ import DrawerComp from "./Drawer.js";
 import {Link} from "react-router-dom";
 import {handleLogout} from "./Buttons/LogoutButton.js";
 import Cart from "./Cart.js";
+import {SearchSharp} from '@mui/icons-material';
 
 const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCart, setRefreshCart}) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -45,6 +49,57 @@ const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCar
           align-items: center;
         `
     };
+
+    const Search = styled("div")(({ theme }) => ({
+        position: "relative",
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: alpha(theme.palette.common.white, 0.15),
+        "&:hover": {
+            backgroundColor: alpha(theme.palette.common.white, 0.25),
+        },
+        marginLeft: 0,
+        width: "100%",
+        [theme.breakpoints.up("sm")]: {
+            marginLeft: theme.spacing(1),
+            width: "auto",
+        },
+        display: "flex",
+        flexGrow: 1,
+        maxWidth: "50",
+        alignItems: "center", // add this line to center vertically
+    }));
+
+
+    const SearchIconWrapper = styled('div')(({ theme }) => ({
+        padding: theme.spacing(0, 2),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }));
+
+    const StyledInputBase = styled(InputBase)(({ theme }) => ({
+        color: 'inherit',
+        height: '100%',
+        width: '100%',
+        '& .MuiInputBase-input': {
+            padding: theme.spacing(1, 1, 0, 0),
+            // vertical padding + font size from searchIcon
+            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+            transition: theme.transitions.create('width'),
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            [theme.breakpoints.up('sm')]: {
+                width: '12ch',
+                '&:focus': {
+                    width: '20ch',
+                },
+            },
+        },
+    }));
 
 
     const handleOpenNavMenu = (event) => {
@@ -135,10 +190,22 @@ const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCar
                         </>
                     ) : (
                         <>
-                            <Typography align="center" sx={{ fontWeight: 900,
-                                                            fontSize: 'calc(1.3rem + 1vw)' }}>
-                            Gadget<b style={{ color: "#E63946" }}>Galaxy</b>
+                            <Typography component={Link} to="/" align="center" sx={{ fontWeight: 900, textDecoration: "none", color: 'inherit',
+                                fontSize: 'calc(1.3rem + 1vw)' }}>
+                                Gadget<b style={{ color: "#E63946" }}>Galaxy</b>
                             </Typography>
+                            <Search>
+                                <SearchIconWrapper>
+                                    <SearchSharp />
+                                </SearchIconWrapper>
+                                <StyledInputBase
+                                    placeholder="Search…"
+                                    inputProps={{ 'aria-label': 'search' }}
+
+
+                                />
+                            </Search>
+
                             <Tabs
                                 sx={{marginLeft: "auto"}}
                                 indicatorColor="secondary"
@@ -146,7 +213,6 @@ const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCar
                                 value={false}
                                 onChange={(e, value) => setValue(value)}
                             >
-                                <Tab label="Home" component={Link} to="/"/>
                                 <Tab label="Products" component={Link} to="/products"/>
                                 <Tab label="Contact" component={Link} to="/contact"/>
                             </Tabs>

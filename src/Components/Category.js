@@ -8,9 +8,9 @@ import Tv from "../Components/Images/tv.jpeg";
 import {Link} from "react-router-dom";
 
 
-const StyledBox = styled(Box)({
-    height: 200,
-    width: "100%",
+const StyledBox = styled(Box)(({theme}) => ({
+    height: "15vw",
+    width: "15vw",
     cursor: "pointer",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
@@ -18,11 +18,32 @@ const StyledBox = styled(Box)({
     backgroundColor: "#F1FAEE",
     border: 1,
     borderRadius: '17px',
-});
+    justifyContent: "center",
+    alignItems: "center",
+    display: "flex",
+
+    [theme.breakpoints.down("sm")]: {
+        height: "40vw",
+        width: "100vw",
+    }
+}));
+
 const StyledTypography = styled(Typography)({
     margin: "25% 50px 25% 50px",
     background: "white",
     opacity: "0.8",
+    justifyContent: "center",
+    alignItems: "center",
+});
+
+const StyledLink = styled(Link)({
+    textDecoration: "none",
+    color: "inherit",
+    cursor: "pointer",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
 });
 
 const Category = () => {
@@ -34,42 +55,54 @@ const Category = () => {
                 direction={{xs: "column", sm: "row"}}
                 spacing={{xs: 1, sm: 2, md: 4}}
                 mt={6}
+                justifyContent="center"
+                alignItems="center"
             >
-                <StyledBox sx={{backgroundImage: `url(${Fridge})`}}>
-                    <Link to="/products?category=FRIDGES">
-                        <StyledTypography align="center" variant="h6">
+                <StyledLink to="/products?category=FRIDGES">
+                    <StyledBox sx={{backgroundImage: `url(${Fridge})`}}>
+
+                        <StyledTypography align="center" variant="h6" >
                             Refrigerators
                         </StyledTypography>
-                    </Link>
-                </StyledBox>
-                <StyledBox sx={{backgroundImage: `url(${LapTop})`}}>
-                    <Link to="/products?category=LAPTOPS">
+
+                    </StyledBox>
+                </StyledLink>
+                <StyledLink to="/products?category=LAPTOPS">
+                    <StyledBox sx={{backgroundImage: `url(${LapTop})`}}>
+
                         <StyledTypography align="center" variant="h6">
                             Laptops
                         </StyledTypography>
-                    </Link>
-                </StyledBox>
-                <StyledBox sx={{backgroundImage: `url(${Watch})`}}>
-                    <Link to="/products?category=SMART-WATCHES">
+
+                    </StyledBox>
+                </StyledLink>
+                <StyledLink to="/products?category=SMART-WATCHES">
+                    <StyledBox sx={{backgroundImage: `url(${Watch})`}}>
+
                         <StyledTypography align="center" variant="h6">
                             Smart-Watches
                         </StyledTypography>
-                    </Link>
-                </StyledBox>
-                <StyledBox sx={{backgroundImage: `url(${VideoGame})`}}>
-                    <Link to="/products?category=VIDEO-GAMES">
+
+                    </StyledBox>
+                </StyledLink>
+                <StyledLink to="/products?category=VIDEO-GAMES">
+                    <StyledBox sx={{backgroundImage: `url(${VideoGame})`}}>
+
                         <StyledTypography align="center" variant="h6">
                             Video-Games
                         </StyledTypography>
-                    </Link>
-                </StyledBox>
-                <StyledBox sx={{backgroundImage: `url(${Tv})`}}>
-                    <Link to="/products?category=TELEVISIONS">
+
+                    </StyledBox>
+                </StyledLink>
+                <StyledLink to="/products?category=TELEVISIONS">
+                    <StyledBox sx={{backgroundImage: `url(${Tv})`}}>
+
                         <StyledTypography align="center" variant="h6">
                             TV's
                         </StyledTypography>
-                    </Link>
-                </StyledBox>
+
+                    </StyledBox>
+                </StyledLink>
             </Stack>
         </Box>
     );

@@ -1,10 +1,17 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
-import {Box, Button, ButtonGroup, Modal, Paper, Typography, Tooltip} from "@mui/material";
+import {Box, Button, ButtonGroup, Modal, Paper, Typography, Tooltip, styled} from "@mui/material";
 import {OpenInNewTwoTone} from '@mui/icons-material';
 
 import AddToOrderButton from "./Buttons/AddToOrderButton.js";
 import UpdateQuantityButton from "./Buttons/UpdateQuantityButton.js";
+
+const StyledTypography = styled(Typography)({
+    fontSize: 'calc(2rem + 2vw)',
+    '@media (max-width: 600px)': {
+        fontSize: 'calc(1.5rem + 1.5vw)',
+    },
+});
 
 
 function SingleProductModal({
@@ -67,23 +74,26 @@ function SingleProductModal({
                 <Paper sx={{
                     margin: "5vh 10vw 5vh 10vw",
                     boxShadow: "10px 10px 2px 1px rgba(0, 0, 0, 0.2)",
-                    height: "80vh",
-                    width: '80vh',
-                    minHeight: "calc(10rem + 20vw)",
-                    maxHeight: "85vh",
-                    maxWidth: "85vw",
+                    minHeight: "45%",
                     padding: "5vh 10px 10px 10px",
                     display: 'flex',
                     flexDirection: 'row',
                     flex: '1',
                     background: 'linear-gradient(45deg, rgba(29,53,87,1) 0%, rgba(241,250,238,1) 50%, rgba(245,245,245,1) 100%)',
-                
                     position: 'relative',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
                     "& > *": {
                         flexShrink: 1
-                    }
-
+                    },
+                    '@media screen and (min-width: 600px)': {
+                        minHeight: "65%",
+                    },
+                    '@media screen and (min-width: 960px)': {
+                      minHeight: "85%",
+                    },
                 }}>
+
                     <Button onClick={handleCloseModal} s sx={{
                         backgroundColor: "#333333",
                         position: 'absolute',
@@ -93,14 +103,16 @@ function SingleProductModal({
                     <Box
                         component="img"
                         sx={{
-                            aspectRatio: '16/9',
+                            objectFit: "contain",
                             maxHeight: "50%",
-                            maxWidth: "30%",
-                            padding: "15px 5px 15px 5px"
+                            maxWidth: "20%",
+                            padding: "15px 5px 15px 5px",
+                            alignSelf: "flex-start",
                         }}
                         alt="title"
                         src={image}
                     />
+
 
                     <Box sx={{
                         display: 'flex',
@@ -137,14 +149,12 @@ function SingleProductModal({
                         <ButtonGroup sx={{
                             position: 'absolute',
                             bottom: '0',
-                            left: '0',
+                            left: '0%',
                             height: '10%',
                             width: '80px',
                             margin: '5rem 0 5rem 1rem',
                             display: 'flex',
                             flexDirection: 'column',
-                            alignItems: 'left',
-                            justifyContent: 'left',
                             "& > *": {
                                 flexShrink: 1
                             },
@@ -153,8 +163,9 @@ function SingleProductModal({
                             },
                             '@media (min-width:960px)': {
                                 bottom: '0',
-                                left: 'calc(1rem + 0.3vw)',
+                                left: '0',
                                 width: '160px',
+                                margin: '5rem 0 3rem 1rem',
                             },
                         }}>
 
