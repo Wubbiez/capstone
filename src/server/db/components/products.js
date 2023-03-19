@@ -1,12 +1,14 @@
 import client from "../client.js";
 import stripe0 from "stripe";
-import{config} from "dotenv";
+import {config} from "dotenv";
+
 config();
+
 async function createProduct({title, description, price, image, inStock, category}) {
     try {
         const {rows: [product]} = await client.query(`
             INSERT INTO products(title, description, price, "image", "in_stock", category)
-            VALUES($1, $2, $3, $4, $5, $6)
+            VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING *;
         `, [title, description, price, image, inStock, category]);
         return product;
@@ -14,6 +16,7 @@ async function createProduct({title, description, price, image, inStock, categor
         throw error;
     }
 }
+
 async function getAllProducts() {
     try {
         const {rows: products} = await client.query(`
@@ -46,13 +49,13 @@ async function updateProduct({product_id: id, title, description, price, image, 
     try {
         const {rows: [product]} = await client.query(`
             UPDATE products
-            SET title = $1,
+            SET title       = $1,
                 description = $2,
-                price = $3,
-                "image" = $4,
-                "in_stock" = $5,
-                category = $6,
-                stripe_id = $7
+                price       = $3,
+                "image"     = $4,
+                "in_stock"  = $5,
+                category    = $6,
+                stripe_id   = $7
             WHERE product_id = $8
             RETURNING *;
         `, [title, description, price, image, inStock, category, stripe_id, id]);
@@ -120,7 +123,8 @@ async function updateStripe({product_id: id, title, description, price, image, i
 async function destroyProduct(productId) {
     try {
         const {rows: [product]} = await client.query(`
-            DELETE FROM products
+            DELETE
+            FROM products
             WHERE product_id = $1
             RETURNING *;
         `, [productId]);
@@ -160,16 +164,29 @@ async function updateOrderProduct({product_id: id, title, description, price, im
     try {
         const {rows: [product]} = await client.query(`
             UPDATE products
-            SET title = $1,
+            SET title       = $1,
                 description = $2,
-                price = $3,
-                "image" = $4,
-                "in_stock" = $5,
-                category = $6,
-                stripe_id = $7
+                price       = $3,
+                "image"     = $4,
+                "in_stock"  = $5,
+                category    = $6,
+                stripe_id   = $7
             WHERE product_id = $8
             RETURNING *;
         `, [title, description, price, image, inStock, category, stripe_id, id]);
+        return product;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function getAverageProductRating(productId) {
+    try {
+        const {rows: [product]} = await client.query(`
+            SELECT AVG(rating)
+            FROM reviews
+            WHERE productid = $1;
+        `, [productId]);
         return product;
     } catch (error) {
         throw error;
@@ -185,5 +202,6 @@ export {
     destroyProduct,
     getProductsByCategory,
     checkIfProductInStock,
-    updateStripe
+    updateStripe,
+    getAverageProductRating
 }

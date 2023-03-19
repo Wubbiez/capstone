@@ -1,5 +1,5 @@
-import { Box, Stack, styled, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import {Box, Stack, styled, Typography} from "@mui/material";
+import React from "react";
 import Watch from "../Components/Images/watch.jpg";
 import LapTop from "../Components/Images/laptop.png";
 import Fridge from "../Components/Images/fridge.jpg";
@@ -31,40 +31,40 @@ const Category = () => {
     return (
         <Box sx={{backgroundColor: "#F1FAEE"}}>
             <Stack
-                direction={{ xs: "column", sm: "row" }}
-                spacing={{ xs: 1, sm: 2, md: 4 }}
+                direction={{xs: "column", sm: "row"}}
+                spacing={{xs: 1, sm: 2, md: 4}}
                 mt={6}
             >
-                <StyledBox sx={{ backgroundImage: `url(${Fridge})` }}>
-                    <Link to="/products?category=FRIDGE">
+                <StyledBox sx={{backgroundImage: `url(${Fridge})`}}>
+                    <Link to="/products?category=FRIDGES">
                         <StyledTypography align="center" variant="h6">
-                            Refrigerator
+                            Refrigerators
                         </StyledTypography>
                     </Link>
                 </StyledBox>
-                <StyledBox sx={{ backgroundImage: `url(${LapTop})` }}>
-                    <Link to="/products?category=LAPTOP">
+                <StyledBox sx={{backgroundImage: `url(${LapTop})`}}>
+                    <Link to="/products?category=LAPTOPS">
                         <StyledTypography align="center" variant="h6">
                             Laptops
                         </StyledTypography>
                     </Link>
                 </StyledBox>
-                <StyledBox sx={{ backgroundImage: `url(${Watch})` }}>
+                <StyledBox sx={{backgroundImage: `url(${Watch})`}}>
                     <Link to="/products?category=SMART-WATCHES">
                         <StyledTypography align="center" variant="h6">
                             Smart-Watches
                         </StyledTypography>
                     </Link>
                 </StyledBox>
-                <StyledBox sx={{ backgroundImage: `url(${VideoGame})` }}>
+                <StyledBox sx={{backgroundImage: `url(${VideoGame})`}}>
                     <Link to="/products?category=VIDEO-GAMES">
                         <StyledTypography align="center" variant="h6">
                             Video-Games
                         </StyledTypography>
                     </Link>
                 </StyledBox>
-                <StyledBox sx={{ backgroundImage: `url(${Tv})` }}>
-                    <Link to="/products?category=TV">
+                <StyledBox sx={{backgroundImage: `url(${Tv})`}}>
+                    <Link to="/products?category=TELEVISIONS">
                         <StyledTypography align="center" variant="h6">
                             TV's
                         </StyledTypography>

@@ -1,15 +1,14 @@
 import express from "express";
 
 import {
-    getAllOrders,
-    getOrderById,
-    destroyOrder,
-    updateOrder,
-    getOrdersByUser,
     createOrder,
-    getLatestOrderId
+    destroyOrder,
+    getAllOrders,
+    getLatestOrderId,
+    getOrderById,
+    getOrdersByUser,
+    updateOrder
 } from "../../server/db/components/orders.js";
-import {isAdmin} from "./isAdmin.js";
 
 const ordersRouter = express.Router();
 
@@ -47,11 +46,11 @@ ordersRouter.post("/", async (req, res, next) => {
 
 ordersRouter.patch("/:id", async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const { status } = req.body;
+        const {id} = req.params;
+        const {status} = req.body;
 
         try {
-            const order = await updateOrder({ id, status });
+            const order = await updateOrder({id, status});
             res.send(order);
         } catch (error) {
             console.error(error);
@@ -76,8 +75,10 @@ ordersRouter.delete("/:id", async (req, res, next) => {
 })
 
 ordersRouter.get("/users/:id", async (req, res, next) => {
+
     try {
         const {id} = req.params;
+        console.log(id)
         const orders = await getOrdersByUser(id);
 
         res.send(orders);

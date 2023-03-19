@@ -1,9 +1,9 @@
 import client from "./client.js";
 import fs from 'fs';
 import {getProducts} from "../../api/fakestoreAPI.js";
-import {createProduct, getAllProducts, getProductById, updateProduct} from "./components/products.js";
-import { createUser } from "./components/users.js";
-import { createReviews } from "./components/reviews.js";
+import {createProduct, getProductById} from "./components/products.js";
+import {createUser} from "./components/users.js";
+import {createReviews} from "./components/reviews.js";
 
 
 async function dropTables() {
@@ -34,13 +34,13 @@ export async function createTables() {
                                  username     VARCHAR(255) UNIQUE NOT NULL,
                                  password     VARCHAR(255)        NOT NULL,
                                  email        VARCHAR(255) UNIQUE NOT NULL,
-                                 first_name   VARCHAR(255)        DEFAULT NULL,
-                                 last_name    VARCHAR(255)        DEFAULT NULL,
-                                 address      VARCHAR(255)        DEFAULT NULL,
-                                 phone        VARCHAR(255)        DEFAULT NULL,
-                                 is_admin     BOOLEAN   DEFAULT false,
-                                 is_active    BOOLEAN   DEFAULT true,
-                                 date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                                 first_name   VARCHAR(255) DEFAULT NULL,
+                                 last_name    VARCHAR(255) DEFAULT NULL,
+                                 address      VARCHAR(255) DEFAULT NULL,
+                                 phone        VARCHAR(255) DEFAULT NULL,
+                                 is_admin     BOOLEAN      DEFAULT false,
+                                 is_active    BOOLEAN      DEFAULT true,
+                                 date_created TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
                              );
         `);
         await client.query(` CREATE TABLE products
@@ -51,14 +51,14 @@ export async function createTables() {
                                  description  TEXT         NOT NULL,
                                  price        DECIMAL      NOT NULL,
                                  image        VARCHAR(255) DEFAULT 'https://www.freeiconspng.com/uploads/no-image-icon-6.png',
-                                 in_stock     BOOLEAN   DEFAULT true,
+                                 in_stock     BOOLEAN      DEFAULT true,
                                  category     VARCHAR(255) DEFAULT 'other',
-                                 is_active    BOOLEAN   DEFAULT true,
+                                 is_active    BOOLEAN      DEFAULT true,
                                  stripe_id    VARCHAR(255) DEFAULT NULL,
-                                 date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                                 
+                                 date_created TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
+
                              );
-                            CREATE UNIQUE INDEX product_id ON products (product_id, stripe_id);
+        CREATE UNIQUE INDEX product_id ON products (product_id, stripe_id);
         `);
         await client.query(` CREATE TABLE orders
 
@@ -82,15 +82,16 @@ export async function createTables() {
                              );
         `);
         await client.query(`
-            CREATE TABLE reviews (
-                                     review_id SERIAL PRIMARY KEY,
-                                     username VARCHAR(255) REFERENCES users (username)  NOT NULL,
-                                     productid INTEGER REFERENCES products (product_id) NOT NULL,
-                                     title VARCHAR(255) NOT NULL,
-                                     content TEXT NOT NULL,
-                                     rating DECIMAL,
-                                     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                     CONSTRAINT rating_check CHECK (rating BETWEEN 0 AND 5 OR rating IS NULL)
+            CREATE TABLE reviews
+            (
+                review_id    SERIAL PRIMARY KEY,
+                username     VARCHAR(255) REFERENCES users (username) NOT NULL,
+                productid    INTEGER REFERENCES products (product_id) NOT NULL,
+                title        VARCHAR(255)                             NOT NULL,
+                content      TEXT                                     NOT NULL,
+                rating       DECIMAL,
+                date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                CONSTRAINT rating_check CHECK (rating BETWEEN 0 AND 5 OR rating IS NULL)
             );
         `);
         await client.query(` CREATE TABLE payments
@@ -160,11 +161,11 @@ async function createInitialUsers() {
     console.log("Starting to create users...")
     try {
         const usersToCreate = [
-            { username: "Corey", password: "Corey22", email: "Corey@gmail.com", is_admin: true },
-            { username: "Zach", password: "Zach123", email: "Zach@gmail.com", is_admin: true },
-            { username: "Abdulla", password: "Abdulla10", email: "Abdulla@gmail.com", is_admin: true },
-            { username: "Santi", password: "Santi27", email: "Santi@gmail.com", is_admin: true },
-            { username: "Bob", password: "Bob123", email: "BobbyBoi@gmail.com", is_admin: false }
+            {username: "Corey", password: "Corey22", email: "Corey@gmail.com", is_admin: true},
+            {username: "Zach", password: "Zach123", email: "Zach@gmail.com", is_admin: true},
+            {username: "Abdulla", password: "Abdulla10", email: "Abdulla@gmail.com", is_admin: true},
+            {username: "Santi", password: "Santi27", email: "Santi@gmail.com", is_admin: true},
+            {username: "Bob", password: "Bob123", email: "BobbyBoi@gmail.com", is_admin: false}
         ]
         const users = await Promise.all(usersToCreate.map(createUser))
 
@@ -185,7 +186,13 @@ async function createInitialReviews() {
     console.log(product1.product_id);
     try {
         const reviewsToCreate = [
-            { username: "Corey", productid: product1.product_id, title: "Shitty Fridge", content: "This thing don't even run!", rating: "2" },
+            {
+                username: "Corey",
+                productid: product1.product_id,
+                title: "Shitty Fridge",
+                content: "This thing don't even run!",
+                rating: "2"
+            },
         ]
         const reviews = await Promise.all(reviewsToCreate.map(createReviews))
 

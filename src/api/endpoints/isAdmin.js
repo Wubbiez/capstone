@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
-const { JWT_SECRET } = process.env;
+
+const {JWT_SECRET} = process.env;
 export const isAdmin = (req, res, next) => {
     console.log(req.headers.authorization);
     const token = req.headers.authorization.split(' ')[1];
@@ -8,7 +9,7 @@ export const isAdmin = (req, res, next) => {
 
 
     if (!isAdmin) {
-        return res.status(401).json({ message: 'Unauthorized' });
+        return res.status(401).json({message: 'Unauthorized'});
     }
 
     next();

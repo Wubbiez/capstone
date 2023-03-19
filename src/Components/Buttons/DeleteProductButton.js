@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Button} from "@mui/material";
 
-function DeleteProductButton ({product_id}) {
+function DeleteProductButton({product_id}) {
     const [isDeleting, setIsDeleting] = useState(false);
 
     async function handleClick() {
