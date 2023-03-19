@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Card, CardActions, CardContent, Grid, Modal, Paper, Typography} from '@mui/material';
+import {Box, Button, Card, CardActions, CardContent, Grid, Modal, Paper, styled, Typography} from '@mui/material';
 
 
 import {getOrderProductsByOrderId} from "../api/apirequests.js";
@@ -13,6 +13,12 @@ import CheckoutButton from './Buttons/CheckoutButton.js';
 import EmptyCartButton from './Buttons/EmptyCartButton.js';
 import {ShoppingCartTwoTone} from '@mui/icons-material';
 
+const StyledTypography = styled(Typography)({
+    fontSize: 'calc(2rem + 2vw)',
+    '@media (max-width: 600px)': {
+        fontSize: 'calc(1.5rem + 1.5vw)',
+    },
+});
 const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
 
 
@@ -85,9 +91,9 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
             <Modal open={isOpen} onClose={handleCloseCart}>
                 <Paper
                     sx={{
-                        margin: "5vh 10vw 5vh 10vw",
+                        margin: "5vh auto 5vh auto",
                         boxShadow: "10px 10px 2px 1px rgba(0, 0, 0, 0.2)",
-                        height: "70vh",
+                        height: "75vh",
                         maxHeight: "85vh",
                         width: "75vw",
                         overflowY: 'scroll',
@@ -95,6 +101,9 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
                         display: 'flex',
                         flexDirection: 'column',
                         flex: '1',
+                        objectFit: 'contain',
+
+                        alignItems: 'center',
                     }}
                     open={isOpen}>
                     <Box
@@ -106,10 +115,11 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
                             width: '75vw',
                             textAlign: 'center',
                             justifyContent: "center",
+                            alignItems: "center",
 
                         }}
                     >
-                        <Typography variant='h4' component='div' sx={{color: '#f8edeb'}}> My Cart</Typography>
+                        <StyledTypography variant='h4' component='div' sx={{color: '#f8edeb'}}> My Cart</StyledTypography>
                         {orderProducts.length > 0 ? <Typography variant="h4">
                             Order Total: $ {Number(
                             orderProducts.reduce(
@@ -128,7 +138,7 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
                                 backgroundColor: "#333333",
                                 position: 'absolute',
                                 top: '5vh',
-                                right: '15vw',
+                                right: '12.5vw',
 
                                 '&:hover': {
                                     backgroundColor: '#F1FAEE',
@@ -144,8 +154,8 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
                         flexDirection: 'row',
                         justifyContent: 'left',
                         alignItems: 'center',
-                        maxHeight: '85vh',
-                        width: '75vw',
+
+                        width: '100%',
                         overflowY: 'scroll',
                         overflowX: 'hidden',
                         margin: 0,
@@ -176,7 +186,7 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
                                         justifyContent: 'space-around',
                                         minHeight: '70px',
                                         borderBottom: "2px solid #212529",
-                                        width: 'inherit',
+                                        width: '100%',
                                     }}>
 
                                         <Box
@@ -197,21 +207,24 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
                                             alignItems: 'center',
                                             justifyContent: 'space-around',
                                             minHeight: '70px',
+                                            width: '100%',
                                         }}>
-                                            <Typography variant="h6"
+                                            <StyledTypography variant="h6"
                                                         sx={{color: '#343a40',}}
-                                            >{orderProduct.title}</Typography>
-                                            <Typography
+                                            >{orderProduct.title}</StyledTypography>
+                                            <StyledTypography
                                                 variant="h6"
                                                 sx={{
                                                     color: '#343a40',
                                                     paddingBottom: '1rem'
                                                 }}
-                                            >${orderProduct.price}</Typography>
+                                            >${orderProduct.price}</StyledTypography>
 
                                             <CardActions sx={{
                                                 display: 'flex',
                                                 flexDirection: 'row',
+
+
                                             }}>
                                                 <UpdateQuantityButton order_id={order}
                                                                       orderProductId={orderProduct.productId}

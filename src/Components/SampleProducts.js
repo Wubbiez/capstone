@@ -1,11 +1,19 @@
 import React, {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
-import {Box, Card, CardContent, Grid, List, ListItem, ListItemText, Typography} from "@mui/material";
+import {useNavigate} from "react-router-dom";
+import {Box, Card, CardContent, Grid, List, ListItem, ListItemText, styled, Typography} from "@mui/material";
 import {getAllProducts} from "../api/apirequests.js";
 // import EditOrderProductButton from "./Buttons/EditOrderProductButton.js";
 import SingleProductModal from "./SingleProductModal.js";
 import category from "./Category.js";
 import {TextField} from "@mui/material/";
+
+const StyledTypography = styled(Typography)({
+    fontSize: 'calc(2rem + 2vw)',
+    '@media (max-width: 600px)': {
+        fontSize: 'calc(1.5rem + 1.5vw)',
+    },
+});
 
 function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshCart, userId}) {
     const [products, setProducts] = useState([]);
@@ -17,7 +25,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
     const [popoverTimeout, setPopoverTimeout] = useState(null);
     const [open, setOpen] = useState(false);
     const [searchString, setSearchString] = useState("");
-
+    const history = useNavigate();
     const categories = ['ALL PRODUCTS', 'FRIDGES', 'LAPTOPS', 'SMART-WATCHES', 'VIDEO-GAMES', 'TELEVISIONS'];
 
     const handleSearchChange = (event) => {
@@ -49,19 +57,19 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
 
     return (
         <React.Fragment>
-            <Box sx={{backgroundColor: '#F5F5F5'}}>
+            <Box sx={{backgroundColor: '#F5F5F5', width:'100%'}}>
                 <Box sx={{position: 'sticky', top: '60px', zIndex: '1', backgroundColor:'white'}}>
-                    <Typography variant="h2" sx={{
+                    <StyledTypography variant="h2" sx={{
                         fontWeight: 'bold',
-                        fontSize: '2.5rem',
                         textAlign: 'center',
                     }}>
                         {category || (
                             <>
+
                                 ALL <b style={{color: "#E63946"}}>PRODUCTS</b>
                             </>
                         )}
-                    </Typography>
+                    </StyledTypography>
                     <TextField
                         label="Search"
                         value={searchString}
@@ -71,7 +79,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                     />
                     <Grid container spacing={2} justifyContent="center">
                         {categories.map((category) => (
-                            <Grid key={category} item xs={6} sm={4} md={3} lg={2}>
+                            <Grid key={category} item xs={4} sm={6} md={4} lg={2}>
                                 <List sx={{
                                     backgroundColor: '#F5F5F5',
                                     textAlign: 'center',
@@ -91,8 +99,13 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                                         }}
 
                                         onClick={() => {
-                                            category == 'ALL PRODUCTS' ? setCategory(null) :
-                                                setCategory(category)
+                                            if (category === 'ALL PRODUCTS') {
+                                                setCategory(null);
+                                                history('/products');
+                                            } else {
+                                                setCategory(category);
+                                                history(`/products?category=${category}`);
+                                            }
                                         }}
                                     >
                                         <ListItemText
@@ -179,8 +192,9 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                                                 sx={{
                                                     flexFlow: 'column',
                                                     aspectRatio: '16/9',
-                                                    height: 'auto',
-                                                    width: '60%',
+                                                    objectFit: "contain",
+                                                    maxHeight: "50%",
+                                                    width: "80%",
                                                     flex: '1',
                                                     padding: '1vh',
                                                     display: 'flex',
@@ -206,8 +220,8 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                                                 // width: '70%',
 
                                             }}>
-                                                <Typography variant="h6">{product.title}</Typography>
-                                                <Typography variant="h6" gutterBottom>$ {product.price}</Typography>
+                                                <StyledTypography variant="h6">{product.title}</StyledTypography>
+                                                <StyledTypography variant="h6" gutterBottom>$ {product.price}</StyledTypography>
                                                 <SingleProductModal
                                                     variant="contained"
                                                     userId={userId}

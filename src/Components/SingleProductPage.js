@@ -157,14 +157,11 @@ function SingleProductPage({order, setOrder, setRefreshCart, userId}) {
                 <Box
                     component="img"
                     sx={{
-                        aspectRatio: '16/9',
-                        maxHeight: "36vh",
-                        maxWidth: "20vw",
-                        padding: "15px 5px 15px 5px",
-                        "& > *": {
-                            flexShrink: 1
-                        }
-
+                        maxHeight: "100%",
+                        width: '20%',
+                        padding: "0px 5px 15px 5px",
+                        objectFit: 'contain',
+                        alignSelf: "flex-start",
                     }}
                     alt="title"
                     src={product.image}
@@ -172,9 +169,8 @@ function SingleProductPage({order, setOrder, setRefreshCart, userId}) {
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    paddingLeft: '3rem',
+                    paddingLeft: '0.5rem',
                     paddingRight: '3rem',
-                    paddingTop: '1.5rem',
                     width: '60%',
                     height: '80%',
                     maxHeight: "100%",
@@ -200,7 +196,9 @@ function SingleProductPage({order, setOrder, setRefreshCart, userId}) {
 
 
                     <ButtonGroup sx={{
-                        marginTop: '5rem',
+                        marginTop: '1rem',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
                         alignItems: 'center',
                         justifyContent: 'center',
                         display: 'flex',
@@ -229,9 +227,9 @@ function SingleProductPage({order, setOrder, setRefreshCart, userId}) {
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        marginTop: '1.5rem',
-                        paddingRight: '33vw',
-                        paddingBottom: '1rem'
+marginTop: '1rem',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
                     }}>
                         <UpdateQuantityButton order_id={order} orderProductId={product.product_id}
                                               price={product.price} setRefresh={setRefresh} refresh={refresh}
