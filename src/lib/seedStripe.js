@@ -1,14 +1,13 @@
 // push all products to stripe
 import stripe0 from "stripe";
-import{config} from "dotenv";
+import {config} from "dotenv";
 
 import client from "../server/db/client.js";
-import {updateProduct} from "../server/db/components/products.js";
+
 config();
 
 
 const stripe = stripe0(process.env.STRIPE_API_KEY);
-
 
 
 const seedStripe = async () => {
@@ -20,10 +19,10 @@ const seedStripe = async () => {
     for (const product of productsArray) {
         const {product_id, title, description, price, image, category} = product;
         const response = await stripe.products.create({
-                id: product_id.toString(),
-                name: title,
-                description,
-                images: [image],
+            id: product_id.toString(),
+            name: title,
+            description,
+            images: [image],
             metadata: {
                 category: category
             },
@@ -31,9 +30,9 @@ const seedStripe = async () => {
 
         console.log(response);
         const priceResponse = await stripe.prices.create({
-                product: response.id,
-                unit_amount: Math.round(price * 100),
-                currency: 'usd',
+            product: response.id,
+            unit_amount: Math.round(price * 100),
+            currency: 'usd',
         });
         console.log(priceResponse);
 

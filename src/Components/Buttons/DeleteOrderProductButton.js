@@ -2,9 +2,9 @@ import {useState} from "react";
 import {Button} from "@mui/material";
 
 
+import {RemoveShoppingCartTwoTone} from "@mui/icons-material";
 
-import { RemoveShoppingCartTwoTone } from "@mui/icons-material";
-function DeleteOrderProductButton ({order_id, product_id, setRefresh,}) {
+function DeleteOrderProductButton({order_id, product_id, setRefresh,}) {
 
     const [isDeleting, setIsDeleting] = useState(false);
 
@@ -33,15 +33,16 @@ function DeleteOrderProductButton ({order_id, product_id, setRefresh,}) {
 
             disabled={isDeleting}
             onClick={handleClick}
-            sx={{backgroundColor: '#E63946',
-        color: '#F1FAEE',
-        '&:hover': {
-            backgroundColor: '#F1FAEE',
-            color: '#E63946'
-     }
-    }}
+            sx={{
+                backgroundColor: '#E63946',
+                color: '#F1FAEE',
+                '&:hover': {
+                    backgroundColor: '#F1FAEE',
+                    color: '#E63946'
+                }
+            }}
         >
-            <RemoveShoppingCartTwoTone />        </Button>
+            <RemoveShoppingCartTwoTone/> </Button>
     );
 }
 

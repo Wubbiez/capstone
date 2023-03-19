@@ -1,13 +1,8 @@
-import { useState, useEffect } from "react";
-import { Button } from "@mui/material";
-import {
-    updateOrderProduct,
-    getOrderProductById,
-    getOrderProductByOrderIdAndProductId,
-} from "../../api/apirequests.js";
-import { Typography } from "@mui/material";
+import {useEffect, useState} from "react";
+import {Button, Typography} from "@mui/material";
+import {getOrderProductByOrderIdAndProductId, updateOrderProduct,} from "../../api/apirequests.js";
 
-function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , refresh, setRefreshCart}) {
+function UpdateQuantityButton({orderProductId, price, order_id, setRefresh, refresh, setRefreshCart}) {
     const [isUpdating, setIsUpdating] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const [isInCart, setIsInCart] = useState(false);
@@ -15,11 +10,11 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
     useEffect(() => {
         async function getQuantity() {
             try {
-                const { quantity } = await getOrderProductByOrderIdAndProductId(
+                const {quantity} = await getOrderProductByOrderIdAndProductId(
                     order_id,
                     orderProductId
                 );
-                if (quantity>0) {
+                if (quantity > 0) {
                     setQuantity(quantity);
                     setIsInCart(true);
                 } else {
@@ -31,6 +26,7 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
             }
 
         }
+
         setRefresh(false);
         getQuantity();
     }, [orderProductId, order_id, refresh]);
@@ -76,30 +72,32 @@ function UpdateQuantityButton({ orderProductId, price, order_id , setRefresh , r
                         variant="contained"
                         disabled={quantity === 1 || isUpdating}
                         onClick={handleDecrementClick}
-                        sx={{backgroundColor: '#457B9D',
-        color: '#F1FAEE',
-        '&:hover': {
-            backgroundColor: '#F1FAEE',
-            color: '#457B9D'
-     }
-    }}
+                        sx={{
+                            backgroundColor: '#457B9D',
+                            color: '#F1FAEE',
+                            '&:hover': {
+                                backgroundColor: '#F1FAEE',
+                                color: '#457B9D'
+                            }
+                        }}
                     >
                         -
                     </Button>
-                    <Typography variant="body1" style={{ margin: "0 8px" }}>
+                    <Typography variant="body1" style={{margin: "0 8px"}}>
                         {quantity}
                     </Typography>
                     <Button
                         variant="contained"
                         disabled={isUpdating}
                         onClick={handleIncrementClick}
-                        sx={{backgroundColor: '#84a98c',
-        color: '#F1FAEE',
-        '&:hover': {
-            backgroundColor: '#F1FAEE',
-            color: '#84a98c'
-     }
-    }}
+                        sx={{
+                            backgroundColor: '#84a98c',
+                            color: '#F1FAEE',
+                            '&:hover': {
+                                backgroundColor: '#F1FAEE',
+                                color: '#84a98c'
+                            }
+                        }}
                     >
                         +
                     </Button>

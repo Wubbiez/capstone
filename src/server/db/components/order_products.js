@@ -14,7 +14,6 @@ async function createOrderProduct({order_id, product_id, price, quantity, stripe
 }
 
 
-
 async function getOrderProductById(orderProductId) {
     try {
         const {rows: [orderProduct]} = await client.query(`
@@ -42,7 +41,7 @@ async function getOrderProductsByOrderId(order_id) {
 }
 
 async function updateOrderProduct({productId, price, quantity, orderId}) {
-console.log(productId, price, quantity)
+    console.log(productId, price, quantity)
     try {
         const {rows: [orderProduct]} = await client.query(`
             UPDATE order_products
@@ -97,7 +96,7 @@ async function destroyAllOrderProducts(orderId) {
 
 async function getOrderByOrderId(orderId) {
     try {
-        const { rows: [order] } = await client.query(`
+        const {rows: [order]} = await client.query(`
       SELECT *
       FROM orders
       WHERE order_id = $1;
@@ -110,36 +109,36 @@ async function getOrderByOrderId(orderId) {
 }
 
 async function attachOrderProductsToOrder(order_id) {
-        const orderProductQuery = `
+    const orderProductQuery = `
     SELECT op."productId", op.price, op.quantity
     FROM orders o
     JOIN order_products op ON o.order_id = op."orderId"
     WHERE o.order_id = ${order_id}
   `;
-        const { rows: orderProducts } = await client.query(orderProductQuery);
+    const {rows: orderProducts} = await client.query(orderProductQuery);
 
-        const productIds = orderProducts.map((op) => op.productId).join(',');
+    const productIds = orderProducts.map((op) => op.productId).join(',');
 
-        const productQuery = `
+    const productQuery = `
     SELECT product_id, title, image
     FROM products
     WHERE product_id IN (${productIds})
   `;
-        const { rows: products } = await client.query(productQuery);
+    const {rows: products} = await client.query(productQuery);
 
-        const result = orderProducts.map((op) => {
-            const product = products.find((p) => p.product_id === op.productId);
-            console.log(product)
-            return {
-                productId: op.productId,
-                title: product ? product.title : null,
-                price: op.price,
-                quantity: op.quantity,
-                image: product.image
-            };
-        });
-console.log(result)
-        return result;
+    const result = orderProducts.map((op) => {
+        const product = products.find((p) => p.product_id === op.productId);
+        console.log(product)
+        return {
+            productId: op.productId,
+            title: product ? product.title : null,
+            price: op.price,
+            quantity: op.quantity,
+            image: product.image
+        };
+    });
+    console.log(result)
+    return result;
 
 
 }

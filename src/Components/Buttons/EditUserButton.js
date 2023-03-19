@@ -11,9 +11,21 @@ import {
     RadioGroup
 } from "@mui/material";
 import {FormControlLabel, TextField} from "@mui/material/";
-import {updateProduct, updateUser} from "../../api/apirequests.js";
+import {updateUser} from "../../api/apirequests.js";
 
-function EditUserButton({user_id, username: initialUsername, phone: initialPhone, is_admin: initialAdmin, address: initialAddress, email: initialEmail, first_name: initialFirstName, last_name: initialLastName, is_active:initialActive, password: initialPassword, setRefresh}) {
+function EditUserButton({
+                            user_id,
+                            username: initialUsername,
+                            phone: initialPhone,
+                            is_admin: initialAdmin,
+                            address: initialAddress,
+                            email: initialEmail,
+                            first_name: initialFirstName,
+                            last_name: initialLastName,
+                            is_active: initialActive,
+                            password: initialPassword,
+                            setRefresh
+                        }) {
     const [isEditing, setIsEditing] = useState(false);
     const [open, setOpen] = useState(false);
     const [username, setUsername] = useState(initialUsername);
@@ -102,8 +114,8 @@ function EditUserButton({user_id, username: initialUsername, phone: initialPhone
                             value={is_admin}
                             onChange={(e) => setIsAdmin(e.target.value)}
                         >
-                            <FormControlLabel value="true" control={<Radio />} label="Admin" />
-                            <FormControlLabel value="false" control={<Radio />} label="Not Admin" />
+                            <FormControlLabel value="true" control={<Radio/>} label="Admin"/>
+                            <FormControlLabel value="false" control={<Radio/>} label="Not Admin"/>
                         </RadioGroup>
                     </FormControl>
                     <TextField
@@ -154,8 +166,8 @@ function EditUserButton({user_id, username: initialUsername, phone: initialPhone
                             value={is_active}
                             onChange={(e) => setIsActive(e.target.value)}
                         >
-                            <FormControlLabel value="true" control={<Radio />} label="Active" />
-                            <FormControlLabel value="false" control={<Radio />} label="Not Active" />
+                            <FormControlLabel value="true" control={<Radio/>} label="Active"/>
+                            <FormControlLabel value="false" control={<Radio/>} label="Not Active"/>
                         </RadioGroup>
                     </FormControl>
                     <TextField

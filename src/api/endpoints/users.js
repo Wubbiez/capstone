@@ -1,25 +1,18 @@
-import {
-    createUser,
-    getAllUsers,
-    getUser,
-    getUserById,
-    getUserByUsername,
-    updateUser
-} from "../../server/db/components/users.js";
+import {createUser, getAllUsers, getUser, getUserByUsername, updateUser} from "../../server/db/components/users.js";
 import express from "express";
-import{config} from "dotenv";
+import {config} from "dotenv";
 import jwt from "jsonwebtoken";
 import {isAdmin} from "./isAdmin.js";
 
 config();//
-const { JWT_SECRET } = process.env;//
+const {JWT_SECRET} = process.env;//
 
 const userRouter = express.Router();
 
 
 userRouter.post("/register", async (req, res, next) => {
     try {
-        const { username, password, email, first_name, last_name, address, phone, is_admin } = req.body;
+        const {username, password, email, first_name, last_name, address, phone, is_admin} = req.body;
 
         const queriedUser = await getUserByUsername(username);
 
@@ -56,21 +49,21 @@ userRouter.post("/register", async (req, res, next) => {
             } else {
                 console.log(user)
                 const token = jwt.sign(
-                    { user_id: user.user_id, username: user.username, is_admin: user.is_admin },
+                    {user_id: user.user_id, username: user.username, is_admin: user.is_admin},
                     JWT_SECRET,
-                    { expiresIn: "1w" }
+                    {expiresIn: "1w"}
                 );
-                res.send({ user, message: "you're signed up!", token });
+                res.send({user, message: "you're signed up!", token});
             }
         }
-    } catch ({ error, name, message }) {
-        next({ error, name, message });
+    } catch ({error, name, message}) {
+        next({error, name, message});
     }
 });
 
 userRouter.post("/login", async (req, res, next) => {
 
-    const { username, password } = req.body;
+    const {username, password} = req.body;
     if (!username || !password) {
         next({
             name: "MissingCredentialsError",
@@ -78,7 +71,7 @@ userRouter.post("/login", async (req, res, next) => {
         });
     }
     try {
-        const user = await getUser({ username, password });
+        const user = await getUser({username, password});
         if (!user) {
             next({
                 name: "IncorrectCredentialsError",
@@ -86,11 +79,11 @@ userRouter.post("/login", async (req, res, next) => {
             });
         } else {
             const token = jwt.sign(
-                { user_id: user.user_id, username: user.username, is_admin: user.is_admin },
+                {user_id: user.user_id, username: user.username, is_admin: user.is_admin},
                 JWT_SECRET,
-                { expiresIn: "1w" }
+                {expiresIn: "1w"}
             );
-            res.send({ user, message: "you're logged in!", token });
+            res.send({user, message: "you're logged in!", token});
         }
     } catch (e) {
         console.log(e);
@@ -117,7 +110,7 @@ userRouter.get("/me", async (req, res, next) => {
 
 userRouter.get("/logout", async (req, res, next) => {
     try {
-        res.send({ message: "You're logged out!" });
+        res.send({message: "You're logged out!"});
     } catch (e) {
         next(e);
     }
@@ -125,7 +118,7 @@ userRouter.get("/logout", async (req, res, next) => {
 
 userRouter.get("/:username", async (req, res, next) => {
     try {
-        const { username } = req.params;
+        const {username} = req.params;
         const user = await getUserByUsername(username);
         if (user) {
             res.send(user);
@@ -144,14 +137,24 @@ userRouter.get("/:username", async (req, res, next) => {
 
 userRouter.patch("/:user_id", isAdmin, async (req, res, next) => {
 // update user
-    try{
+    try {
         const {user_id} = req.params;
         const {username, email, first_name, last_name, address, phone, is_admin, is_active, password} = req.body;
-        const updatedUser = await updateUser({user_id, username, email, first_name, last_name, address, phone, is_admin, is_active, password});
-        if(updateUser){
+        const updatedUser = await updateUser({
+            user_id,
+            username,
+            email,
+            first_name,
+            last_name,
+            address,
+            phone,
+            is_admin,
+            is_active,
+            password
+        });
+        if (updateUser) {
             res.send(updateUser);
-        }
-        else{
+        } else {
             res.status(404);
             next({
                 error: "User not found",
@@ -176,6 +179,5 @@ userRouter.get("/", isAdmin, async (req, res, next) => {
 })
 
 
-
-export default userRouter; 
+export default userRouter;
 

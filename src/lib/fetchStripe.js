@@ -1,6 +1,5 @@
 import stripe0 from "stripe";
-import{config} from "dotenv";
-import client from "../server/db/client.js";
+import {config} from "dotenv";
 import {updateProduct} from "../server/db/components/products.js";
 
 config();
@@ -35,9 +34,11 @@ const fetchStripe = async () => {
         const price = unit_amount / 100;
         const response2 = await stripe.products.retrieve(productId);
         console.log(response2);
-        const {name, description, images,metadata: {
-            category: category
-        }} = response2;
+        const {
+            name, description, images, metadata: {
+                category: category
+            }
+        } = response2;
         const image = images[0];
         const productObject = {
             product_id: productId,
@@ -50,20 +51,20 @@ const fetchStripe = async () => {
             stripe_id: prices.data[0].id,
         }
         // console.log(productObject);
-   // get all product promises from stripe and update
+        // get all product promises from stripe and update
         const updatedProduct = await updateProduct(productObject);
 
 
         console.log(updatedProduct);
     }
 
-        // const stripeId = priceResponse.id;
-        //
-        // await client.query(`
-        //     UPDATE products
-        //     SET stripe_id = $1
-        //     WHERE product_id = $2
-        // `, [stripeId, id]);
+    // const stripeId = priceResponse.id;
+    //
+    // await client.query(`
+    //     UPDATE products
+    //     SET stripe_id = $1
+    //     WHERE product_id = $2
+    // `, [stripeId, id]);
 
 }
 

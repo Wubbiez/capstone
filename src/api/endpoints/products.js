@@ -32,18 +32,36 @@ productsRouter.get("/:id", async (req, res, next) => {
         next(error);
     }
 });
-productsRouter.patch("/:id", isAdmin,  async (req, res, next) => {
+productsRouter.patch("/:id", isAdmin, async (req, res, next) => {
 
-        try {
-            const {id} = req.params;
-            const {product_id, title,description,price,image,inStock,category, stripe_id} = req.body
-            const updateStriped = await updateStripe({product_id: id, title, description, price, image, inStock, category, stripe_id});
-            const product = await updateProduct({product_id: id, title, description, price, image, inStock, category, stripe_id: updateStriped.id})
+    try {
+        const {id} = req.params;
+        const {product_id, title, description, price, image, inStock, category, stripe_id} = req.body
+        const updateStriped = await updateStripe({
+            product_id: id,
+            title,
+            description,
+            price,
+            image,
+            inStock,
+            category,
+            stripe_id
+        });
+        const product = await updateProduct({
+            product_id: id,
+            title,
+            description,
+            price,
+            image,
+            inStock,
+            category,
+            stripe_id: updateStriped.id
+        })
 
-            res.send(updateStriped);
-        } catch (error) {
-            next(error);
-        }
+        res.send(updateStriped);
+    } catch (error) {
+        next(error);
+    }
 
 });
 

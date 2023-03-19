@@ -1,13 +1,14 @@
 import React, {useState} from "react";
 import {
-    Button, Dialog, DialogActions,
+    Box,
+    Button,
+    Dialog,
+    DialogActions,
     DialogContent,
     DialogContentText,
     DialogTitle,
-    FormControl,
-    FormControlLabel, Radio,
-    RadioGroup,
-    TextField, Box, Rating, Typography
+    Rating,
+    TextField
 } from "@mui/material";
 
 import {Star} from '@mui/icons-material/';
@@ -68,22 +69,22 @@ function CreateReviewButton({user, product_id, setRefresh}) {
     }
 
 
-
     return (
         <>
-        <Button
-            variant="contained"
-            disabled={isCreating}
-            onClick={handleClickOpen}
-            sx={{backgroundColor: '#564949',
-        color: '#F1FAEE',
-        '&:hover': {
-            backgroundColor: '#F1FAEE',
-            color: '#E63946'
-     }
-    }}
-        >
-            Leave Review        </Button>
+            <Button
+                variant="contained"
+                disabled={isCreating}
+                onClick={handleClickOpen}
+                sx={{
+                    backgroundColor: '#564949',
+                    color: '#F1FAEE',
+                    '&:hover': {
+                        backgroundColor: '#F1FAEE',
+                        color: '#E63946'
+                    }
+                }}
+            >
+                Leave Review </Button>
 
 
             <Dialog
@@ -115,7 +116,8 @@ function CreateReviewButton({user, product_id, setRefresh}) {
                         }}
                         required
                     />
-                    <TextField label="Message" multiline rows={4} placeholder="Type your review here" variant="outlined" fullWidth required
+                    <TextField label="Message" multiline rows={4} placeholder="Type your review here" variant="outlined"
+                               fullWidth required
                                value={content}
                                onChange={(e) => {
                                    setContent(e.target.value);
@@ -133,10 +135,10 @@ function CreateReviewButton({user, product_id, setRefresh}) {
                         onChangeActive={(event, newHover) => {
                             setHover(newHover);
                         }}
-                        emptyIcon={<Star style={{ opacity: 0.55 }} fontSize="inherit" />}
+                        emptyIcon={<Star style={{opacity: 0.55}} fontSize="inherit"/>}
                     />
                     {value !== null && (
-                        <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+                        <Box sx={{ml: 2}}>{labels[hover !== -1 ? hover : value]}</Box>
                     )}
 
 

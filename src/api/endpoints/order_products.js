@@ -1,21 +1,21 @@
 import express from "express";
 import stripe0 from "stripe";
 import {
+    attachOrderProductsToOrder,
     createOrderProduct,
+    destroyAllOrderProducts,
     destroyOrderProducts,
     getOrderProductById,
-    updateOrderProduct,
-    getOrderProductsByOrderId,
-    attachOrderProductsToOrder,
     getOrderProductByOrderIdAndProductId,
-    destroyAllOrderProducts
+    getOrderProductsByOrderId,
+    updateOrderProduct
 } from "../../server/db/components/order_products.js";
-import{config} from "dotenv";
+import {config} from "dotenv";
+
 config();
 
 const stripe = stripe0(process.env.STRIPE_API_KEY);
 const orderProductsRouter = express.Router();
-
 
 
 orderProductsRouter.get("/:id", async (req, res, next) => {
@@ -27,7 +27,6 @@ orderProductsRouter.get("/:id", async (req, res, next) => {
         next(error);
     }
 })
-
 
 
 orderProductsRouter.get("/:order_id/items", async (req, res, next) => {
@@ -64,7 +63,13 @@ orderProductsRouter.post("/:order_id/items", async (req, res, next) => {
     try {
         const {order_id} = req.params;
         const {product_id, price, quantity, stripe_id} = req.body;
-        const orderProduct = await createOrderProduct({order_id: order_id, product_id: product_id, price, quantity, stripe_id});
+        const orderProduct = await createOrderProduct({
+            order_id: order_id,
+            product_id: product_id,
+            price,
+            quantity,
+            stripe_id
+        });
         const attach = await attachOrderProductsToOrder(order_id);
         console.log(attach);
         res.send(orderProduct);
@@ -76,7 +81,7 @@ orderProductsRouter.post("/:order_id/items", async (req, res, next) => {
 orderProductsRouter.patch("/:order_id/:productId", async (req, res, next) => {
 
     try {
-        const {order_id,productId} = req.params;
+        const {order_id, productId} = req.params;
         const {price, quantity} = req.body;
         const orderProduct = await updateOrderProduct({productId, price, quantity, orderId: order_id});
         res.send(orderProduct);
@@ -87,9 +92,9 @@ orderProductsRouter.patch("/:order_id/:productId", async (req, res, next) => {
 
 orderProductsRouter.delete("/:order_id/:productId", async (req, res, next) => {
     try {
-        const {order_id,productId} = req.params;
+        const {order_id, productId} = req.params;
 
-console.log(productId, order_id)
+        console.log(productId, order_id)
         const orderProduct = await destroyOrderProducts(productId, order_id);
         console.log(orderProduct);
         res.send(orderProduct);
