@@ -29,6 +29,29 @@ async function getAllProducts() {
     }
 }
 
+async function getAllProductsBySearchTerm(searchTerm) {
+    console.log(searchTerm)
+    try {
+        let query = `
+            SELECT *
+            FROM products
+        `;
+        let values = [];
+
+        if (searchTerm) {
+            query += `
+                WHERE title ILIKE $1 OR description ILIKE $1
+            `;
+            values.push(`%${searchTerm}%`);
+        }
+
+        const {rows: products} = await client.query(query, values);
+        return products;
+    } catch (error) {
+        throw error;
+    }
+}
+
 async function getProductById(productId) {
     try {
         const {rows: [product]} = await client.query(`
@@ -203,5 +226,6 @@ export {
     getProductsByCategory,
     checkIfProductInStock,
     updateStripe,
-    getAverageProductRating
+    getAverageProductRating,
+    getAllProductsBySearchTerm,
 }
