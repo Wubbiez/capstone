@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
-import {Box, Button, ButtonGroup, Modal, Paper, Typography} from "@mui/material";
+import {Box, Button, ButtonGroup, Modal, Paper, Typography, Tooltip} from "@mui/material";
 import {OpenInNewTwoTone} from '@mui/icons-material';
 
 import AddToOrderButton from "./Buttons/AddToOrderButton.js";
@@ -76,8 +76,8 @@ function SingleProductModal({
                     display: 'flex',
                     flexDirection: 'row',
                     flex: '1',
-                    backgroundColor: '#f1faee ',
-
+                    background: 'linear-gradient(45deg, rgba(29,53,87,1) 0%, rgba(241,250,238,1) 50%, rgba(245,245,245,1) 100%)',
+                
                     position: 'relative',
                     "& > *": {
                         flexShrink: 1
@@ -131,8 +131,6 @@ function SingleProductModal({
                     }}>
                         <Typography variant='h1'>{title}</Typography>
                         <Typography variant='h4'>$ {price}</Typography>
-                        <Typography variant='h5'>Category:</Typography>
-                        <Typography variant='p'>{category}</Typography>
                         <Typography variant='h5'>Description:</Typography>
                         <Typography variant='p'>{description}</Typography>
 
@@ -175,6 +173,7 @@ function SingleProductModal({
                                                       price={price} setRefresh={setRefresh} refresh={refresh}
                                                       setRefreshCart={setRefreshCart}/>
                             </Box>
+                            <Tooltip title="View Full Item" arrow>
                             <Button variant="contained" component={Link}
                                     to={`/products/${product_id}`}
                                     sx={{
@@ -201,6 +200,7 @@ function SingleProductModal({
                                     }}>
                                 <OpenInNewTwoTone/>
                             </Button>
+                            </Tooltip>
                         </ButtonGroup>
                     </Box>
                 </Paper>

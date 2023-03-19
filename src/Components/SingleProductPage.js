@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {Box, Breadcrumbs, Button, ButtonGroup, Divider, Paper, Rating, styled, Typography} from "@mui/material";
+import {Box, Breadcrumbs, Button, ButtonGroup, Divider, Paper, Rating, styled, Typography, Tooltip} from "@mui/material";
 
 import AddToOrderButton from "./Buttons/AddToOrderButton.js";
 import UpdateQuantityButton from "./Buttons/UpdateQuantityButton.js";
@@ -16,7 +16,7 @@ const ReviewsSection = styled(Box)(({theme}) => ({
     borderRadius: theme.shape.borderRadius,
     height: '70%',
     overflowY: 'auto',
-    width: '100%',
+    width: '70vw',
 }));
 
 const StyledPaper = styled(Paper)({
@@ -102,35 +102,47 @@ function SingleProductPage({order, setOrder, setRefreshCart, userId}) {
 
     return (
         <React.Fragment>
-            <Breadcrumbs sx={{
-                paddingTop: '2rem',
-                fontSize: 'calc(1.5rem + 0.5vw)',
-                backgroundColor: '#f1faee',
-                marginBottom: '0',
-                fontWeight: 'bold'
+            <Box sx={{
+                background: 'linear-gradient(45deg, rgba(29,53,87,1) 0%, rgba(241,250,238,1) 50%, rgba(245,245,245,1) 100%)',
+            
             }}>
+            <Breadcrumbs sx={{
+            fontWeight: '200',
+            fontStyle: 'normal',
+            letterSpacing: '0em',
+            textTransform: 'none',
+            lineHeight: '1.2em',
+            paddingTop: '1rem',
+            paddingLeft: '1rem',
+            margin: '0 0 0 0',
+            fontSize: 'calc(0.8rem + 0.2vw)',
+            '@media (min-width:600px)': {
+                fontSize: 'calc(0.9rem + 0.6vw)',
+            },
+            '@media (min-width:960px)': {
+                fontSize: 'calc(1rem + 1.2vw)',
+            },
+        }}>
 
-                <Typography sx={{
-                    fontSize: 'calc(1.5rem + 0.5vw)',
-                    marginBottom: '0',
-                    fontWeight: 'bold'
-                }}>
+                <Typography variant="p">
                     Home
                 </Typography>
-                <Typography sx={{
-                    fontSize: 'calc(1.5rem + 0.5vw)',
-                    marginBottom: '0',
-                    fontWeight: 'bold'
-                }}>
+                <Typography variant="p">
                     Products
                 </Typography>
-                <Typography sx={{
-                    fontSize: 'calc(1.5rem + 0.5vw)',
-                    marginBottom: '0',
-                    fontWeight: 'bold'
-                }}>{product.title}</Typography>
+                <Typography variant="p">{product.title}</Typography>
             </Breadcrumbs>
+            <Box sx={{
 
+            height: "100%",
+            width: "100%",
+            padding: "2vh 10px 10px 10px",
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            overflowY: 'scroll',
+            }}>
             <Box sx={{
 
                 height: "100%",
@@ -140,7 +152,6 @@ function SingleProductPage({order, setOrder, setRefreshCart, userId}) {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
 
-                backgroundColor: '#f1faee',
 
             }}>
                 <Box
@@ -183,7 +194,7 @@ function SingleProductPage({order, setOrder, setRefreshCart, userId}) {
                     <Rating name="read-only" value={rating} readOnly/>
                     <Typography variant='h4'
                     >Description:</Typography>
-                    <Typography variant='body1'
+                    <Typography variant='p'
                     >{product.description}</Typography>
 
 
@@ -219,7 +230,8 @@ function SingleProductPage({order, setOrder, setRefreshCart, userId}) {
                         alignItems: 'center',
                         justifyContent: 'center',
                         marginTop: '1.5rem',
-                        paddingRight: '33vw'
+                        paddingRight: '33vw',
+                        paddingBottom: '1rem'
                     }}>
                         <UpdateQuantityButton order_id={order} orderProductId={product.product_id}
                                               price={product.price} setRefresh={setRefresh} refresh={refresh}
@@ -227,11 +239,13 @@ function SingleProductPage({order, setOrder, setRefreshCart, userId}) {
                     </Box>
 
                 </Box>
-                <Box
+                
+            </Box>
+            <Box
                     sx={{display: 'flex',
 
                         marginRight: '1rem',
-                        marginLeft: 'auto',
+                        marginLeft: '1rem',
                         maxHeight: "100%",
                         maxWidth: "100%"}}>
                     <ReviewsSection>
@@ -248,7 +262,7 @@ function SingleProductPage({order, setOrder, setRefreshCart, userId}) {
                         ))}
                     </ReviewsSection>
                 </Box>
-
+            </Box>
             </Box>
         </React.Fragment>
 

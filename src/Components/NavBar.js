@@ -89,16 +89,56 @@ const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCar
                 <Toolbar disableGutters>
                     {isMatch ? (
                         <>
-                            <Typography sx={{fontSize: "2rem"}}>
-                                GadgetGalaxy
+                            <Typography align="center"  sx={{ fontWeight: 900,
+                                                            fontSize: 'calc(1.3rem + 1vw)' }}>
+                            Gadget<b style={{ color: "#E63946" }}>Galaxy</b>
                             </Typography>
                             <Box sx={{flexGrow: 1}}/>
                             <Cart order={order} setOrder={setOrder} setRefreshCart={setRefreshCart}
                                   refreshCart={refreshCart} sx={{mr: theme.spacing(2)}}/>
-                            <DrawerComp/>
+                            <ButtonGroup>
+                                <Container maxWidth="xl">
+                                    <Toolbar disableGutters>
+                                        <Box sx={{flexGrow: 0}}>
+                                            <Tooltip title="Open settings">
+                                                <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                                                    <Avatar alt="Z" src="/static/images/avatar/2.jpg"/>
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Menu
+                                                sx={{mt: '45px'}}
+                                                id="menu-appbar"
+                                                anchorEl={anchorElUser}
+                                                anchorOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                keepMounted
+                                                transformOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                open={Boolean(anchorElUser)}
+                                                onClose={handleCloseUserMenu}
+                                            >
+                                                {settings.map((setting) => (
+                                                    <MenuItem key={setting.label} onClick={setting.onClick}
+                                                              component={Link} to={setting.to}>
+                                                        <Typography textAlign="center">{setting.label}</Typography>
+                                                    </MenuItem>
+                                                ))}
+                                            </Menu>
+                                        </Box>
+                                    </Toolbar>
+                                </Container>
+                            </ButtonGroup>
                         </>
                     ) : (
                         <>
+                            <Typography align="center" sx={{ fontWeight: 900,
+                                                            fontSize: 'calc(1.3rem + 1vw)' }}>
+                            Gadget<b style={{ color: "#E63946" }}>Galaxy</b>
+                            </Typography>
                             <Tabs
                                 sx={{marginLeft: "auto"}}
                                 indicatorColor="secondary"

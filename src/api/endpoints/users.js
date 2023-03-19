@@ -53,7 +53,7 @@ userRouter.post("/register", async (req, res, next) => {
                     JWT_SECRET,
                     {expiresIn: "1w"}
                 );
-                res.send({user, message: "you're signed up!", token});
+                res.send({user, message: "Signup Successful!", token});
             }
         }
     } catch ({error, name, message}) {
@@ -83,7 +83,7 @@ userRouter.post("/login", async (req, res, next) => {
                 JWT_SECRET,
                 {expiresIn: "1w"}
             );
-            res.send({user, message: "you're logged in!", token});
+            res.send({user, message: "Login Successful!", token});
         }
     } catch (e) {
         console.log(e);
