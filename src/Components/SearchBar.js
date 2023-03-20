@@ -83,7 +83,7 @@ const SearchBar = () => {
 
     function handleSubmit() {
         if(searchTerm !== "") {
-            history(`/search/${searchTerm}`);
+            history(`/products/${searchResults[0].id}`);
         }
     }
 
@@ -108,11 +108,11 @@ const SearchBar = () => {
     };
 
     const handleDropdownClick = (item) => {
-        console.log(item)
-        setSearchTerm(item); // Update search term with selected item
-        history(`/products/${item.id}`); // Navigate to product page
+
+        setSearchTerm(item);
+        history(`/products/${item.id}`);
         setSearchTerm('');
-        setShowDropdown(false); // Hide the dropdown list
+        setShowDropdown(false);
     };
 
 
