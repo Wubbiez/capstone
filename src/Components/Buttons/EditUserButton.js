@@ -26,7 +26,7 @@ function EditUserButton({
                             password: initialPassword,
                             setRefresh
                         }) {
-    const [isEditing, setIsEditing] = useState(false);
+   const [isEditing, setIsEditing] = useState(false);
     const [open, setOpen] = useState(false);
     const [username, setUsername] = useState(initialUsername);
     const [phone, setPhone] = useState(initialPhone);
@@ -37,27 +37,23 @@ function EditUserButton({
     const [last_name, setLastName] = useState(initialLastName);
     const [is_active, setIsActive] = useState(initialActive);
     const [password, setPassword] = useState(initialPassword);
+    console.log("user_id", user_id, "username", initialUsername, "phone", initialPhone, "is_admin", initialAdmin, "address", initialAddress, "email", initialEmail, "first_name", initialFirstName, "last_name", initialLastName, "is_active", initialActive, "password", initialPassword)
 
-    const [userData, setUserData] = useState({
-        username: initialUsername,
-        phone: initialPhone,
-        is_admin: initialAdmin,
-        address: initialAddress,
-        email: initialEmail,
-        first_name: initialFirstName,
-        last_name: initialLastName,
-        is_active: initialActive,
-        password: initialPassword,
-    });
 
-    useEffect(() => {
 
-    }, [userData]);
 
     const handleClickOpen = () => {
+        setUsername(initialUsername);
+        setPhone(initialPhone);
+        setIsAdmin(initialAdmin);
+        setAddress(initialAddress);
+        setEmail(initialEmail);
+        setFirstName(initialFirstName);
+        setLastName(initialLastName);
+        setIsActive(initialActive);
+        setPassword(initialPassword);
         setOpen(true);
-
-    }
+    };
 
     const handleClose = () => {
         setOpen(false);
@@ -107,7 +103,7 @@ function EditUserButton({
                         onChange={(e) => setPhone(e.target.value)}
                     />
                     <FormControl component="fieldset">
-                        <RadioGroup
+                        {is_admin ?? <RadioGroup
                             row
                             aria-label="is_admin"
                             name="is_admin"
@@ -116,7 +112,7 @@ function EditUserButton({
                         >
                             <FormControlLabel value="true" control={<Radio/>} label="Admin"/>
                             <FormControlLabel value="false" control={<Radio/>} label="Not Admin"/>
-                        </RadioGroup>
+                        </RadioGroup>}
                     </FormControl>
                     <TextField
                         autoFocus
@@ -175,7 +171,7 @@ function EditUserButton({
                         margin="dense"
                         id="password"
                         label="Password"
-                        type="password"
+                        type="text"
                         fullWidth
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}

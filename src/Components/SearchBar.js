@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {alpha, Box, Button, InputBase, Paper, styled} from "@mui/material";
+import {alpha, Box, Button, InputBase, Paper, styled, Hidden} from "@mui/material";
 import {Search, SearchSharp} from "@mui/icons-material";
 import {getAllProductsBySearchTerm} from "../api/apirequests.js";
 
@@ -48,11 +48,14 @@ const SearchBar = () => {
         '& .MuiInputBase-input': {
             padding: theme.spacing(1, 1, 0, 0),
             // vertical padding + font size from searchIcon
-            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
             transition: theme.transitions.create('width'),
+            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
             width: '100%',
             display: 'flex',
             alignItems: 'center',
+            [theme.breakpoints.down('sm')]: {
+                paddingLeft: 0,
+            },
         },
     }));
 
@@ -130,9 +133,11 @@ const SearchBar = () => {
             <SearchContainer>
         <form onSubmit={handleSubmit}>
             <Search>
+                <Hidden smDown>
                 <SearchIconWrapper>
                     <SearchSharp />
                 </SearchIconWrapper>
+                </Hidden>
                 <StyledInputBase
                     placeholder="Search…"
                     value={searchTerm}

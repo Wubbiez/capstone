@@ -20,6 +20,7 @@ import Main from "./Components/Main.js";
 import Back from "./Components/Back.js";
 import {getOrderById, getOrderProductsByOrderId} from "./api/apirequests.js";
 import {Box} from "@mui/material";
+import Me from "./Components/Me.js";
 
 
 export const TOKEN_STORAGE_KEY = "user-token";
@@ -85,6 +86,7 @@ function App() {
                     setRefreshCart={setRefreshCart}
                     isAdmin={isAdmin}
                     userId={userId}
+                    user={user}
                     style={{
                         position: 'fixed',
                         width: '100%',
@@ -140,6 +142,9 @@ function App() {
                         <Route
                             path='/back'
                             exact element={<Back/>}></Route>
+                        <Route
+                            path='/me'
+                            exact element={<Me/>}></Route>
 
                     </Routes>
                 </Box>
