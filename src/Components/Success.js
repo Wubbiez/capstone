@@ -1,33 +1,35 @@
 import React, {useEffect, useState} from "react";
-import { Grid, Typography,  Card, CardContent,  Button, Box } from '@mui/material';
-import { Link } from "react-router-dom";
-import { CheckCircleOutlineTwoTone } from "@mui/icons-material";
-import { ShoppingBagTwoTone } from "@mui/icons-material";
+import {Box, Button, Card, CardContent, Grid, Typography} from '@mui/material';
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {CheckCircleOutlineTwoTone, ShoppingBagTwoTone} from "@mui/icons-material";
+
 
 import {getOrderProductsByOrderId} from '../api/apirequests.js';
 import theme from "./theme.js";
 
-const Success = ({order, setOrder}) => {
+const Success = ({order, setOrder, setRefreshCart}) => {
     const [orderId, setOrderId] = useState();
     const [orderProducts, setOrderProducts] = useState([]);
+
+    const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const url = new URL(window.location.href);
         const sessionId = url.searchParams.get("session_id");
-        const order_id = localStorage.getItem('order_id');
+        const order_id = localStorage.getItem("order_id");
 
-      if (order_id) {
-          setOrderId(order_id);
-          console.log("order_id is", order_id);
-      }
+        if (order_id) {
+            setOrderId(order_id);
+            console.log("order_id is", order_id);
+        }
 
         getOrderProductsByOrderId(order_id).then((orderProducts) => {
             console.log("orderProducts are", orderProducts);
             setOrderProducts(orderProducts);
             console.log("orderProducts are still", orderProducts);
-          });
+        });
 
-          
         const fetchData = async () => {
             try {
                 const response = await fetch(`http://localhost:3001/success?session_id=${sessionId}`, {
@@ -35,96 +37,148 @@ const Success = ({order, setOrder}) => {
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({sessionId}),
                 });
-
-
             } catch (error) {
-          console.error(error);
+                console.error(error);
             }
         };
-
         fetchData();
-        localStorage.removeItem('order_id');
-        setOrder(null);
 
+        setRefreshCart(true);
+        localStorage.removeItem('order_id');
+
+        // Redirect user after 5 seconds
+        // const redirectTimer = setTimeout(() => {
+        //     navigate("/");
+        // }, 5000);
+        //
+        // return () => {
+        //     clearTimeout(redirectTimer);
+        // };
     }, []);
 
 
+
     return (
-        <React.Fragment sx={{
-            
-        }}>
+        <React.Fragment>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                backgroundColor: '#F5F5F5',
+                backgroundColor: '#F1FAEE',
             }}>< CheckCircleOutlineTwoTone sx={{
-                      fontSize: '5rem',
-                      color: theme.palette.success.main,
-                }} />
-            <Typography variant ="h1" sx={{
-                paddingTop: '1.5rem',
-                paddingLeft: '1rem'
+                fontSize: '5rem',
+                color: theme.palette.success.main,
+            }}/>
+                <Typography variant="h6" sx={{
+                    paddingTop: '2rem',
+                    paddingLeft: '1rem',
+                    fontWeight: 700
+                }}>
+
+                    Order placed, thanks! </Typography>
+            </Box>
+            <Typography variant="h6" sx={{
+                paddingTop: '10px',
+                paddingLeft: '1rem',
+                paddingBottom: '10px',
+                marginBottom: '0',
+                borderBottom: "2px solid #333333",
+                backgroundColor: '#F1FAEE',
             }}>
-                           
-                Order placed, thanks! </Typography>
-                </Box>
-            <Grid container spacing={2} direction="column" style={{ overflowY: 'scroll',
-                    display: 'flex',
-                    flexFlow: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    maxHeight: '85vh',
-                    width: '100%',
-                    margin: 0,}}>
 
-          
-{orderProducts.map((orderProduct) => {
+                Check your profile's order history for confirmation.</Typography>
 
-  return (
-  
-    <Card key={orderProduct.id} sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        width: 'inherit ',
-        marginTop: '0',
-        }}>
+            <Grid container spacing={2} direction="column" style={{
+                overflowY: 'scroll',
+                display: 'flex',
+                flexFlow: 'column',
 
-        <CardContent sx={{
-                  backgroundColor: '#F5F5F5',
-                  color: '#333333',
-                  display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-around',
-                  minHeight: '70px',
-                  width: 'inherit',
-                  borderBottom: "1px solid #666666",
-                  paddingLeft: '5vw',
-                  paddingRight: '20vw'
+                height: '85vh',
+                width: '100%',
+
+                margin: 0,
+            }}>
 
 
-                  }}>
+                {orderProducts.map((orderProduct) => {
+
+                    return (
+
+                        <Card key={orderProduct.id}
+                              sx={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-around',
+                                  width: 'inherit',
+                                  marginTop: '0',
+                              }}>
 
 
-            <Typography variant="h5">Product Id:  {orderProduct.productId}</Typography>
-            <Typography variant="h6">Quantity: {orderProduct.quantity}</Typography>
+                            <CardContent sx={{
+                                backgroundColor: '#F5F5F5',
+                                color: '#333333',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'start',
+                                minHeight: '70px',
+                                borderBottom: "2px solid #212529",
+                                paddingLeft: '5vh',
+                                width: 'inherit',
+                            }}>
 
-        </CardContent>
+                                <Box
+                                    component="img"
+                                    sx={{
+                                        maxHeight: '20vh',
+                                        maxWidth: "20vw",
+                                        padding: "15px 5px 15px 5px"
+                                    }}
+                                    alt="Product Image"
+                                    src={orderProduct.image}
+                                />
+                                <Box sx={{
+                                    backgroundColor: '#F5F5F5',
+                                    color: '#333333',
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    minHeight: '70px',
+                                    paddingLeft: '3rem'
+                                }}>
+                                    <Typography variant="h6"
+                                    ></Typography>
+                                    <Typography
+                                        variant="h6"
+                                    ># Ordered: {orderProduct.quantity}</Typography>
 
-    </Card>
-  )})}
+                                </Box>
+                            </CardContent>
 
-         
-         <Link to='/products' sx={{
-            marginTop: '1rem'
-         }}>
-            
-             <Button variant="contained"> <ShoppingBagTwoTone /> View Products
-             </Button>
-         </Link>
-        
+                        </Card>
+                    )
+                })}
 
-</Grid>
+                <Link to='/products' sx={{
+                    marginTop: '1rem',
+                }}>
+
+                    <Button variant="contained" sx={{
+                        backgroundColor: '#457B9D',
+                        transition: 'background-color 0.3s ease',
+                        marginTop: '3rem',
+                        marginLeft: '45vw',
+
+                        '&:hover': {
+                            backgroundColor: '#457B9D',
+                            boxShadow: '3px 5px 5px 3px #1D3557;',
+                        }
+                    }}> <ShoppingBagTwoTone/> Products
+                    </Button>
+                </Link>
+
+
+            </Grid>
         </React.Fragment>
     )
 }

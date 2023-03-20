@@ -4,13 +4,14 @@ import ordersRouter from "./endpoints/orders.js";
 import userRouter from "./endpoints/users.js"
 // import reviewRouter from "./reviews.js";
 import orderProductsRouter from "./endpoints/order_products.js";
-import {getUser, getUserById} from "../server/db/components/users.js";
+import {getUserById} from "../server/db/components/users.js";
 import jwt from "jsonwebtoken";
-const { JWT_SECRET } = process.env;
+import reviewRouter from "./endpoints/reviews.js";
+
+const {JWT_SECRET} = process.env;
 
 
 const apiRouter = express.Router();
-
 
 
 apiRouter.use(async (req, res, next) => {
@@ -29,8 +30,8 @@ apiRouter.use(async (req, res, next) => {
                 req.user = await getUserById(decodedToken.user_id);
                 next();
             }
-        } catch ({ name, message }) {
-            next({ name, message });
+        } catch ({name, message}) {
+            next({name, message});
         }
     } else {
         next({
@@ -55,7 +56,7 @@ apiRouter.use("/products", productsRouter);
 apiRouter.use("/orders", ordersRouter);
 
 //ROUTER: /api/reviews
-// apiRouter.use("/reviews", reviewRouter);
+apiRouter.use("/reviews", reviewRouter);
 
 // ROUTER: /api/users
 apiRouter.use("/users", userRouter);

@@ -2,7 +2,7 @@ export async function handleLogout(setToken, setIsAdmin) {
     try {
         const response = await fetch('http://localhost:3001/api/users/logout', {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {'Content-Type': 'application/json'},
         });
 
         if (response.ok) {
@@ -11,6 +11,9 @@ export async function handleLogout(setToken, setIsAdmin) {
             localStorage.removeItem('user-token');
             localStorage.removeItem('user-username');
             localStorage.removeItem('user-is_admin');
+            localStorage.removeItem('user-id');
+            localStorage.removeItem('order_id');
+
             window.location.href = '/';
         }
     } catch (error) {

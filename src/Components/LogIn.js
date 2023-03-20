@@ -1,18 +1,20 @@
 import React, {useEffect, useState} from 'react'
-import { Grid,Paper, Avatar, TextField, Button, Typography,Link, FormControlLabel, Checkbox } from '@mui/material/'
+import {Avatar, Button, Grid, Link, Paper, TextField, Typography} from '@mui/material/'
 import {LockOutlined} from '@mui/icons-material';
-import { loginUser } from '../api/apirequests.js';
+import {getLatestOrderId, loginUser} from '../api/apirequests.js';
 import {styled} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
-const LoginForm = styled("form")(({ theme }) => ({
+const LoginForm = styled("form")(({theme}) => ({
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
 }));
 
-const Login=({setToken, setIsAdmin})=>{
+const Login = ({setToken, setIsAdmin}) => {
     const [password, setPassword] = useState("");
-    const [username,setUsername] = useState("");
-
+    const [username, setUsername] = useState("");
+    const [userId, setUserId] = useState("");
+    const history = useNavigate();
     useEffect(() => {
         const token = localStorage.getItem("user-token");
         if (token) {
@@ -22,21 +24,22 @@ const Login=({setToken, setIsAdmin})=>{
         }
     }, [setToken, setUsername]);
 
-    const paperStyle={padding :"20px 20px",maxWidth:450, margin:"20px auto"}
-    const avatarStyle={backgroundColor:'#1bbd7e'}
+    const paperStyle = {padding: "20px 20px", maxWidth: 450, margin: "20px auto"}
+    const avatarStyle = {backgroundColor: '#1bbd7e'}
     // const btnstyle={margin:'8px 0'}
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await loginUser(username, password)
-                .then((r) => {
-                    setToken(r.token);
-                    setIsAdmin(r.is_admin);
-                })
-                .then(() => {
-                    window.location.href = "/";
-                });
+            const response = await loginUser(username, password);
+            const {user_id, token, is_admin} = response;
+            console.log(user_id, token, is_admin);
+            setToken(token);
+            setIsAdmin(is_admin);
+            setUserId(user_id);
+            const orderResponse = await getLatestOrderId(user_id);
+            localStorage.setItem("order_id", orderResponse.order_id);
+            window.location.href = "http://localhost:3000/";
 
         } catch (error) {
             console.error(error);
@@ -44,14 +47,15 @@ const Login=({setToken, setIsAdmin})=>{
             setUsername("");
             setPassword("");
         }
-    }
+    };
 
-    return(
+
+    return (
         <Grid>
              <Button  href='http://localhost:3000/'>back To Shopping</Button>
             <Paper elevation={10} style={paperStyle}>
                 <Grid align='center'>
-                     <Avatar style={avatarStyle}><LockOutlined/></Avatar>
+                    <Avatar style={avatarStyle}><LockOutlined/></Avatar>
                     <h2>Sign In</h2>
                 </Grid>
                 <LoginForm onSubmit={handleSubmit}>
@@ -97,10 +101,10 @@ const Login=({setToken, setIsAdmin})=>{
                     </Button>
 
                 </LoginForm>
-                <Typography > Do you have an account ?
-                     <Link href="http://localhost:3000/signup" >
-                        Sign Up 
-                </Link>
+                <Typography> Do you have an account ?
+                    <Link href="http://localhost:3000/signup">
+                        Sign Up
+                    </Link>
                 </Typography>
             </Paper>
         </Grid>

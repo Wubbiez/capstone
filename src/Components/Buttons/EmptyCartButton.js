@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Button} from "@mui/material";
 
-function EmptyCartButton ({order_id, setRefresh}) {
+function EmptyCartButton({order_id, setRefresh}) {
     const [isDeleting, setIsDeleting] = useState(false);
 
     async function handleClick() {

@@ -4,7 +4,7 @@ async function createOrder({userId, status}) {
     try {
         const {rows: [order]} = await client.query(`
             INSERT INTO orders(user_id, status)
-            VALUES($1, $2)
+            VALUES ($1, $2)
             RETURNING *;
         `, [userId, status]);
         return order;
@@ -71,7 +71,8 @@ async function updateOrder({orderId, status}) {
 async function destroyOrder(orderId) {
     try {
         const {rows: [order]} = await client.query(`
-            DELETE FROM orders
+            DELETE
+            FROM orders
             WHERE order_id = $1
             RETURNING *;
         `, [orderId]);
@@ -81,11 +82,43 @@ async function destroyOrder(orderId) {
     }
 }
 
+async function getLatestOrderId(userId) {
+    try {
+        const {rows: [order]} = await client.query(`
+            SELECT order_id
+            FROM orders
+            WHERE user_id = $1
+              AND status = 'created'
+            ORDER BY order_id DESC
+            LIMIT 1;
+        `, [userId]);
+        return order;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function checkOrderStatus(orderId) {
+    try {
+        const {rows: [order]} = await client.query(`
+            SELECT status
+            FROM orders
+            WHERE order_id = $1;
+        `, [orderId]);
+        return order;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
 export {
     createOrder,
     getAllOrders,
     getOrderById,
     getOrdersByUser,
     updateOrder,
-    destroyOrder
+    destroyOrder,
+    getLatestOrderId,
+    checkOrderStatus
 }
