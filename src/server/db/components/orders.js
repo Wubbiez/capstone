@@ -98,6 +98,19 @@ async function getLatestOrderId(userId) {
     }
 }
 
+async function checkOrderStatus(orderId) {
+    try {
+        const {rows: [order]} = await client.query(`
+            SELECT status
+            FROM orders
+            WHERE order_id = $1;
+        `, [orderId]);
+        return order;
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 export {
     createOrder,
@@ -107,4 +120,5 @@ export {
     updateOrder,
     destroyOrder,
     getLatestOrderId,
+    checkOrderStatus
 }

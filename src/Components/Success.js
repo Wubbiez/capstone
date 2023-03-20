@@ -1,19 +1,23 @@
 import React, {useEffect, useState} from "react";
 import {Box, Button, Card, CardContent, Grid, Typography} from '@mui/material';
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {CheckCircleOutlineTwoTone, ShoppingBagTwoTone} from "@mui/icons-material";
+
 
 import {getOrderProductsByOrderId} from '../api/apirequests.js';
 import theme from "./theme.js";
 
-const Success = ({order, setOrder}) => {
+const Success = ({order, setOrder, setRefreshCart}) => {
     const [orderId, setOrderId] = useState();
     const [orderProducts, setOrderProducts] = useState([]);
+
+    const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const url = new URL(window.location.href);
         const sessionId = url.searchParams.get("session_id");
-        const order_id = localStorage.getItem('order_id');
+        const order_id = localStorage.getItem("order_id");
 
         if (order_id) {
             setOrderId(order_id);
@@ -26,7 +30,6 @@ const Success = ({order, setOrder}) => {
             console.log("orderProducts are still", orderProducts);
         });
 
-
         const fetchData = async () => {
             try {
                 const response = await fetch(`http://localhost:3001/success?session_id=${sessionId}`, {
@@ -34,18 +37,25 @@ const Success = ({order, setOrder}) => {
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({sessionId}),
                 });
-
-
             } catch (error) {
                 console.error(error);
             }
         };
-
         fetchData();
-        // localStorage.removeItem('order_id');
-        // setOrder(null);
 
+        setRefreshCart(true);
+        localStorage.removeItem('order_id');
+
+        // Redirect user after 5 seconds
+        // const redirectTimer = setTimeout(() => {
+        //     navigate("/");
+        // }, 5000);
+        //
+        // return () => {
+        //     clearTimeout(redirectTimer);
+        // };
     }, []);
+
 
 
     return (

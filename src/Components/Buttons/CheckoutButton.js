@@ -3,7 +3,9 @@ import getStripe from "../../lib/getStripe.js";
 import {Button} from '@mui/material';
 import {ShoppingCartCheckoutTwoTone} from '@mui/icons-material';
 
-const CheckoutButton = ({order_id}) => {
+const CheckoutButton = () => {
+const order_id = localStorage.getItem('order_id');
+
     const handleClick = async (event) => {
         event.preventDefault();
         const stripe = await getStripe();
@@ -54,8 +56,8 @@ const CheckoutButton = ({order_id}) => {
     };
 
     return (
-
-        <Button variant="contained" onClick={handleClick}
+<>
+        { order_id ? <Button variant="contained" onClick={handleClick}
                 sx={{
                     backgroundColor: '#84a98c',
                     color: '#f8edeb',
@@ -66,7 +68,19 @@ const CheckoutButton = ({order_id}) => {
                 }}
         >
             <ShoppingCartCheckoutTwoTone/> Checkout
-        </Button>
+        </Button> : <Button variant="contained" disabled
+                            sx={{
+                                backgroundColor: '#84a98c',
+                                color: '#f8edeb',
+                                '&:hover': {
+                                    backgroundColor: '#ccd5ae',
+                                    color: '#343a40'
+                                }
+                            }}
+            >
+                <ShoppingCartCheckoutTwoTone/> Checkout
+            </Button> }
+</>
     );
 }
 
