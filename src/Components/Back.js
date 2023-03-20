@@ -5,7 +5,7 @@ const Back = () => {
   return (
     <Box>
       <Typography align="center" variant="h3" sx={{ fontWeight: 900 }}>
-      Team 4's<b style={{ color: "red" }}>Store</b>
+      Gadget<b style={{ color: "red" }}>Galaxy</b>
       </Typography>
       <Typography align="center" variant="subtitle1" sx={{ fontWeight: 100 }}>
         We Make Shopping Fun!

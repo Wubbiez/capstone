@@ -16,6 +16,7 @@ import AdminDashboard from "./Components/AdminDashboard.js";
 import Main from './Components/Main.js';
 import Back from './Components/Back.js';
 import Category from './Components/Category.js';
+import Footer from './Components/Footer.js';
 
 
 export const TOKEN_STORAGE_KEY = "user-token";
@@ -79,6 +80,9 @@ function App() {
         <Route
         path='/back'
         exact element={<Back />}></Route>
+        <Route
+        path='/footer'
+        exact element={<Footer />}></Route>
         
 
         

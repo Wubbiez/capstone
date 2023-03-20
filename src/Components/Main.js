@@ -2,6 +2,7 @@ import { Box, Container, Stack } from "@mui/material";
 import React from "react";
 import Category from './Category.js';
 import Back from './Back.js';
+import Footer from "./Footer.js";
 
 import NavBar from "./NavBar.js";
 
@@ -15,6 +16,7 @@ const Main = () => {
       <Container>
         <Category />
         
+        
         <hr />
         <Stack
           direction={{ xs: "column", md: "row" }}
@@ -27,7 +29,9 @@ const Main = () => {
             
           </Box>
         </Stack>
+       
       </Container>
+      <Footer />
     </Box>
   );
 };
