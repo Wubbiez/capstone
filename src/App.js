@@ -120,9 +120,7 @@ function App() {
                         <Route
                             path='/admin'
                             exact element={<AdminDashboard isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>}></Route>
-                        <Route
-                            path='/nav'
-                            exact element={<NavBar/>}></Route>
+
                         <Route
                             path='/contact'
                             exact element={<Contact/>}></Route>
@@ -134,7 +132,7 @@ function App() {
                             exact element={<Cart/>}></Route>
                         <Route
                             path='/success'
-                            exact element={<Success order={order} setOrder={setOrder}/>}></Route>
+                            exact element={<Success order={order} setOrder={setOrder} setRefreshCart={setRefreshCart} />}></Route>
                         <Route
                             path='/orderhistory'
                             exact element={<OrderHistory userId={userId} user={user}/>}></Route>

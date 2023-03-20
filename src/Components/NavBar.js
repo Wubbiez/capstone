@@ -112,7 +112,7 @@ const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCar
         }
 
         setSettings(updatedSettings);
-    }, [setToken, token, admin, user]);
+    }, [setToken, token, admin, user, refreshCart, order]);
 
     const altText = user && user.length > 0 ? user.charAt(0) : '';
 

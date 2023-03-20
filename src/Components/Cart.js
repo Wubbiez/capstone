@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Box, Button, Card, CardActions, CardContent, Grid, Modal, Paper, styled, Typography} from '@mui/material';
 
 
-import {getOrderProductsByOrderId} from "../api/apirequests.js";
+import {getOrderById, getOrderProductsByOrderId} from "../api/apirequests.js";
 
 import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
 
@@ -30,6 +30,7 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
     useEffect(() => {
         // Call API to get order products
         if (order) {
+            // check if order is paid
             getOrderProductsByOrderId(order).then((orderProducts) => {
                 console.log("orderProducts are", orderProducts);
                 setOrderProducts(orderProducts);
@@ -38,6 +39,7 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
                 console.log("orderProducts are still", orderProducts);
             });
         }
+
     }, [order, refresh, refreshCart]);
 
 
@@ -130,7 +132,7 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
                         ).toFixed(2)}
 
                         </Typography> : null}
-                        <CheckoutButton order_id={order}/>
+                        <CheckoutButton order_id={order} setRefreshCart={setRefreshCart}/>
                         <EmptyCartButton order_id={order} setRefresh={setRefresh}/>
                         <Button
                             onClick={handleCloseCart}
