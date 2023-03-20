@@ -266,6 +266,6 @@ marginTop: '1rem',
 
 
     );
-};
+}
 
 export default SingleProductPage;

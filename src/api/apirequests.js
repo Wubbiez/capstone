@@ -216,31 +216,71 @@ export async function getAllUsers() {
     return users;
 }
 
+export async function getUserById(user_id, token) {
+    const response = await fetch(`http://localhost:3001/api/users/me/${user_id}`,
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            }
+        );
+
+    const user = await response.json();
+    return user;
+}
+
 export async function updateUser(id, username, email, first_name, last_name, address, phone, is_admin, is_active, password) {
     console.log()
     const token = localStorage.getItem('user-token');
+    const isAdmin = localStorage.getItem('user-is_admin');
 
-    const response = await fetch(`http://localhost:3001/api/users/${id}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-            id,
-            username,
-            email,
-            first_name,
-            last_name,
-            address,
-            phone,
-            is_admin,
-            is_active,
-            password
-        }),
-    });
-    const user = await response.json();
-    return user;
+    if(isAdmin === 'true') {
+        const response = await fetch(`http://localhost:3001/api/users/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                id,
+                username,
+                email,
+                first_name,
+                last_name,
+                address,
+                phone,
+                is_admin,
+                is_active,
+                password
+            }),
+        });
+        const user = await response.json();
+        return user;
+    } else {
+        is_admin = false;
+        const response = await fetch(`http://localhost:3001/api/users/me/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                id,
+                username,
+                email,
+                first_name,
+                last_name,
+                address,
+                phone,
+                is_admin,
+                is_active,
+                password
+            }),
+        });
+        const user = await response.json();
+        return user;
+    }
 }
 
 export async function getOrderById(id) {

@@ -86,7 +86,9 @@ async function getUserById(userId) {
                    first_name,
                    last_name,
                    address,
-                   phone
+                   phone,
+                     is_active,
+                     password
             FROM users
             WHERE user_id = $1;
         `, [userId]);
@@ -110,6 +112,7 @@ async function updateUser({
                               password
                           }) {
     try {
+        const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
         const {rows: [user]} = await client.query(`
             UPDATE users
             SET username   = $1,
@@ -123,7 +126,7 @@ async function updateUser({
                 password   = $9
             WHERE user_id = $10
             RETURNING user_id, username, email, is_admin, first_name, last_name, address, phone, is_active, password;
-        `, [username, email, first_name, last_name, address, phone, is_admin, is_active, password, user_id]);
+        `, [username, email, first_name, last_name, address, phone, is_admin, is_active, hashedPassword, user_id]);
         return user;
     } catch (e) {
         console.error(e);
@@ -160,5 +163,5 @@ export {
     bcrypt,
     getUserById,
     updateUser,
-    getAllUsers
+    getAllUsers,
 }

@@ -17,8 +17,10 @@ import {
     useMediaQuery,
     useTheme,
     InputBase,
-    Icon
+    Icon,
+    Stack
 } from "@mui/material";
+
 import {css} from '@emotion/react';
 import DrawerComp from "./Drawer.js";
 
@@ -29,11 +31,11 @@ import {SearchSharp} from '@mui/icons-material';
 import {searchProducts} from "../api/apirequests.js";
 import SearchBar from "./SearchBar.js";
 
-const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCart, setRefreshCart}) => {
+const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCart, setRefreshCart, user}) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [settings, setSettings] = useState([
-        {label: 'Profile', onClick: () => console.log('Profile clicked')},
+        {label: 'Profile', to: '/me'},
         {label: 'Order History', onClick: () => window.location.href = "/orderhistory"},
         {label: 'Logout', onClick: () => handleLogout(setToken, setIsAdmin)}
     ]);
@@ -55,6 +57,23 @@ const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCar
     };
 
 
+    function stringToColor(string) {
+        let hash = 0;
+        let i;
+
+        for (i = 0; i < string.length; i += 1) {
+            hash = string.charCodeAt(i) + ((hash << 5) - hash);
+        }
+
+        let color = '#';
+
+        for (i = 0; i < 3; i += 1) {
+            const value = (hash >> (i * 8)) & 0xff;
+            color += `00${value.toString(16)}`.slice(-2);
+        }
+
+        return color;
+    }
 
 
     const handleOpenNavMenu = (event) => {
@@ -72,22 +91,20 @@ const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCar
         setAnchorElUser(null);
     };
 
-
-
     useEffect(() => {
         const token = localStorage.getItem("user-token");
         const admin = localStorage.getItem("user-is_admin");
         setHasToken(Boolean(token));
         let updatedSettings = [{
             label: 'Profile',
-            onClick: () => console.log('Profile clicked')
+            to: '/me'
         }, {label: 'Order History', to: '/orderhistory'}, {
             label: 'Logout',
             onClick: () => handleLogout(setToken, setIsAdmin)
         }];
         if (!token) {
             // If there's no token, update the settings to remove the "Logout" and "Order History" options
-            updatedSettings = updatedSettings.filter(setting => setting.label !== "Logout" && setting.label !== "Order History");
+            updatedSettings = updatedSettings.filter(setting => setting.label !== "Logout" && setting.label !== "Order History" && setting.label !== "Profile");
             updatedSettings = [...updatedSettings, {label: 'Sign Up', to: '/signup'}, {label: 'Log In', to: '/login'}];
         }
         if (admin === "true") {
@@ -95,20 +112,39 @@ const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCar
         }
 
         setSettings(updatedSettings);
-    }, [setToken, token, admin]);
+    }, [setToken, token, admin, user]);
+
+    const altText = user && user.length > 0 ? user.charAt(0) : '';
+
+    function stringAvatar(name) {
+        return {
+            sx: {
+                backgroundColor: stringToColor(name),
+            },
+            children: `${altText}`,
+        };
+    }
 
     return (
         <React.Fragment>
             <AppBar sx={{background: "#1D3557", padding: "0", margin: "0"}} position="sticky">
-                <Toolbar disableGutters>
+                <Toolbar disableGutters sx={{ display: 'flex', alignItems: 'center' }}>
                     {isMatch ? (
                         <>
-                            <Typography align="center" sx={{
+                            <Typography component={Link} to="/" align="center" sx={{
                                 fontWeight: 900,
-                                fontSize: 'calc(1.3rem + 1vw)'
+                                fontSize: 'calc(1.3rem + 1vw)',
+                                textDecoration: "none",
+                                color: "inherit",
+                                cursor: "pointer",
+                                marginLeft: "0.5rem",
+                                marginBottom: '0px'
                             }}>
-                                Gadget<b style={{color: "#E63946"}}>Galaxy</b>
+                                G<b style={{color: "#E63946"}}>G</b>
                             </Typography>
+                            <Box sx={{flexGrow: 1, marginLeft: ".5rem", marginRight: "0.5rem"}}>
+                                <SearchBar/>
+                            </Box>
                             <Box sx={{flexGrow: 1}}/>
                             <Cart order={order} setOrder={setOrder} setRefreshCart={setRefreshCart}
                                   refreshCart={refreshCart} sx={{mr: theme.spacing(2)}}/>
@@ -118,7 +154,8 @@ const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCar
                                         <Box sx={{flexGrow: 0}}>
                                             <Tooltip title="Open settings">
                                                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                                    <Avatar alt="Z" src="/static/images/avatar/2.jpg"/>
+                                                    {user ? <Avatar {...stringAvatar(`${user}`)} /> :
+                                                        <Avatar src="/broken-image.jpg"/>}
                                                 </IconButton>
                                             </Tooltip>
                                             <Menu
@@ -158,7 +195,7 @@ const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCar
                                 Gadget<b style={{color: "#E63946"}}>Galaxy</b>
                             </Typography>
                             <Box sx={{flexGrow: 1, marginLeft: ".5rem"}}>
-                            <SearchBar />
+                                <SearchBar/>
                             </Box>
 
 
@@ -180,7 +217,8 @@ const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCar
                                         <Box sx={{flexGrow: 0}}>
                                             <Tooltip title="Open settings">
                                                 <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                                    <Avatar alt="Z" src="/static/images/avatar/2.jpg"/>
+                                                    {user ? <Avatar {...stringAvatar(`${user}`)} /> :
+                                                        <Avatar src="/broken-image.jpg"/>}
                                                 </IconButton>
                                             </Tooltip>
                                             <Menu
