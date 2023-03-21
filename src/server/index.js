@@ -21,7 +21,7 @@ app.use(cors({ origin: "https://zach-db.d2iq6rr0fedpw1.amplifyapp.com" },
 
 app.use('/api', createProxyMiddleware({
     target: 'https://34.227.96.218:3001',
-    changeOrigin: false,
+    changeOrigin: true,
     secure: false,
     onProxyReq: (proxyReq, req, res) => {
         proxyReq.setHeader('origin', 'https://zach-db.d2iq6rr0fedpw1.amplifyapp.com');
