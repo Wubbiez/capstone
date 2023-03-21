@@ -18,16 +18,7 @@ const options = {
     key: fs.readFileSync(SSL_KEY_PATH),
 }
 
-app.use('/api/**', createProxyMiddleware({
-    target: 'https://34.227.96.218:3001/api',
-    changeOrigin: false,
-    onProxyRes: (proxyRes, req, res) => {
-        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-    },
-    headers: {
-        'Referrer-Policy': 'no-referrer',
-    },
-}));
+
 
 
 // app.use('/api/**', createProxyMiddleware({

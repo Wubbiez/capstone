@@ -13,6 +13,21 @@ const {JWT_SECRET} = process.env;
 
 const apiRouter = express.Router();
 
+import express from "express";
+import { createProxyMiddleware } from "http-proxy-middleware";
+import { myRoutes } from "./myRoutes.js";
+
+const apiRouter = express.Router();
+
+apiRouter.use(
+    "/",
+    createProxyMiddleware({
+        target: "https://34.227.96.218:3001",
+        changeOrigin: true,
+    })
+);
+
+
 
 apiRouter.use(async (req, res, next) => {
     const prefix = "Bearer ";
