@@ -22,7 +22,8 @@ app.use(cors(
     {
         origin: "*",
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-        referrerPolicy: "no-referrer",
+        referrerPolicy: "no-referrer-when-downgrade",
+        allowedHeaders: ["Content-Type", "Authorization"],
     }
 ));
 app.use(express.json());
