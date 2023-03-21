@@ -11,6 +11,11 @@ config();
 
 const app = express();
 
+app.get("/", (req, res) => {
+    res.send("Hello World!");
+
+}   );
+
 // Middleware
 app.use(morgan("dev"));
 app.use(cors());
