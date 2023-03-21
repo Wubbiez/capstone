@@ -47,8 +47,8 @@ const order_id = localStorage.getItem('order_id');
             mode: "payment",
             lineItems,
             clientReferenceId: order_id.toString(),
-            successUrl: `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancelUrl: "http://localhost:3000/products",
+            successUrl: `https://www.gadgetgalaxy.link/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancelUrl: "https://www.gadgetgalaxy.link/products",
         });
         if (error) {
             console.warn("Error:", error);

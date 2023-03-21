@@ -101,7 +101,7 @@ const Login = ({setToken, setIsAdmin}) => {
 
                 </LoginForm>
                 <Typography> Do you have an account ?
-                    <Link href="http://localhost:3000/signup">
+                    <Link href="https://www.gadgetgalaxy.link/signup">
                         Sign Up
                     </Link>
                 </Typography>
