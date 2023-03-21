@@ -39,7 +39,7 @@ const Login = ({setToken, setIsAdmin}) => {
             setUserId(user_id);
             const orderResponse = await getLatestOrderId(user_id);
             localStorage.setItem("order_id", orderResponse.order_id);
-            window.location.href = "http://localhost:3000/";
+            history('/');
 
         } catch (error) {
             console.error(error);
