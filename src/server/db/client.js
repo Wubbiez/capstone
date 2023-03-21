@@ -3,7 +3,7 @@ import pkg from 'pg';
 const {Pool} = pkg;
 const client = new Pool({
     user: 'wubbie',
-    password: 'Zaqwsx101!?!',
+    password: 'TestDB101!?!',
     host: 'gadgetgalaxy.ccl2wv2rdpbg.us-east-1.rds.amazonaws.com',
     database: 'gadgetgalaxy',
     port: 5432,
