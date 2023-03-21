@@ -16,13 +16,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());
 
-app.use(
-    "/api/**",
-    createProxyMiddleware({
-        target: "https://34.227.96.218:3001",
-        changeOrigin: true,
-    })
-);
+
 
 app.post("/success", async (req, res) => {
     const { session_id } = req.query;
