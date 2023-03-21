@@ -47,7 +47,7 @@ function SingleProductPage({order, setOrder, setRefreshCart, userId}) {
         const token = localStorage.getItem('user-token');
         try {
 
-            const response = await fetch(`${process.env.EC2_PUBLIC_IP}/api/reviews/${review_id}`, {
+            const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/reviews/${review_id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

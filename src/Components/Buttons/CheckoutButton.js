@@ -9,12 +9,12 @@ const order_id = localStorage.getItem('order_id');
     const handleClick = async (event) => {
         event.preventDefault();
         const stripe = await getStripe();
-        const response = await fetch(`${process.env.EC2_PUBLIC_IP}/api/cart/${order_id}/items`);
+        const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/cart/${order_id}/items`);
         const items = await response.json();
 
 
         // Check if all items are in stock
-        const itemStockPromises = items.map((item) => fetch(`${process.env.EC2_PUBLIC_IP}/api/products/${item.productId}/stock`));
+        const itemStockPromises = items.map((item) => fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/products/${item.productId}/stock`));
         const itemStockResponses = await Promise.all(itemStockPromises);
         const itemStocks = await Promise.all(itemStockResponses.map((response) => response.json()));
         const isAllInStock = itemStocks.every((stock) => stock.in_stock);
@@ -25,7 +25,7 @@ const order_id = localStorage.getItem('order_id');
             const message = `The following items are out of stock and have been removed from your cart:\n\n${outOfStockItems.map((item) => item.productId).join('\n')}`;
             alert(message);
             // create an array of promises that represent the DELETE requests
-            const deleteItemPromises = outOfStockItems.map((item) => fetch(`${process.env.EC2_PUBLIC_IP}/api/cart/${order_id}/${item.productId}`, {
+            const deleteItemPromises = outOfStockItems.map((item) => fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/cart/${order_id}/${item.productId}`, {
                 method: "DELETE",
             }));
 

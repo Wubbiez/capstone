@@ -50,7 +50,7 @@ function CreateReviewButton({user, product_id, setRefresh}) {
     async function handleSubmit() {
         setIsCreating(true);
         try {
-            const response = await fetch(`${process.env.EC2_PUBLIC_IP}/api/reviews/${product_id}`, {
+            const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/reviews/${product_id}`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({user, title, content, rating})
