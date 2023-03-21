@@ -44,7 +44,7 @@ function AddToOrderButton({
                 if (orderProducts.length > 0 && orderProducts.find(order_product => order_product.productId === product_id)) {
                     quantity = orderProducts.find(order_product => order_product.productId === product_id).quantity + 1;
 
-                    const response3 = await fetch(`http://localhost:3001/api/cart/${order_id}/${product_id}`, {
+                    const response3 = await fetch(`${process.env.EC2_PUBLIC_IP}/api/cart/${order_id}/${product_id}`, {
                         method: 'PATCH',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({order_id, product_id, price, quantity, stripe_id}),
@@ -58,7 +58,7 @@ function AddToOrderButton({
                     }
                 } else {
                     const quantity = 1;
-                    const response = await fetch(`http://localhost:3001/api/cart/${order_id}/items`, {
+                    const response = await fetch(`${process.env.EC2_PUBLIC_IP}/api/cart/${order_id}/items`, {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({order_id, product_id, price, quantity, stripe_id}),
@@ -71,7 +71,7 @@ function AddToOrderButton({
                 }
             } else {
                 console.log(userId, status)
-                const response2 = await fetch('http://localhost:3001/api/orders', {
+                const response2 = await fetch(`${process.env.EC2_PUBLIC_IP}/api/orders`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({userId, status}),
@@ -83,7 +83,7 @@ function AddToOrderButton({
                     const order_id = order['order_id'];
                     setOrder(order_id);
                     localStorage.setItem('order_id', order_id);
-                    const response = await fetch(`http://localhost:3001/api/cart/${order_id}/items`, {
+                    const response = await fetch(`${process.env.EC2_PUBLIC_IP}/api/cart/${order_id}/items`, {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({order_id, product_id, price, quantity, stripe_id}),

@@ -11,7 +11,7 @@ function DeleteOrderProductButton({order_id, product_id, setRefresh,}) {
     async function handleClick() {
         setIsDeleting(true);
         try {
-            const response = await fetch(`http://localhost:3001/api/cart/${order_id}/${product_id}`, {
+            const response = await fetch(`${process.env.EC2_PUBLIC_IP}/api/cart/${order_id}/${product_id}`, {
                 method: 'DELETE',
                 headers: {'Content-Type': 'application/json'}
             });

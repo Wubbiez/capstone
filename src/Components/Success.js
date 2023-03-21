@@ -32,7 +32,7 @@ const Success = ({order, setOrder, setRefreshCart}) => {
 
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/success?session_id=${sessionId}`, {
+                const response = await fetch(`${process.env.EC2_PUBLIC_IP}/success?session_id=${sessionId}`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({sessionId}),
