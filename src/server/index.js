@@ -13,7 +13,9 @@ const app = express();
 
 // Middleware
 app.use(morgan("dev"));
-app.use(cors());
+app.use(cors({
+    origin: 'https://zach-db.d2iq6rr0fedpw1.amplifyapp.com' // Replace with your frontend URL
+}));
 app.use(express.json());
 
 app.post('/success', async (req, res) => {
