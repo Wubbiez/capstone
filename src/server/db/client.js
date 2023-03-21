@@ -7,7 +7,7 @@ const client = new Pool({
     host: `${process.env.REACT_APP_DATABASE_HOST}`,
     database: 'postgres',
     port: 5432,
-    ssl: false, // set to true if you are using SSL
+    ssl: true, // set to true if you are using SSL
 });
 // const connectionString = process.env.DATABASE_URL || `https://localhost:5432/capstone`;
 //
