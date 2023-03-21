@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 app.use(morgan("dev"));
 app.use(cors(
     {
-        origin: "*",
+        origin: "https://34.227.96.218:3001",
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         referrerPolicy: "no-referrer-when-downgrade",
         allowedHeaders: ["Content-Type", "Authorization"],
