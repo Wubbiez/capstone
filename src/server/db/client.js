@@ -1,10 +1,11 @@
 import pkg from 'pg';
-
+import dotenv from 'dotenv';
+dotenv.config();
 const {Pool} = pkg;
 const client = new Pool({
-    user: `wubbie`,
-    password: `TestDB101!?!`,
-    host: `gadgetgalaxy.ccl2wv2rdpbg.us-east-1.rds.amazonaws.com`,
+    user: `${process.env.REACT_APP_DATABASE_USER}`,
+    password: `${process.env.REACT_APP_DATABASE_PASSWORD}`,
+    host: `${process.env.REACT_APP_DATABASE_HOST}`,
     database: 'postgres',
     port: 5432,
     ssl: false, // set to true if you are using SSL
