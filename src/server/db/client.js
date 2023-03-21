@@ -7,7 +7,7 @@ const client = new Pool({
     host: 'gadgetgalaxy.ccl2wv2rdpbg.us-east-1.rds.amazonaws.com',
     database: 'gadgetgalaxy',
     port: 5432,
-    ssl: true, // set to true if you are using SSL
+    ssl: false, // set to true if you are using SSL
 });
 // const connectionString = process.env.DATABASE_URL || `postgresql://wubbie:Zaqwsx101!?!@gadgetgalaxy.ccl2wv2rdpbg.us-east-1.rds.amazonaws.com:5432/gadgetgalaxy`;
 //
