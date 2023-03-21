@@ -24,19 +24,21 @@ import {
 import {css} from '@emotion/react';
 import DrawerComp from "./Drawer.js";
 
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {handleLogout} from "./Buttons/LogoutButton.js";
 import Cart from "./Cart.js";
 import {SearchSharp} from '@mui/icons-material';
 import {searchProducts} from "../api/apirequests.js";
 import SearchBar from "./SearchBar.js";
 
+
 const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCart, setRefreshCart, user}) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+
     const [settings, setSettings] = useState([
         {label: 'Profile', to: '/me'},
-        {label: 'Order History', onClick: () => window.location.href = "/orderhistory"},
+        {label: 'Order History', to: "/orderhistory"},
         {label: 'Logout', onClick: () => handleLogout(setToken, setIsAdmin)}
     ]);
 
