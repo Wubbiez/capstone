@@ -17,7 +17,7 @@ const options = {
     key: fs.readFileSync(SSL_KEY_PATH),
 }
 
-app.use('/api', createProxyMiddleware({ target: 'http://34.227.96.218:3001', changeOrigin: true }));
+
 
 const server = https.createServer(options, app);
 
