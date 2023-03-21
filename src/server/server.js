@@ -18,7 +18,10 @@ const options = {
     key: fs.readFileSync(SSL_KEY_PATH),
 }
 
-app.use('/api/**', createProxyMiddleware({ target: 'https://34.227.96.218:3001', changeOrigin: true }));
+app.use('/api/**', createProxyMiddleware({ target: 'https://34.227.96.218:3001', changeOrigin: true, onProxyRes: (proxyRes, req, res) => {
+proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+    }
+}));
 
 app.use(cors(
     {
@@ -28,6 +31,8 @@ app.use(cors(
         credentials: true,
     }
 ));
+
+
 
 const server = https.createServer(options, app);
 
