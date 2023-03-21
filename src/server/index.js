@@ -23,7 +23,7 @@ const apiProxy = createProxyMiddleware({
 });
 
 // Combine apiRouter and proxy middleware with express.Router
-const router = express.Router();
+const router = express();
 
 router.use('/api/**', apiProxy);
 router.use('/api', apiRouter);
