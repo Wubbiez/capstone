@@ -24,15 +24,15 @@ const options = {
 // }));
 
 
-// app.use('/api', createProxyMiddleware({
-//     target: 'https://34.227.96.218:3001',
-//     changeOrigin: true,
-//     onProxyReq: (proxyReq, req, res) => {
-//         if (req.headers.origin !== 'https://zach-db.d2iq6rr0fedpw1.amplifyapp.com') {
-//             res.status(403).send('Forbidden');
-//         }
-//     }
-// }));
+app.use('/api', createProxyMiddleware({
+    target: 'https://34.227.96.218:3001',
+    changeOrigin: false,
+    onProxyReq: (proxyReq, req, res) => {
+        if (req.headers.origin !== 'https://zach-db.d2iq6rr0fedpw1.amplifyapp.com') {
+            res.status(403).send('Forbidden');
+        }
+    }
+}));
 
 
 
