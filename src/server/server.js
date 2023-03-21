@@ -19,7 +19,7 @@ const options = {
 
 app.use('/api', createProxyMiddleware({ target: 'http://34.227.96.218:3001', changeOrigin: true }));
 
-const server = https.createServer(options, app);
+const server = https.createServer(options, app).listen(443);
 
 server.listen(PORT, () => {
     console.log(
