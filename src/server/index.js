@@ -18,14 +18,7 @@ app.get("/", (req, res) => {
 
 // Middleware
 app.use(morgan("dev"));
-app.use(cors(
-    {
-        origin: "https://34.227.96.218:3001",
-        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-        referrerPolicy: "no-referrer-when-downgrade",
-        allowedHeaders: ["Content-Type", "Authorization"],
-    }
-));
+app.use(cors());
 app.use(express.json());
 
 app.post('/success', async (req, res) => {

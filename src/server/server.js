@@ -4,6 +4,7 @@ import chalk from "chalk";
 import fs from "fs";
 import {config} from "dotenv";
 import {createProxyMiddleware} from "http-proxy-middleware";
+import cors from "cors";
 
 config();
 
@@ -18,6 +19,15 @@ const options = {
 }
 
 app.use('/api/**', createProxyMiddleware({ target: 'https://34.227.96.218:3001', changeOrigin: true }));
+
+app.use(cors(
+    {
+        origin: "https://34.227.96.218:3001",
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+        referrerPolicy: "no-referrer-when-downgrade",
+        allowedHeaders: ["Content-Type", "Authorization"],
+    }
+));
 
 const server = https.createServer(options, app);
 
