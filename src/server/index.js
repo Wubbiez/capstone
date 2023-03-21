@@ -21,9 +21,6 @@ app.use(
     createProxyMiddleware({
         target: "https://34.227.96.218:3001",
         changeOrigin: true,
-        onProxyRes: (proxyRes, req, res) => {
-            proxyRes.headers["Access-Control-Allow-Origin"] = "*";
-        },
     })
 );
 
