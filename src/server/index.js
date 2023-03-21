@@ -40,7 +40,7 @@ app.post("/success", async (req, res) => {
     }
 });
 
-
+app.use("/api", apiRouter);
 
 app.use((req, res, next) => {
     console.log("<____Body Logger START____>");
