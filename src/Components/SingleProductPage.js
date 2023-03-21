@@ -247,15 +247,22 @@ marginTop: '1rem',
                         maxHeight: "100%",
                         maxWidth: "100%"}}>
                     <ReviewsSection>
-                        <Typography variant='h4' sx={{fontWeight: 'bold'}}>Reviews</Typography>
+                        <Typography variant='h2'>Reviews</Typography>
                         <Divider style={{marginBottom: '1rem'}}/>
                         {reviews.map(review => (
                             <StyledPaper key={review.review_id}>
-                                <Typography variant='h5'>{review.title}</Typography>
-                                <Typography variant='body1'>{review.content}</Typography>
-                                <Rating defaultValue={review.rating} precision={0.5} readOnly/>
+                                <Typography variant='h4'>{review.title}</Typography>
+                                <Typography variant='p'>{review.content}</Typography>
+                                <Rating defaultValue={review.rating} precision={0.5} readOnly gutterBottom/>
                                 <Typography className='username' variant='body1'>-{review.username}</Typography>
-                                {isAdmin && <Button onClick={() => handleDeleteClick(review.review_id)}>Delete</Button>}
+                                {isAdmin && <Button onClick={() => handleDeleteClick(review.review_id)}  sx={{
+                                    backgroundColor: '#E63946',
+                                    color: '#F1FAEE',
+                                    '&:hover': {
+                                        backgroundColor: '#A8DADC',
+                                        color: '#E63946'
+                                    }
+                                }}>Delete</Button>}
                             </StyledPaper>
                         ))}
                     </ReviewsSection>

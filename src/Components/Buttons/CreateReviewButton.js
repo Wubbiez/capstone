@@ -76,14 +76,18 @@ function CreateReviewButton({user, product_id, setRefresh}) {
                 disabled={isCreating}
                 onClick={handleClickOpen}
                 sx={{
-                    backgroundColor: '#564949',
+                    backgroundColor: '#457B9D',
                     color: '#F1FAEE',
+                    fontSize: 'calc(0.9rem + 0.2vw)',
                     '&:hover': {
-                        backgroundColor: '#F1FAEE',
-                        color: '#E63946'
+                        backgroundColor: '#A8DADC',
+                        color: '#333333',
+                        boxShadow: '1px 2px 1px 1px #1D3557'
                     }
                 }}
             >
+        
+      
                 Leave Review </Button>
 
 

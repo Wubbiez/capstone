@@ -94,7 +94,7 @@ const Success = ({order, setOrder, setRefreshCart}) => {
 
                 height: '85vh',
                 width: '100%',
-
+                objectFit: 'contain',
                 margin: 0,
             }}>
 

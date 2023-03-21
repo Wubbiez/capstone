@@ -79,7 +79,7 @@ const theme = createTheme({
             textShadow: '2px 2px 2px #f5f5f5',
             letterSpacing: '0em',
             lineHeight: '1.4em',
-            fontSize: 'calc(1.5rem + 1vw)',
+            fontSize: 'calc(1rem + 0.2vw)',
             '@media (min-width:600px)': {
                 fontSize: 'calc(1.3rem + 1vw)',
             },
