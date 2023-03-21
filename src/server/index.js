@@ -15,7 +15,7 @@ const app = express();
 app.use(morgan("dev"));
 
 app.use(cors({
-    origin: "https://zach-db.d2iq6rr0fedpw1.amplifyapp.com",
+    origin: "https://www.gadgetgalaxy.link",
 }));
 app.use(express.json());
 
