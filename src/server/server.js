@@ -1,12 +1,12 @@
 import app from "./index.js";
-import http from "http";
+import https from "http";
 import chalk from "chalk";
 import {config} from "dotenv";
 
 config();
 
 const PORT = process.env["PORT"] ?? 3001;
-const server = http.createServer(app);
+const server = https.createServer(app);
 
 server.listen(PORT, () => {
     console.log(
