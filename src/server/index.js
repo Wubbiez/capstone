@@ -14,10 +14,7 @@ const app = express();
 // Middleware
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cors({ origin: "https://zach-db.d2iq6rr0fedpw1.amplifyapp.com" },
-
-
-));
+app.use(cors());
 
 
 
