@@ -23,8 +23,9 @@ app.use('/api/**', createProxyMiddleware({ target: 'https://34.227.96.218:3001',
 app.use(cors(
     {
         origin: "*",
-        allowedHeaders: ["Content-Type", "Authorization"],
-        methods: ["GET", "POST", "PUT", "DELETE"],
+        methods: "*",
+        allowedHeaders: "*",
+        credentials: true,
     }
 ));
 
