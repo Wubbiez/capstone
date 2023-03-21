@@ -3,7 +3,6 @@ import https from "https";
 import chalk from "chalk";
 import fs from "fs";
 import {config} from "dotenv";
-import {createProxyMiddleware} from "http-proxy-middleware";
 
 config();
 
