@@ -18,12 +18,21 @@ const options = {
     key: fs.readFileSync(SSL_KEY_PATH),
 }
 
-// app.use('/api/**', createProxyMiddleware({ target: 'https://34.227.96.218:3001', changeOrigin: true, onProxyRes: (proxyRes, req, res) => {
-// proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+app.use('/api/**', createProxyMiddleware({ target: 'https://34.227.96.218:3001', changeOrigin: true, onProxyRes: (proxyRes, req, res) => {
+proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+    }
+}));
+
+// app.use('/api/**', createProxyMiddleware({
+//     target: 'https://34.227.96.218:3001',
+//     changeOrigin: false,
+//     onProxyReq: (proxyReq, req, res) => {
+//         proxyReq.setHeader('origin', 'https://zach-db.d2iq6rr0fedpw1.amplifyapp.com');
+//         if (req.headers.origin !== 'https://zach-db.d2iq6rr0fedpw1.amplifyapp.com') {
+//             res.status(403).send('Forbidden');
+//         }
 //     }
 // }));
-
-
 
 
 
