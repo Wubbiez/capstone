@@ -5,7 +5,7 @@ const client = new Pool({
     user: 'wubbie',
     password: 'TestDB101!?!',
     host: 'gadgetgalaxy.ccl2wv2rdpbg.us-east-1.rds.amazonaws.com',
-    database: 'gadgetgalaxy',
+    database: 'postgres',
     port: 5432,
     ssl: false, // set to true if you are using SSL
 });
