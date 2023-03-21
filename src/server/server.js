@@ -5,6 +5,7 @@ import fs from "fs";
 import {config} from "dotenv";
 import {createProxyMiddleware} from "http-proxy-middleware";
 import cors from "cors";
+import apiRouter from "../api/index.js";
 
 config();
 
@@ -19,6 +20,18 @@ const options = {
 }
 
 
+app.use('/api/**', createProxyMiddleware({
+    target: 'https://34.227.96.218:3001/api',
+    changeOrigin: false,
+    onProxyRes: (proxyRes, req, res) => {
+        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+    },
+    headers: {
+        'Referrer-Policy': 'no-referrer',
+    },
+}));
+
+app.use("/api", apiRouter);
 
 
 // app.use('/api/**', createProxyMiddleware({

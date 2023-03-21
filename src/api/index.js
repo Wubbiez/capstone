@@ -7,21 +7,11 @@ import orderProductsRouter from "./endpoints/order_products.js";
 import {getUserById} from "../server/db/components/users.js";
 import jwt from "jsonwebtoken";
 import reviewRouter from "./endpoints/reviews.js";
-import { createProxyMiddleware } from "http-proxy-middleware";
+
 const {JWT_SECRET} = process.env;
 
 
-
 const apiRouter = express.Router();
-
-apiRouter.use(
-    "/",
-    createProxyMiddleware({
-        target: "https://34.227.96.218:3001",
-        changeOrigin: false,
-    })
-);
-
 
 
 apiRouter.use(async (req, res, next) => {
