@@ -7,15 +7,10 @@ import orderProductsRouter from "./endpoints/order_products.js";
 import {getUserById} from "../server/db/components/users.js";
 import jwt from "jsonwebtoken";
 import reviewRouter from "./endpoints/reviews.js";
-
+import { createProxyMiddleware } from "http-proxy-middleware";
 const {JWT_SECRET} = process.env;
 
 
-const apiRouter = express.Router();
-
-import express from "express";
-import { createProxyMiddleware } from "http-proxy-middleware";
-import { myRoutes } from "./myRoutes.js";
 
 const apiRouter = express.Router();
 
