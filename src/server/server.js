@@ -19,13 +19,13 @@ const PORT = process.env["PORT"] ?? 3001;
 //     key: fs.readFileSync(SSL_KEY_PATH),
 // }
 
-// app.use('/api/**', createProxyMiddleware({
-//     target: 'https://34.227.96.218:3001',
-//     changeOrigin: false,
-//     headers: {
-//         'Referrer-Policy': 'no-referrer',
-//     },
-// }));
+app.use('/api/**', createProxyMiddleware({
+    target: 'https://34.227.96.218:3001',
+    changeOrigin: false,
+    headers: {
+        'Referrer-Policy': 'no-referrer',
+    },
+}));
 
 
 
