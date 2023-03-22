@@ -14,13 +14,13 @@ const app = express();
 
 app.use(morgan("dev"));
 
+
+app.use(express.json());
+
 app.use(cors({
     origin: "https://gadgetgalaxy.link",
     credentials: true,
 }));
-app.use(express.json());
-
-
 
 
 app.post("/success", async (req, res) => {
