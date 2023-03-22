@@ -27,7 +27,7 @@ app.use('/api/**', createProxyMiddleware({
     },
 }));
 
-app.use("/api", apiRouter);
+
 
 
 
