@@ -11,12 +11,15 @@ config();
 
 const PORT = process.env["PORT"] ?? 3001;
 
-const https_options = {
-    ca: fs.readFileSync("./ca_bundle.crt"),
-    cert: fs.readFileSync("./certificate.crt"),
-    key: fs.readFileSync("./private.key"),
-}
+// const SSL_CERT_PATH = "./cert.pem";
+// const SSL_KEY_PATH = "./key.pem";
 
+
+const https_options = {
+    ca: fs.readFileSync("ca_bundle.crt"),
+    cert: fs.readFileSync("certificate.crt"),
+    key: fs.readFileSync("private.key"),
+}
 // const options = {
 //     cert: fs.readFileSync(SSL_CERT_PATH),
 //     key: fs.readFileSync(SSL_KEY_PATH),
