@@ -60,18 +60,12 @@ app.use("/api", apiRouter);
 
 const server = https.createServer(https_options, app);
 
-server.listen(PORT, () => {
-    console.log(
-        chalk.blueBright("Server is listening on PORT:"),
-        chalk.yellow(PORT),
-        chalk.red(https_options.ca, https_options.cert, https_options.key)
-    );
-});
+server.listen(PORT, 'www.gadgetgalaxy.link');
 
-
-// serve the API on 81 (HTTP) port
-const httpServer = http.createServer(app);
-
-httpServer.listen(81, () => {
-    console.log('HTTP Server running on port 80');
-});
+//
+// // serve the API on 81 (HTTP) port
+// const httpServer = http.createServer(app);
+//
+// httpServer.listen(81, () => {
+//     console.log('HTTP Server running on port 80');
+// });
