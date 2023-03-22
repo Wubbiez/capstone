@@ -15,7 +15,7 @@ const app = express();
 app.use(morgan("dev"));
 
 app.use(cors({
-    origin: "https://www.gadgetgalaxy.link",
+    origin: "https://gadgetgalaxy.link",
     credentials: true,
 }));
 app.use(express.json());
