@@ -1,5 +1,5 @@
 import app from "./index.js";
-import https from "https";
+import http from "http";
 import chalk from "chalk";
 import fs from "fs";
 import {config} from "dotenv";
@@ -21,13 +21,13 @@ const options = {
 
 app.use("/api", apiRouter);
 
-app.use('/api/**', createProxyMiddleware({
-    target: 'https://34.227.96.218:3001/',
-    changeOrigin: false,
-    headers: {
-        'Referrer-Policy': 'no-referrer',
-    },
-}));
+// app.use('/api/**', createProxyMiddleware({
+//     target: 'https://34.227.96.218:3001/',
+//     changeOrigin: false,
+//     headers: {
+//         'Referrer-Policy': 'no-referrer',
+//     },
+// }));
 
 
 
@@ -48,12 +48,11 @@ app.use('/api/**', createProxyMiddleware({
 
 
 
-const server = https.createServer(options, app);
+const server = http.createServer(app);
 
 server.listen(PORT, () => {
     console.log(
         chalk.blueBright("Server is listening on PORT:"),
         chalk.yellow(PORT),
-        chalk.blueBright("CRUD!")
     );
 });
