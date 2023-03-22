@@ -1,5 +1,4 @@
 import app from "./index.js";
-import https from "https";
 import http from "http";
 import chalk from "chalk";
 import fs from "fs";
@@ -60,7 +59,7 @@ const https_options = {
 
 
 
-const server = https.createServer(https_options, app);
+const server = http.createServer(https_options, app);
 
 server.listen(PORT, () => {
     console.log(
