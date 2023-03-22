@@ -17,10 +17,7 @@ app.use(morgan("dev"));
 
 app.use(express.json());
 
-app.use(cors({
-    origin: "https://gadgetgalaxy.link",
-    credentials: true,
-}));
+app.use(cors());
 
 
 app.post("/success", async (req, res) => {
