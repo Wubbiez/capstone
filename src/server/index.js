@@ -15,8 +15,12 @@ const app = express();
 app.use(morgan("dev"));
 
 app.use(cors({
-    origin: "https://www.gadgetgalaxy.link",
-    credentials: true,
+    headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    }
 }));
 app.use(express.json());
 
