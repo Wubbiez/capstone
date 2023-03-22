@@ -12,9 +12,9 @@ config();
 const PORT = process.env["PORT"] ?? 3001;
 
 const https_options = {
-    ca: fs.readFileSync("ca_bundle.crt"),
-    cert: fs.readFileSync("certificate.crt"),
-    key: fs.readFileSync("private.key"),
+    ca: fs.readFileSync("./ca_bundle.crt"),
+    cert: fs.readFileSync("./certificate.crt"),
+    key: fs.readFileSync("./private.key"),
 }
 
 // const options = {
@@ -57,6 +57,7 @@ server.listen(PORT, () => {
     console.log(
         chalk.blueBright("Server is listening on PORT:"),
         chalk.yellow(PORT),
+        chalk.blueBright(fs.readFileSync("ca_bundle.crt"))
         chalk.blueBright("CRUD!")
     );
 });
