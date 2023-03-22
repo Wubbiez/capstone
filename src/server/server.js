@@ -1,5 +1,5 @@
 import app from "./index.js";
-import https from "https";
+import http from "http";
 import chalk from "chalk";
 import fs from "fs";
 import {config} from "dotenv";
@@ -48,7 +48,7 @@ app.use("/api", apiRouter);
 
 
 
-const server = https.createServer(app);
+const server = http.createServer(app);
 
 server.listen(PORT, () => {
     console.log(
