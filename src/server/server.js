@@ -19,7 +19,15 @@ const PORT = process.env["PORT"] ?? 3001;
 //     key: fs.readFileSync(SSL_KEY_PATH),
 // }
 
+app.use('/api/**', createProxyMiddleware({
+    target: '172.31.46.10:3001',
+    changeOrigin: false,
+    headers: {
+        'Referrer-Policy': 'no-referrer',
+    },
+}));
 
+app.use("/api", apiRouter);
 
 
 
