@@ -17,14 +17,14 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/**', createProxyMiddleware({
-    target: '172.31.46.10:3001',
-    changeOrigin: false,
-    headers: {
-        'Referrer-Policy': 'no-referrer',
-    },
-}));
-
+// app.use('/api/**', createProxyMiddleware({
+//     target: '172.31.46.10:3001',
+//     changeOrigin: false,
+//     headers: {
+//         'Referrer-Policy': 'no-referrer',
+//     },
+// }));
+//
 app.use("/api", apiRouter);
 
 
