@@ -17,7 +17,6 @@ const SSL_CA_PATH = "./ca_bundle.crt";
 
 
 const https_options = {
-    ca: fs.readFileSync(SSL_CA_PATH),
     cert: fs.readFileSync(SSL_CERT_PATH),
     key: fs.readFileSync(SSL_KEY_PATH),
 }
