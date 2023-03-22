@@ -48,7 +48,7 @@ app.use('/api/**', createProxyMiddleware({
 
 
 
-const server = https.createServer(app);
+const server = https.createServer(options, app);
 
 server.listen(PORT, () => {
     console.log(
