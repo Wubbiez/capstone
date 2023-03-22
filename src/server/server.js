@@ -26,7 +26,7 @@ const https_options = {
 //     key: fs.readFileSync(SSL_KEY_PATH),
 // }
 
-app.use("/api", apiRouter);
+
 
 app.use('/api/**', createProxyMiddleware({
     target: 'https://34.227.96.218:3001/',
@@ -35,6 +35,8 @@ app.use('/api/**', createProxyMiddleware({
         'Referrer-Policy': 'no-referrer',
     },
 }));
+
+app.use("/api", apiRouter);
 
 
 

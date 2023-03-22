@@ -17,7 +17,10 @@ app.use(morgan("dev"));
 
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+    origin: "https://www.gadgetgalaxy.link",
+    credentials: true,
+}));
 
 
 app.post("/success", async (req, res) => {
@@ -40,7 +43,7 @@ app.post("/success", async (req, res) => {
     }
 });
 
-app.use("/api", apiRouter);
+// app.use("/api", apiRouter);
 
 app.use((req, res, next) => {
     console.log("<____Body Logger START____>");
