@@ -53,7 +53,7 @@ const https_options = {
 //     }
 // }));
 
-app.use("/api", apiRouter);
+
 
 
 

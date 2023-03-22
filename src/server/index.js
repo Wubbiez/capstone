@@ -11,17 +11,13 @@ config();
 
 const app = express();
 
-
 app.use(morgan("dev"));
-
-
 app.use(express.json());
 
 app.use(cors({
-    origin: "gadgetgalaxy.link",
+    origin: "https://gadgetgalaxy.link", // Set the origin to your domain name
     credentials: true,
 }));
-
 
 app.post("/success", async (req, res) => {
     const { session_id } = req.query;
@@ -43,13 +39,10 @@ app.post("/success", async (req, res) => {
     }
 });
 
-// app.use("/api", apiRouter);
-
 app.use((req, res, next) => {
     console.log("<____Body Logger START____>");
     console.log(req.body);
     console.log("<_____Body Logger END_____>");
-
     next();
 });
 
@@ -58,6 +51,14 @@ app.use((err, req, res, next) => {
     console.error(err);
     res.status(err.status || 500).send(err.message || "Internal server error.");
 });
+
+// Set the Access-Control-Allow-Origin header to allow requests from your domain name
+app.use(function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "https://gadgetgalaxy.link");
+    next();
+});
+
+app.use("/api", apiRouter);
 
 // Export
 export default app;
