@@ -1,5 +1,6 @@
 import app from "./index.js";
 import https from "https";
+import http from "http";
 import chalk from "chalk";
 import fs from "fs";
 import {config} from "dotenv";
@@ -65,4 +66,12 @@ server.listen(PORT, () => {
         chalk.yellow(PORT),
         chalk.red(https_options.ca, https_options.cert, https_options.key)
     );
+});
+
+
+// serve the API on 80 (HTTP) port
+const httpServer = http.createServer(app);
+
+httpServer.listen(80, () => {
+    console.log('HTTP Server running on port 80');
 });
