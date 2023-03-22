@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/**', createProxyMiddleware({
-    target: 'https://localhost:3001',
+    target: '172.31.46.10:3001',
     changeOrigin: false,
     headers: {
         'Referrer-Policy': 'no-referrer',
