@@ -60,7 +60,7 @@ app.use("/api", apiRouter);
 
 const server = https.createServer(https_options, app);
 
-server.listen(PORT, 'www.gadgetgalaxy.link');
+server.listen(PORT, '34.227.96.218:3001');
 
 //
 // // serve the API on 81 (HTTP) port
