@@ -1,5 +1,5 @@
 import app from "./index.js";
-import http from "http";
+import https from "https";
 import chalk from "chalk";
 import fs from "fs";
 import {config} from "dotenv";
@@ -19,13 +19,7 @@ const PORT = process.env["PORT"] ?? 3001;
 //     key: fs.readFileSync(SSL_KEY_PATH),
 // }
 
-// app.use('/api/**', createProxyMiddleware({
-//     target: '172.31.46.10:3001',
-//     changeOrigin: false,
-//     headers: {
-//         'Referrer-Policy': 'no-referrer',
-//     },
-// }));
+
 
 
 
@@ -49,7 +43,7 @@ const PORT = process.env["PORT"] ?? 3001;
 
 
 
-const server = http.createServer(app);
+const server = https.createServer(app);
 
 server.listen(PORT, () => {
     console.log(
