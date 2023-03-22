@@ -11,13 +11,16 @@ config();
 
 const PORT = process.env["PORT"] ?? 3001;
 
-const SSL_CERT_PATH = "./cert.pem";
-const SSL_KEY_PATH = "./key.pem";
-
-const options = {
-    cert: fs.readFileSync(SSL_CERT_PATH),
-    key: fs.readFileSync(SSL_KEY_PATH),
+const https_options = {
+    ca: fs.readFileSync("ca_bundle.crt"),
+    cert: fs.readFileSync("certificate.crt"),
+    key: fs.readFileSync("private.key"),
 }
+
+// const options = {
+//     cert: fs.readFileSync(SSL_CERT_PATH),
+//     key: fs.readFileSync(SSL_KEY_PATH),
+// }
 
 app.use("/api", apiRouter);
 
@@ -48,7 +51,7 @@ app.use('/api/**', createProxyMiddleware({
 
 
 
-const server = https.createServer(options, app);
+const server = https.createServer(https_options, app);
 
 server.listen(PORT, () => {
     console.log(
