@@ -21,15 +21,7 @@ const options = {
 
 
 
-app.use('/api/**', createProxyMiddleware({
-    target: 'https://localhost:3001',
-    changeOrigin: false,
-    headers: {
-        'Referrer-Policy': 'no-referrer',
-    },
-}));
 
-app.use("/api", apiRouter);
 
 
 //

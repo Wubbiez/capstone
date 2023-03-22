@@ -17,7 +17,15 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/**', createProxyMiddleware({
+    target: 'https://localhost:3001',
+    changeOrigin: false,
+    headers: {
+        'Referrer-Policy': 'no-referrer',
+    },
+}));
 
+app.use("/api", apiRouter);
 
 
 app.post("/success", async (req, res) => {
@@ -40,7 +48,6 @@ app.post("/success", async (req, res) => {
     }
 });
 
-app.use("/api", apiRouter);
 
 app.use((req, res, next) => {
     console.log("<____Body Logger START____>");
