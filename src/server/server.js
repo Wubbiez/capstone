@@ -11,16 +11,16 @@ config();
 
 const PORT = process.env["PORT"] ?? 1337;
 
-const SSL_CERT_PATH = "./src/server/certificate.crt";
-const SSL_KEY_PATH = "./src/server/private.key";
-const SSL_CA_PATH = "./src/server/ca_bundle.crt";
+// const SSL_CERT_PATH = "./src/server/certificate.crt";
+// const SSL_KEY_PATH = "./src/server/private.key";
+// const SSL_CA_PATH = "./src/server/ca_bundle.crt";
 
-
-const https_options = {
-    ca: fs.readFileSync(SSL_CA_PATH),
-    cert: fs.readFileSync(SSL_CERT_PATH),
-    key: fs.readFileSync(SSL_KEY_PATH),
-}
+//
+// const https_options = {
+//     ca: fs.readFileSync(SSL_CA_PATH),
+//     cert: fs.readFileSync(SSL_CERT_PATH),
+//     key: fs.readFileSync(SSL_KEY_PATH),
+// }
 // const options = {
 //     cert: fs.readFileSync(SSL_CERT_PATH),
 //     key: fs.readFileSync(SSL_KEY_PATH),
@@ -59,13 +59,13 @@ const https_options = {
 
 
 
-const server = http.createServer(https_options, app);
+const server = http.createServer(app);
 
 server.listen(PORT, () => {
     console.log(
         chalk.blueBright("Server is listening on PORT:"),
         chalk.yellow(PORT),
-        chalk.red(https_options.ca, https_options.cert, https_options.key)
+        // chalk.red(https_options.ca, https_options.cert, https_options.key)
     );
 });
 
