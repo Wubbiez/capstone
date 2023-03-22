@@ -6,7 +6,7 @@ import {styled} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
 const LoginForm = styled("form")(({theme}) => ({
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(1),
 }));
 

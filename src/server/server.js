@@ -21,13 +21,13 @@ const options = {
 
 app.use("/api", apiRouter);
 
-app.use('/api/**', createProxyMiddleware({
-    target: 'https://34.227.96.218:3001/',
-    changeOrigin: false,
-    headers: {
-        'Referrer-Policy': 'no-referrer',
-    },
-}));
+// app.use('/api/**', createProxyMiddleware({
+//     target: 'https://34.227.96.218:3001/',
+//     changeOrigin: false,
+//     headers: {
+//         'Referrer-Policy': 'no-referrer',
+//     },
+// }));
 
 
 
@@ -48,7 +48,7 @@ app.use('/api/**', createProxyMiddleware({
 
 
 
-const server = https.createServer(options, app);
+const server = https.createServer(app);
 
 server.listen(PORT, () => {
     console.log(
