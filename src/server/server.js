@@ -69,9 +69,9 @@ server.listen(PORT, () => {
 });
 
 
-// serve the API on 80 (HTTP) port
+// serve the API on 81 (HTTP) port
 const httpServer = http.createServer(app);
 
-httpServer.listen(80, () => {
+httpServer.listen(81, () => {
     console.log('HTTP Server running on port 80');
 });
