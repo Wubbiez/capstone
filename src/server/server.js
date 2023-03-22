@@ -12,7 +12,7 @@ config();
 const PORT = process.env["PORT"] ?? 3001;
 
 const SSL_CERT_PATH = "./src/server/certificate.crt";
-const SSL_KEY_PATH = "./src/server/private.key.pem";
+const SSL_KEY_PATH = "./src/server/private.key";
 const SSL_CA_PATH = "./src/server/ca_bundle.crt";
 
 
