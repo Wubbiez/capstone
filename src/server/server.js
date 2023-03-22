@@ -24,6 +24,10 @@ app.use('/api/**', createProxyMiddleware({
     changeOrigin: false,
     headers: {
         'Referrer-Policy': 'no-referrer',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS, PATCH',
     },
 }));
 
