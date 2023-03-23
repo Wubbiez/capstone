@@ -23,12 +23,6 @@ app.use(cors());
 app.use('/api/**', createProxyMiddleware({
     target: 'api.gadgetgalexy.link',
     changeOrigin: true,
-    onProxyReq: (proxyReq, req, res) => {
-        proxyReq.setHeader('origin', 'api.gadgetgalaxy.link');
-        if (req.headers.origin !== 'api.gadgetgalaxy.link') {
-            res.status(403).send('Forbidden');
-        }
-    }
 }));
 
 app.post("/success", async (req, res) => {
