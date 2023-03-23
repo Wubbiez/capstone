@@ -19,13 +19,22 @@ app.use(cors({
     credentials: true,
 }));
 
-app.use('/api/**', createProxyMiddleware({
-    target: 'api.gadgetgalaxy.link',
-    changeOrigin: true,
-    headers: {
-        'Referrer-Policy': 'no-referrer',
-    },
-}));
+// app.use('/api/**', createProxyMiddleware({
+//     target: 'api.gadgetgalaxy.link',
+//     changeOrigin: true,
+//     headers: {
+//         'Referrer-Policy': 'no-referrer',
+//     },
+// }));
+
+app.use(
+    "/api",
+    createProxyMiddleware({
+        target: "https://api.gadgetgalaxy.link",
+        changeOrigin: true,
+        secure: true
+    })
+);
 
 app.post("/success", async (req, res) => {
     const { session_id } = req.query;
