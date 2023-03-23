@@ -11,32 +11,13 @@ config();
 
 const app = express();
 
-// Redirect middleware
-app.use(
-    "/api",
-    createProxyMiddleware({
-        target: "https://api.gadgetgalaxy.link",
-        changeOrigin: true,
-        ws: true,
-    })
-);
-
-// Logging middleware
 app.use(morgan("dev"));
-
-// Body-parsing middleware
 app.use(express.json());
 
-// CORS middleware
-app.use(cors());
-
-// Request logging middleware
-app.use((req, res, next) => {
-    console.log("<____Body Logger START____>");
-    console.log(req.body);
-    console.log("<_____Body Logger END_____>");
-    next();
-});
+app.use(cors({
+    origin: "gadgetgalaxy.link", // Set the origin to your domain name
+    credentials: true,
+}));
 
 app.post("/success", async (req, res) => {
     const { session_id } = req.query;
@@ -72,10 +53,10 @@ app.use((err, req, res, next) => {
 });
 
 // Set the Access-Control-Allow-Origin header to allow requests from your domain name
-// app.use(function(req, res, next) {
-//     res.setHeader("Access-Control-Allow-Origin", "api.gadgetgalaxy.link");
-//     next();
-// });
+app.use(function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "gadgetgalaxy.link");
+    next();
+});
 
 app.use("/api", apiRouter);
 
