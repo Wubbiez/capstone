@@ -64,13 +64,13 @@ app.use(function(req, res, next) {
 
 // Reverse proxy setup
 app.use(
-    "/api",
+    "/api/**",
     createProxyMiddleware({
         target: "https://api.gadgetgalaxy.link",
         changeOrigin: true,
-        pathRewrite: {
-            "^/api/": "/", // Remove the '/api' prefix when making requests
-        },
+            headers: {
+        'Referrer-Policy': 'no-referrer',
+    },
     })
 );
 
