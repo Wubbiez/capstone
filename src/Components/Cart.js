@@ -172,10 +172,11 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
                                 <Card key={orderProduct.id}
                                       sx={{
                                           display: 'flex',
+                                          flexDirection: 'column',
                                           alignItems: 'center',
                                           justifyContent: 'space-around',
-                                          width: 'inherit',
-                                          marginTop: '0',
+                                          width: '90%',
+                                          margin: '1rem auto',
                                       }}>
 
 
@@ -186,9 +187,10 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
                                         flexDirection: 'row',
                                         alignItems: 'center',
                                         justifyContent: 'space-around',
-                                        minHeight: '70px',
+                                        minHeight: '5em',
                                         borderBottom: "2px solid #212529",
-                                        width: '100%',
+                                        width: '90%',
+                                        margin: '1rem auto',
                                     }}>
 
                                         <Box
