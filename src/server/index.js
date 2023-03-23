@@ -16,6 +16,15 @@ app.use(express.json());
 
 app.use(cors());
 
+app.use(
+    "/api",
+    createProxyMiddleware({
+        target: "http://neva-1850296984.us-east-1.elb.amazonaws.com",
+        changeOrigin: true,
+        ws: true,
+    })
+);
+
 app.post("/success", async (req, res) => {
     const { session_id } = req.query;
     try {
