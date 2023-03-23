@@ -15,13 +15,21 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 // Set the origin and credentials in the CORS options object
-// const corsOptions = {
-//     origin: "https://www.gadgetgalaxy.link",
-//     credentials: true,
-// };
-//
-// // Enable CORS for all routes
-// app.use(cors(corsOptions));
+
+
+// Enable CORS for all routes
+app.use(cors());
+
+app.use('/api/**', createProxyMiddleware({
+    target: 'api.gadgetgalexy.link',
+    changeOrigin: true,
+    onProxyReq: (proxyReq, req, res) => {
+        proxyReq.setHeader('origin', 'api.gadgetgalaxy.link');
+        if (req.headers.origin !== 'api.gadgetgalaxy.link') {
+            res.status(403).send('Forbidden');
+        }
+    }
+}));
 
 app.post("/success", async (req, res) => {
     const { session_id } = req.query;
@@ -63,16 +71,6 @@ app.use((err, req, res, next) => {
 // });
 
 // Reverse proxy setup
-app.use(
-    "/api/**",
-    createProxyMiddleware({
-        target: "https://api.gadgetgalaxy.link",
-        changeOrigin: true,
-            headers: {
-        'Referrer-Policy': 'no-referrer',
-    },
-    })
-);
 
 // Export
 export default app;

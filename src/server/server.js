@@ -1,5 +1,5 @@
 import app from "./index.js";
-import http from "https";
+import https from "https";
 import chalk from "chalk";
 import fs from "fs";
 import {config} from "dotenv";
@@ -41,16 +41,6 @@ const https_options = {
 
 
 
-// app.use('/api/**', createProxyMiddleware({
-//     target: 'https://34.227.96.218:3001',
-//     changeOrigin: false,
-//     onProxyReq: (proxyReq, req, res) => {
-//         proxyReq.setHeader('origin', 'gadgetgalaxy.link');
-//         if (req.headers.origin !== 'gadgetgalaxy.link') {
-//             res.status(403).send('Forbidden');
-//         }
-//     }
-// }));
 
 
 
@@ -59,7 +49,8 @@ const https_options = {
 
 
 
-const server = http.createServer(app);
+
+const server = https.createServer(app);
 
 server.listen(PORT, () => {
     console.log(
