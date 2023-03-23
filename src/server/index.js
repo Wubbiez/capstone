@@ -19,7 +19,7 @@ app.use(cors());
 app.use(
     "/api",
     createProxyMiddleware({
-        target: "http://neva-1850296984.us-east-1.elb.amazonaws.com",
+        target: "https://neva-1850296984.us-east-1.elb.amazonaws.com",
         changeOrigin: true,
         ws: true,
     })
