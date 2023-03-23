@@ -1,5 +1,5 @@
 import app from "./index.js";
-import https from "https";
+import http from "https";
 import chalk from "chalk";
 import fs from "fs";
 import {config} from "dotenv";
@@ -9,7 +9,7 @@ import apiRouter from "../api/index.js";
 
 config();
 
-const PORT = process.env["PORT"] ?? 1337;
+const PORT = process.env["PORT"] ?? 80;
 
 const SSL_CERT_PATH = "./src/server/certificate.crt";
 const SSL_KEY_PATH = "./src/server/private.key";
@@ -59,7 +59,7 @@ const https_options = {
 
 
 
-const server = https.createServer( app);
+const server = http.createServer(app);
 
 server.listen(PORT, () => {
     console.log(
