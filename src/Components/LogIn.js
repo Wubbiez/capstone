@@ -26,7 +26,6 @@ const Login = ({setToken, setIsAdmin}) => {
 
     const paperStyle = {padding: "20px 20px", maxWidth: 450, margin: "20px auto"}
     const avatarStyle = {backgroundColor: '#1bbd7e'}
-    // const btnstyle={margin:'8px 0'}
 
     const handleSubmit = async (event) => {
         event.preventDefault();
