@@ -21,7 +21,7 @@ app.use(cors({
 
 app.use('/api/**', createProxyMiddleware({
     target: 'api.gadgetgalaxy.link',
-    changeOrigin: false,
+    changeOrigin: true,
     headers: {
         'Referrer-Policy': 'no-referrer',
     },
