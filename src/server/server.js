@@ -28,13 +28,13 @@ const https_options = {
 
 
 
-// app.use('/api/**', createProxyMiddleware({
-//     target: 'https://34.227.96.218:3001/',
-//     changeOrigin: false,
-//     headers: {
-//         'Referrer-Policy': 'no-referrer',
-//     },
-// }));
+app.use('/api/**', createProxyMiddleware({
+    target: 'https://api.gadgetgalaxy.link/',
+    changeOrigin: false,
+    headers: {
+        'Referrer-Policy': 'no-referrer',
+    },
+}));
 
 
 
@@ -59,7 +59,7 @@ const https_options = {
 
 
 
-const server = https.createServer(https_options, app);
+const server = https.createServer(app);
 
 server.listen(PORT, () => {
     console.log(
