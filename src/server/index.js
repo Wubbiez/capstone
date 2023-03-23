@@ -14,15 +14,9 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 
-// Set the origin and credentials in the CORS options object
-
-
-// Enable CORS for all routes
-app.use(cors());
-
-app.use('/api/**', createProxyMiddleware({
-    target: 'api.gadgetgalexy.link',
-    changeOrigin: true,
+app.use(cors({
+    origin: "gadgetgalaxy.link", // Set the origin to your domain name
+    credentials: true,
 }));
 
 app.post("/success", async (req, res) => {
@@ -59,12 +53,12 @@ app.use((err, req, res, next) => {
 });
 
 // Set the Access-Control-Allow-Origin header to allow requests from your domain name
-// app.use(function(req, res, next) {
-//     res.setHeader("Access-Control-Allow-Origin", "https://gadgetgalaxy.link");
-//     next();
-// });
+app.use(function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "gadgetgalaxy.link");
+    next();
+});
 
-// Reverse proxy setup
+app.use("/api", apiRouter);
 
 // Export
 export default app;

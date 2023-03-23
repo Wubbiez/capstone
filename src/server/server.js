@@ -1,5 +1,5 @@
 import app from "./index.js";
-import https from "https";
+import https from "http";
 import chalk from "chalk";
 import fs from "fs";
 import {config} from "dotenv";
@@ -15,7 +15,7 @@ const SSL_CERT_PATH = "./src/server/certificate.crt";
 const SSL_KEY_PATH = "./src/server/private.key";
 const SSL_CA_PATH = "./src/server/ca_bundle.crt";
 
-//
+
 const https_options = {
     ca: fs.readFileSync(SSL_CA_PATH),
     cert: fs.readFileSync(SSL_CERT_PATH),
@@ -41,7 +41,16 @@ const https_options = {
 
 
 
-
+// app.use('/api/**', createProxyMiddleware({
+//     target: 'https://34.227.96.218:3001',
+//     changeOrigin: false,
+//     onProxyReq: (proxyReq, req, res) => {
+//         proxyReq.setHeader('origin', 'gadgetgalaxy.link');
+//         if (req.headers.origin !== 'gadgetgalaxy.link') {
+//             res.status(403).send('Forbidden');
+//         }
+//     }
+// }));
 
 
 
