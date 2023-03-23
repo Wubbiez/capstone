@@ -9,7 +9,7 @@ import apiRouter from "../api/index.js";
 
 config();
 
-const PORT = process.env["PORT"] ?? 80;
+const PORT = process.env["PORT"] ?? 1337;
 
 const SSL_CERT_PATH = "./src/server/certificate.crt";
 const SSL_KEY_PATH = "./src/server/private.key";
