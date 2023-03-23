@@ -27,14 +27,14 @@ app.use(cors({
 //     },
 // }));
 
-app.use(
-    "/api/**",
-    createProxyMiddleware({
-        target: "api.gadgetgalaxy.link",
-        changeOrigin: true,
-        secure: true
-    })
-);
+// app.use(
+//     "/api/**",
+//     createProxyMiddleware({
+//         target: "api.gadgetgalaxy.link",
+//         changeOrigin: true,
+//         secure: true
+//     })
+// );
 
 app.post("/success", async (req, res) => {
     const { session_id } = req.query;
