@@ -14,10 +14,7 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use(cors({
-    origin: "gadgetgalaxy.link", // Set the origin to your domain name
-    credentials: true,
-}));
+app.use(cors());
 
 app.post("/success", async (req, res) => {
     const { session_id } = req.query;
