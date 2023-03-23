@@ -28,9 +28,9 @@ app.use(cors({
 // }));
 
 app.use(
-    "/api",
+    "/api/**",
     createProxyMiddleware({
-        target: "https://api.gadgetgalaxy.link",
+        target: "api.gadgetgalaxy.link",
         changeOrigin: true,
         secure: true
     })
