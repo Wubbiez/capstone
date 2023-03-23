@@ -58,7 +58,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
     return (
         <React.Fragment>
             <Box sx={{backgroundColor: '#F5F5F5', width:'100%'}}>
-                <Box sx={{position: 'sticky', top: '60px', zIndex: '1', backgroundColor:'white'}}>
+                <Box sx={{backgroundColor:'white'}}>
                     <StyledTypography variant="h2" sx={{
                         fontWeight: 'bold',
                         textAlign: 'center',
@@ -70,31 +70,43 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                             </>
                         )}
                     </StyledTypography>
-                    <TextField
-                        label="Search"
-                        value={searchString}
-                        onChange={handleSearchChange}
-                        variant="outlined"
-                        fullWidth
-                    />
-                    <Grid container spacing={2} justifyContent="center">
+                    {/*<TextField*/}
+                    {/*    label="Search"*/}
+                    {/*    value={searchString}*/}
+                    {/*    onChange={handleSearchChange}*/}
+                    {/*    variant="outlined"*/}
+                    {/*    fullWidth*/}
+                    {/*/>*/}
+                    <Grid container spacing={1} justifyContent="center"
+                        // Reduce number of columns on small screens
+                          sx={{ justifyContent: { xs: 'center', sm: 'flex-start' } }}
+                    >
                         {categories.map((category) => (
-                            <Grid key={category} item xs={4} sm={6} md={4} lg={2}>
+                            <Grid key={category} item xs={6} sm={4} md={4} lg={2}>
                                 <List sx={{
                                     backgroundColor: '#F5F5F5',
                                     textAlign: 'center',
                                     display: 'flex',
                                     justifyContent: 'center',
+
                                     alignItems: 'center',
-                                    marginBottom: '1rem',
+                                    marginBottom: '.2rem',
+                                    padding: '0.5rem',
+                                    'media (max-width: 600px)': {
+                                        padding: '0.2rem',
+                                    }
                                 }}>
                                     <ListItem
-                                        button
                                         sx={{
                                             justifyContent: 'center',
                                             alignItems: 'center',
                                             textAlign: 'center',
-                                            margin: 'auto',
+                                            flexWrap: 'wrap',
+                                            height: 'auto',
+                                            'media (max-width: 600px)': {
+                                                padding: '0.2rem',
+                                                width: '50%',
+                                            }
 
                                         }}
 
@@ -115,6 +127,18 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                                                 textAlign: 'center',
                                                 fontWeight: 'bold',
                                                 margin: 'auto',
+                                                fontSize: '.7rem',
+                                                lineHeight: '1.2rem',
+                                                maxHeight: '2.4rem',
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap',
+                                                // align text vertically in the center
+                                                alignItems: 'center',
+                                                'media (max-width: 600px)': {
+                                                    padding: '0.2rem',
+                                                    fontSize: '0.1rem',
+                                                }
                                             }}
                                         />
                                     </ListItem>

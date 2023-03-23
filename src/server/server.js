@@ -3,9 +3,7 @@ import https from "http";
 import chalk from "chalk";
 import fs from "fs";
 import {config} from "dotenv";
-import {createProxyMiddleware} from "http-proxy-middleware";
-import cors from "cors";
-import apiRouter from "../api/index.js";
+
 
 config();
 
@@ -21,36 +19,6 @@ const https_options = {
     cert: fs.readFileSync(SSL_CERT_PATH),
     key: fs.readFileSync(SSL_KEY_PATH),
 }
-// const options = {
-//     cert: fs.readFileSync(SSL_CERT_PATH),
-//     key: fs.readFileSync(SSL_KEY_PATH),
-// }
-
-
-
-
-
-
-
-
-
-
-// app.use('/api/**', createProxyMiddleware({
-//     target: 'https://34.227.96.218:3001',
-//     changeOrigin: false,
-//     onProxyReq: (proxyReq, req, res) => {
-//         proxyReq.setHeader('origin', 'gadgetgalaxy.link');
-//         if (req.headers.origin !== 'gadgetgalaxy.link') {
-//             res.status(403).send('Forbidden');
-//         }
-//     }
-// }));
-
-
-
-
-
-
 
 
 const server = https.createServer(app);
@@ -59,14 +27,6 @@ server.listen(PORT, () => {
     console.log(
         chalk.blueBright("Server is listening on PORT:"),
         chalk.yellow(PORT),
-        // chalk.red(https_options.ca, https_options.cert, https_options.key)
     );
 });
 
-//
-// // serve the API on 81 (HTTP) port
-// const httpServer = http.createServer(app);
-//
-// httpServer.listen(81, () => {
-//     console.log('HTTP Server running on port 80');
-// });

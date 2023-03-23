@@ -16,23 +16,6 @@ app.use(express.json());
 
 app.use(cors());
 
-// app.use('/api/**', createProxyMiddleware({
-//     target: 'api.gadgetgalaxy.link',
-//     changeOrigin: true,
-//     headers: {
-//         'Referrer-Policy': 'no-referrer',
-//     },
-// }));
-
-// app.use(
-//     "/api/**",
-//     createProxyMiddleware({
-//         target: "api.gadgetgalaxy.link",
-//         changeOrigin: true,
-//         secure: true
-//     })
-// );
-
 app.post("/success", async (req, res) => {
     const { session_id } = req.query;
     try {
@@ -66,7 +49,6 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500).send(err.message || "Internal server error.");
 });
 
-// Set the Access-Control-Allow-Origin header to allow requests from your domain name
 app.use(function(req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "https://www.gadgetgalaxy.link");
     next();

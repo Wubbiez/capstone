@@ -39,8 +39,10 @@ const Login = ({setToken, setIsAdmin}) => {
             setUserId(user_id);
             const orderResponse = await getLatestOrderId(user_id);
             localStorage.setItem("order_id", orderResponse.order_id);
-            history('/');
-
+            // Only redirect if login was successful
+            if (response.success) {
+                history('/');
+            }
         } catch (error) {
             console.error(error);
         } finally {

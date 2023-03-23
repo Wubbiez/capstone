@@ -29,8 +29,6 @@ const SearchBar = () => {
         alignItems: "center",
     }));
 
-
-
     const SearchIconWrapper = styled('div')(({theme}) => ({
         padding: theme.spacing(0, 2),
         height: '100%',
@@ -144,6 +142,7 @@ const SearchBar = () => {
                     onChange={handleSearch}
                     autoFocus
                     inputProps={{ maxLength: 50 }}
+                    onBlur={(event) => event.target.blur()}
                 />
 
 
