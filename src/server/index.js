@@ -57,10 +57,10 @@ app.use((err, req, res, next) => {
 });
 
 // Set the Access-Control-Allow-Origin header to allow requests from your domain name
-app.use(function(req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "https://www.gadgetgalaxy.link");
-    next();
-});
+// app.use(function(req, res, next) {
+//     res.setHeader("Access-Control-Allow-Origin", "https://gadgetgalaxy.link");
+//     next();
+// });
 
 // Reverse proxy setup
 app.use(
