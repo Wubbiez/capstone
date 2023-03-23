@@ -14,10 +14,7 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use(cors({
-    origin: "api.gadgetgalaxy.link", // Set the origin to your domain name
-    credentials: true,
-}));
+app.use(cors());
 
 // app.use('/api/**', createProxyMiddleware({
 //     target: 'api.gadgetgalaxy.link',
@@ -71,7 +68,7 @@ app.use((err, req, res, next) => {
 
 // Set the Access-Control-Allow-Origin header to allow requests from your domain name
 app.use(function(req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "api.gadgetgalaxy.link");
+    res.setHeader("Access-Control-Allow-Origin", "https://www.gadgetgalaxy.link");
     next();
 });
 
