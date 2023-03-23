@@ -15,13 +15,13 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 // Set the origin and credentials in the CORS options object
-const corsOptions = {
-    origin: "https://www.gadgetgalaxy.link",
-    credentials: true,
-};
-
-// Enable CORS for all routes
-app.use(cors(corsOptions));
+// const corsOptions = {
+//     origin: "https://www.gadgetgalaxy.link",
+//     credentials: true,
+// };
+//
+// // Enable CORS for all routes
+// app.use(cors(corsOptions));
 
 app.post("/success", async (req, res) => {
     const { session_id } = req.query;
