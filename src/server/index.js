@@ -15,7 +15,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 app.use(cors({
-    origin: "api.gadgetgalaxy.link", // Set the origin to your domain name
+    origin: "gadgetgalaxy.link", // Set the origin to your domain name
     credentials: true,
 }));
 
