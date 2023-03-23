@@ -15,7 +15,7 @@ const app = express();
 app.use(
     "/api",
     createProxyMiddleware({
-        target: "https://neva-1850296984.us-east-1.elb.amazonaws.com",
+        target: "https://api.gadgetgalaxy.link",
         changeOrigin: true,
         ws: true,
     })
