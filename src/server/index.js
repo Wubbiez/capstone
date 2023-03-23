@@ -11,11 +11,7 @@ config();
 
 const app = express();
 
-app.use(morgan("dev"));
-app.use(express.json());
-
-app.use(cors());
-
+// Redirect middleware
 app.use(
     "/api",
     createProxyMiddleware({
@@ -24,6 +20,23 @@ app.use(
         ws: true,
     })
 );
+
+// Logging middleware
+app.use(morgan("dev"));
+
+// Body-parsing middleware
+app.use(express.json());
+
+// CORS middleware
+app.use(cors());
+
+// Request logging middleware
+app.use((req, res, next) => {
+    console.log("<____Body Logger START____>");
+    console.log(req.body);
+    console.log("<_____Body Logger END_____>");
+    next();
+});
 
 app.post("/success", async (req, res) => {
     const { session_id } = req.query;
