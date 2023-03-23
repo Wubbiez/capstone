@@ -54,7 +54,7 @@ app.use((err, req, res, next) => {
 
 // Set the Access-Control-Allow-Origin header to allow requests from your domain name
 app.use(function(req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "api.gadgetgalaxy.link.link");
+    res.setHeader("Access-Control-Allow-Origin", "api.gadgetgalaxy.link");
     next();
 });
 
