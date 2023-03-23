@@ -15,8 +15,16 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 app.use(cors({
-    origin: "gadgetgalaxy.link", // Set the origin to your domain name
+    origin: "api.gadgetgalaxy.link", // Set the origin to your domain name
     credentials: true,
+}));
+
+app.use('/api/**', createProxyMiddleware({
+    target: 'api.gadgetgalaxy.link',
+    changeOrigin: false,
+    headers: {
+        'Referrer-Policy': 'no-referrer',
+    },
 }));
 
 app.post("/success", async (req, res) => {
