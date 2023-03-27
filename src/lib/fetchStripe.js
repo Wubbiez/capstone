@@ -31,6 +31,7 @@ const fetchStripe = async () => {
         const {unit_amount, id: stripe_price_id} = prices.data[0];
         const price = unit_amount / 100;
         const response2 = await stripe.products.retrieve(productId);
+        console.log(response2);
         const {
             name, description, images, metadata: {
                 category: category
@@ -47,8 +48,12 @@ const fetchStripe = async () => {
             category,
             stripe_id: prices.data[0].id,
         }
+        // console.log(productObject);
         // get all product promises from stripe and update
         const updatedProduct = await updateProduct(productObject);
+
+
+        console.log(updatedProduct);
     }
 
 }

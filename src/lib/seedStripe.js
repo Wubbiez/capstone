@@ -26,11 +26,14 @@ const seedStripe = async () => {
                 category: category
             },
         });
+
+        console.log(response);
         const priceResponse = await stripe.prices.create({
             product: response.id,
             unit_amount: Math.round(price * 100),
             currency: 'usd',
         });
+        console.log(priceResponse);
 
         const stripeId = priceResponse.id;
         await client.query(`
