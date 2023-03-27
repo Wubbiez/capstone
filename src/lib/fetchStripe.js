@@ -4,10 +4,8 @@ import {updateProduct} from "../server/db/components/products.js";
 
 config();
 
-
 const stripe = stripe0(process.env.STRIPE_API_KEY);
 export const STRIPE_KEY = process.env.STRIPE_API_KEY;
-
 
 const fetchStripe = async () => {
     let products = [];
@@ -57,14 +55,6 @@ const fetchStripe = async () => {
 
         console.log(updatedProduct);
     }
-
-    // const stripeId = priceResponse.id;
-    //
-    // await client.query(`
-    //     UPDATE products
-    //     SET stripe_id = $1
-    //     WHERE product_id = $2
-    // `, [stripeId, id]);
 
 }
 

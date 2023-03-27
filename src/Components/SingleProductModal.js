@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
-import {Box, Button, ButtonGroup, Modal, Paper, Typography, Tooltip, styled} from "@mui/material";
+import {Box, Button, ButtonGroup, Modal, Paper, styled, Tooltip, Typography} from "@mui/material";
 import {OpenInNewTwoTone} from '@mui/icons-material';
 
 import AddToOrderButton from "./Buttons/AddToOrderButton.js";
@@ -90,7 +90,7 @@ function SingleProductModal({
                         minHeight: "65%",
                     },
                     '@media screen and (min-width: 960px)': {
-                      minHeight: "85%",
+                        minHeight: "85%",
                     },
                 }}>
 
@@ -185,32 +185,32 @@ function SingleProductModal({
                                                       setRefreshCart={setRefreshCart}/>
                             </Box>
                             <Tooltip title="View Full Item" arrow>
-                            <Button variant="contained" component={Link}
-                                    to={`/products/${product_id}`}
-                                    sx={{
-                                        backgroundColor: '#457B9D',
-                                        height: '100%',
-                                        width: '100%',
-                                        fontSize: 'calc(1rem + 0.2vw)',
-                                        padding: 'calc(0.5rem + 0.1vw)',
+                                <Button variant="contained" component={Link}
+                                        to={`/products/${product_id}`}
+                                        sx={{
+                                            backgroundColor: '#457B9D',
+                                            height: '100%',
+                                            width: '100%',
+                                            fontSize: 'calc(1rem + 0.2vw)',
+                                            padding: 'calc(0.5rem + 0.1vw)',
 
-                                        transition: 'background-color 0.3s ease',
-                                        '&:hover': {
-                                            backgroundColor: '#A8DADC',
-                                            color: '#333333',
-                                            boxShadow: '1px 2px 1px 1px #1D3557;',
-                                        },
-                                        // '@media (min-width:600px)': {
-                                        //     padding: 'calc(1.2rem + 0.6vw)',
-                                        //     fontSize: 'calc(1.3rem + 0.8vw)',
-                                        // },
-                                        // '@media (min-width:960px)': {
-                                        //     padding: 'calc(1.6rem + 1.2vw)',
-                                        //     fontSize: 'calc(2.2rem + 1.2vw)',
-                                        // },
-                                    }}>
-                                <OpenInNewTwoTone/>
-                            </Button>
+                                            transition: 'background-color 0.3s ease',
+                                            '&:hover': {
+                                                backgroundColor: '#A8DADC',
+                                                color: '#333333',
+                                                boxShadow: '1px 2px 1px 1px #1D3557;',
+                                            },
+                                            // '@media (min-width:600px)': {
+                                            //     padding: 'calc(1.2rem + 0.6vw)',
+                                            //     fontSize: 'calc(1.3rem + 0.8vw)',
+                                            // },
+                                            // '@media (min-width:960px)': {
+                                            //     padding: 'calc(1.6rem + 1.2vw)',
+                                            //     fontSize: 'calc(2.2rem + 1.2vw)',
+                                            // },
+                                        }}>
+                                    <OpenInNewTwoTone/>
+                                </Button>
                             </Tooltip>
                         </ButtonGroup>
                     </Box>

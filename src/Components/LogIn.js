@@ -26,20 +26,20 @@ const Login = ({setToken, setIsAdmin}) => {
 
     const paperStyle = {padding: "20px 20px", maxWidth: 450, margin: "20px auto"}
     const avatarStyle = {backgroundColor: '#1bbd7e'}
-    // const btnstyle={margin:'8px 0'}
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const response = await loginUser(username, password);
             const {user_id, token, is_admin} = response;
-            console.log(user_id, token, is_admin);
             setToken(token);
             setIsAdmin(is_admin);
             setUserId(user_id);
             const orderResponse = await getLatestOrderId(user_id);
             localStorage.setItem("order_id", orderResponse.order_id);
-            window.location.href = "http://localhost:3000/";
+            if (user_id) {
+                history('/');
+            }
 
         } catch (error) {
             console.error(error);
@@ -101,7 +101,7 @@ const Login = ({setToken, setIsAdmin}) => {
 
                 </LoginForm>
                 <Typography> Do you have an account ?
-                    <Link href="http://localhost:3000/signup">
+                    <Link href="https://www.gadgetgalaxy.link/signup">
                         Sign Up
                     </Link>
                 </Typography>

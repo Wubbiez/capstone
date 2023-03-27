@@ -1,6 +1,6 @@
 export async function handleLogout(setToken, setIsAdmin) {
     try {
-        const response = await fetch('http://localhost:3001/api/users/logout', {
+        const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/users/logout`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
         });

@@ -9,7 +9,7 @@ function EditOrderProductButton({orderProductId: id, price, quantity}) {
     async function handleClick() {
         setIsEditing(true);
         try {
-            const response = await fetch(`http://localhost:3001/api/cart/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/cart/${id}`, {
                 method: 'PATCH',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({id, price, quantity}),
@@ -17,7 +17,6 @@ function EditOrderProductButton({orderProductId: id, price, quantity}) {
 
             if (response.ok) {
                 const item = await response.json();
-                console.log(item);
             }
         } catch (error) {
             console.error(error);

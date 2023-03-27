@@ -8,11 +8,9 @@ const Main = () => {
 
     return (
         <Box sx={{backgroundColor: "#F5F5F5"}}>
-
             <Back/>
             <Container>
                 <Category/>
-
                 <hr/>
                 <Stack
                     direction={{xs: "column", md: "row"}}
@@ -21,8 +19,6 @@ const Main = () => {
                 >
 
                     <Box flex={1}>
-
-
                     </Box>
                 </Stack>
             </Container>

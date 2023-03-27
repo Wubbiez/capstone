@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {
     Button,
     Dialog,
@@ -26,7 +26,7 @@ function EditUserButton({
                             password: initialPassword,
                             setRefresh
                         }) {
-   const [isEditing, setIsEditing] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
     const [open, setOpen] = useState(false);
     const [username, setUsername] = useState(initialUsername);
     const [phone, setPhone] = useState(initialPhone);
@@ -37,9 +37,6 @@ function EditUserButton({
     const [last_name, setLastName] = useState(initialLastName);
     const [is_active, setIsActive] = useState(initialActive);
     const [password, setPassword] = useState(initialPassword);
-    console.log("user_id", user_id, "username", initialUsername, "phone", initialPhone, "is_admin", initialAdmin, "address", initialAddress, "email", initialEmail, "first_name", initialFirstName, "last_name", initialLastName, "is_active", initialActive, "password", initialPassword)
-
-
 
 
     const handleClickOpen = () => {
@@ -63,7 +60,6 @@ function EditUserButton({
         setIsEditing(true);
         try {
             const response = await updateUser(user_id, username, email, first_name, last_name, address, phone, is_admin, is_active, password);
-            console.log(response);
         } catch (e) {
             console.log(e);
         }

@@ -13,7 +13,6 @@ import Cart from './Components/Cart.js';
 import Success from './Components/Success.js';
 import Contact from './Components/Contact.js';
 import AdminDashboard from "./Components/AdminDashboard.js";
-
 import SingleProductPage from './Components/SingleProductPage.js';
 import OrderHistory from "./Components/OrderHistory.js";
 import Main from "./Components/Main.js";
@@ -49,7 +48,6 @@ function App() {
 
     useEffect(() => {
         // if there is an open order and its status is 'paid', populate the cart on page load
-
         if (order !== null) {
             try {
                 getOrderById(order).then((r) => {
@@ -71,8 +69,6 @@ function App() {
 
     return (
         <React.Fragment>
-
-
             <BrowserRouter>
                 <ToastContainer/>
                 <NavBar
@@ -132,7 +128,8 @@ function App() {
                             exact element={<Cart/>}></Route>
                         <Route
                             path='/success'
-                            exact element={<Success order={order} setOrder={setOrder} setRefreshCart={setRefreshCart} />}></Route>
+                            exact element={<Success order={order} setOrder={setOrder}
+                                                    setRefreshCart={setRefreshCart}/>}></Route>
                         <Route
                             path='/orderhistory'
                             exact element={<OrderHistory userId={userId} user={user}/>}></Route>
@@ -147,7 +144,6 @@ function App() {
                     </Routes>
                 </Box>
             </BrowserRouter>
-
         </React.Fragment>
     );
 }

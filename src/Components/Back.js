@@ -30,7 +30,7 @@ const Back = () => {
                     backgroundAttachment: "fixed",
                     backgroundPosition: "center",
                     backgroundSize: "cover",
-                    height: 600,
+                    minHeight: 300,
                     width: "100%",
                     display: "flex",
                     justifyContent: "center",

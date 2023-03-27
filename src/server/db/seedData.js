@@ -1,6 +1,5 @@
 import client from "./client.js";
 import fs from 'fs';
-import {getProducts} from "../../api/fakestoreAPI.js";
 import {createProduct, getProductById} from "./components/products.js";
 import {createUser} from "./components/users.js";
 import {createReviews} from "./components/reviews.js";
@@ -214,7 +213,6 @@ async function rebuildDB() {
         await createInitialUsers();
         await seedProducts();
         // await createInitialReviews();
-        // await updateProduct({product_id: 1, title: "RF", description: "test",price: 1000})
         // await createInitialProducts();
 
     } catch (error) {

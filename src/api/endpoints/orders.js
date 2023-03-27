@@ -53,7 +53,6 @@ ordersRouter.patch("/:id", async (req, res, next) => {
             const order = await updateOrder({id, status});
             res.send(order);
         } catch (error) {
-            console.error(error);
             res.sendStatus(500);
         }
 
@@ -78,7 +77,6 @@ ordersRouter.get("/users/:id", async (req, res, next) => {
 
     try {
         const {id} = req.params;
-        console.log(id)
         const orders = await getOrdersByUser(id);
 
         res.send(orders);
@@ -90,7 +88,6 @@ ordersRouter.get("/users/:id", async (req, res, next) => {
 ordersRouter.get("/users/:id/latest", async (req, res, next) => {
     try {
         const {id} = req.params;
-        console.log(id);
         const order = await getLatestOrderId(id);
         console.log(order)
         res.send(order);

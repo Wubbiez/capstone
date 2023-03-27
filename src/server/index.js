@@ -6,43 +6,39 @@ import {updateOrder} from "./db/components/orders.js";
 import stripe0 from "stripe";
 import {config} from "dotenv";
 
-config();
 
+config();
 
 const app = express();
 
-// Middleware
 app.use(morgan("dev"));
-app.use(cors());
 app.use(express.json());
 
-app.post('/success', async (req, res) => {
+app.use(cors());
+
+app.post("/success", async (req, res) => {
     const {session_id} = req.query;
     try {
         const stripe = stripe0(process.env.STRIPE_API_KEY);
         const session = await stripe.checkout.sessions.retrieve(session_id);
         const order_id = session.client_reference_id;
-        console.log(order_id);
-        if (session.payment_status === 'paid') {
-            await updateOrder({orderId: order_id, status: 'paid'});
+        if (session.payment_status === "paid") {
+            await updateOrder({orderId: order_id, status: "paid"});
             // res.redirect(`/orders/${order_id}`);
         } else {
-            console.log('Payment not successful');
-            res.redirect('/products');
+            console.log("Payment not successful");
+            res.redirect("/products");
         }
     } catch (error) {
-        console.error('Error in stripe checkout', error);
+        console.error("Error in stripe checkout", error);
         res.status(500).end();
     }
 });
-
-app.use("/api", apiRouter);
 
 app.use((req, res, next) => {
     console.log("<____Body Logger START____>");
     console.log(req.body);
     console.log("<_____Body Logger END_____>");
-
     next();
 });
 
@@ -50,7 +46,14 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
     console.error(err);
     res.status(err.status || 500).send(err.message || "Internal server error.");
-})
+});
+
+app.use(function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", `${process.env.REACT_APP_ORIGIN}`);
+    next();
+});
+
+app.use("/api", apiRouter);
 
 // Export
 export default app;

@@ -32,7 +32,6 @@ const SignUp = ({setUser, setToken}) => {
         try {
             const response = await createaUser(username, password, email, first_name, last_name, address, phone);
             const {user_id, token, is_admin} = response;
-            console.log(user_id, token, is_admin);
             setToken(token);
             setIsAdmin(is_admin);
             setUserId(user_id);

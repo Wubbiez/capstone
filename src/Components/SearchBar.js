@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {alpha, Box, Button, InputBase, Paper, styled, Hidden} from "@mui/material";
+import {alpha, Box, Button, Hidden, InputBase, styled} from "@mui/material";
 import {Search, SearchSharp} from "@mui/icons-material";
 import {getAllProductsBySearchTerm} from "../api/apirequests.js";
 
@@ -10,7 +10,7 @@ import {getAllProductsBySearchTerm} from "../api/apirequests.js";
 
 const SearchBar = () => {
 
-    const SearchContainer = styled('div')(({ theme }) => ({
+    const SearchContainer = styled('div')(({theme}) => ({
         position: 'relative',
         width: '100%',
     }));
@@ -28,8 +28,6 @@ const SearchBar = () => {
         flexGrow: 1,
         alignItems: "center",
     }));
-
-
 
     const SearchIconWrapper = styled('div')(({theme}) => ({
         padding: theme.spacing(0, 2),
@@ -59,7 +57,7 @@ const SearchBar = () => {
         },
     }));
 
-    const StyledBox = styled(Box)(({ theme }) => ({
+    const StyledBox = styled(Box)(({theme}) => ({
         // remove position and adjust top and left properties
         position: 'absolute',
         top: "calc(100% + 8px)",
@@ -85,7 +83,7 @@ const SearchBar = () => {
 
 
     function handleSubmit() {
-        if(searchTerm !== "") {
+        if (searchTerm !== "") {
             history(`/products/${searchResults[0].id}`);
         }
     }
@@ -95,7 +93,6 @@ const SearchBar = () => {
         setSearchTerm(term);
         try {
             getAllProductsBySearchTerm(term).then((response) => {
-                console.log(response);
                 const products = response.map((product) => ({
                     id: product.product_id,
                     name: product.title
@@ -119,7 +116,6 @@ const SearchBar = () => {
     };
 
 
-
     useEffect(() => {
         if (searchTerm === '') {
             setShowDropdown(false);
@@ -131,38 +127,39 @@ const SearchBar = () => {
     return (
         <>
             <SearchContainer>
-        <form onSubmit={handleSubmit}>
-            <Search>
-                <Hidden smDown>
-                <SearchIconWrapper>
-                    <SearchSharp />
-                </SearchIconWrapper>
-                </Hidden>
-                <StyledInputBase
-                    placeholder="Search…"
-                    value={searchTerm}
-                    onChange={handleSearch}
-                    autoFocus
-                    inputProps={{ maxLength: 50 }}
-                />
+                <form onSubmit={handleSubmit}>
+                    <Search>
+                        <Hidden smDown>
+                            <SearchIconWrapper>
+                                <SearchSharp/>
+                            </SearchIconWrapper>
+                        </Hidden>
+                        <StyledInputBase
+                            placeholder="Search…"
+                            value={searchTerm}
+                            onChange={handleSearch}
+                            autoFocus
+                            inputProps={{maxLength: 50}}
+                            onBlur={(event) => event.target.blur()}
+                        />
 
 
-            </Search>
-        </form>
-    {showDropdown && (
-        <StyledBox>
-            {dropdownItems.map((item, index) => (
-                <Button
-                    key={index}
-                    onClick={() => handleDropdownClick(item)}
-                    sx={{width: "100%", justifyContent: "left"}}
-                >
-                    {item.name}
-                </Button>
-            ))}
-        </StyledBox>
-    )}
-    </SearchContainer>
+                    </Search>
+                </form>
+                {showDropdown && (
+                    <StyledBox>
+                        {dropdownItems.map((item, index) => (
+                            <Button
+                                key={index}
+                                onClick={() => handleDropdownClick(item)}
+                                sx={{width: "100%", justifyContent: "left"}}
+                            >
+                                {item.name}
+                            </Button>
+                        ))}
+                    </StyledBox>
+                )}
+            </SearchContainer>
         </>
     );
 };

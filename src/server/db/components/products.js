@@ -30,7 +30,6 @@ async function getAllProducts() {
 }
 
 async function getAllProductsBySearchTerm(searchTerm) {
-    console.log(searchTerm)
     try {
         let query = `
             SELECT *
@@ -102,9 +101,6 @@ async function updateStripe({product_id: id, title, description, price, image, i
 
     try {
         const response = await stripe.products.update(id.toString(), productObject);
-        console.log(response);
-        console.log(price)
-        //
 // update the stripe price object with the new price
         const priceResponse = await stripe.prices.create(
             {
@@ -113,7 +109,6 @@ async function updateStripe({product_id: id, title, description, price, image, i
                 currency: "usd",
             }
         );
-        console.log(priceResponse);
         return priceResponse;
         //
 

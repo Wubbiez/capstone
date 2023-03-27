@@ -1,20 +1,21 @@
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
+
 
 export async function getAllProducts() {
-    const response = await fetch("http://localhost:3001/api/products");
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/products`);
     const products = await response.json();
     return products;
 }
 
 export async function getSingleProduct(id) {
-    const response = await fetch(`http://localhost:3001/api/products/${id}`);
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/products/${id}`);
     const product = await response.json();
     console.log(product)
     return product;
 }
 
 export async function updateOrderProduct(productId, price, quantity, orderId) {
-    const response = await fetch(`http://localhost:3001/api/cart/${orderId}/${productId}`, {
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/cart/${orderId}/${productId}`, {
         method: "PATCH",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({productId, price, quantity, orderId}),
@@ -24,13 +25,13 @@ export async function updateOrderProduct(productId, price, quantity, orderId) {
 }
 
 export async function getOrderProductById(id) {
-    const response = await fetch(`http://localhost:3001/api/cart/${id}`);
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/cart/${id}`);
     const orderProduct = await response.json();
     return orderProduct;
 }
 
 export async function getOrderProductByOrderIdAndProductId(orderId, productId) {
-    const response = await fetch(`http://localhost:3001/api/cart/${orderId}/${productId}`);
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/cart/${orderId}/${productId}`);
     const orderProduct = await response.json();
     return orderProduct;
 }
@@ -38,7 +39,7 @@ export async function getOrderProductByOrderIdAndProductId(orderId, productId) {
 export async function updateProduct(id, title, description, price, image, inStock, category, stripe_id) {
     const token = localStorage.getItem('user-token');
 
-    const response = await fetch(`http://localhost:3001/api/products/${id}`, {
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/products/${id}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -51,7 +52,7 @@ export async function updateProduct(id, title, description, price, image, inStoc
 }
 
 export async function getOrderProductsByOrderId(orderId) {
-    const response = await fetch(`http://localhost:3001/api/cart/${orderId}/items`);
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/cart/${orderId}/items`);
     const orderProducts = await response.json();
     return orderProducts;
 }
@@ -59,7 +60,7 @@ export async function getOrderProductsByOrderId(orderId) {
 export async function createaUser(username, password, email, first_name, last_name, address, phone) {
     try {
         const response = await fetch(
-            "http://localhost:3001/api/users/register",
+            `${process.env.REACT_APP_EC2_PUBLIC_IP}/api/users/register`,
             {
                 method: "POST",
                 headers: {
@@ -80,14 +81,12 @@ export async function createaUser(username, password, email, first_name, last_na
         const results = await response.json();
         if (results.message === 'Signup Successful!') {
             toast.success(results.message);
-        } else
-        if (results.error) {
+        } else if (results.error) {
             toast.error(results.message);
-        } else
-        if (results.message) {
+        } else if (results.message) {
             toast.warn(results.message);
-        } 
-        
+        }
+
         if (results.token) {
             const data = {
                 token: results.token,
@@ -111,7 +110,7 @@ export async function createaUser(username, password, email, first_name, last_na
 export async function getUser(token) {
     try {
         const response = await fetch(
-            `https://localhost:3001/api/me`,
+            `${process.env.REACT_APP_EC2_PUBLIC_IP}/api/me`,
             {
                 method: "GET",
                 headers: {
@@ -131,7 +130,7 @@ export async function getUser(token) {
 export async function loginUser(username, password) {
 
     const response = await fetch(
-        "http://localhost:3001/api/users/login",
+        `${process.env.REACT_APP_EC2_PUBLIC_IP}/api/users/login`,
         {
             method: "POST",
             headers: {
@@ -146,13 +145,11 @@ export async function loginUser(username, password) {
     const results = await response.json();
     if (results.message === 'Login Successful!') {
         toast.success(results.message);
-    } else
-    if (results.error) {
+    } else if (results.error) {
         toast.error(results.message);
-    } else
-    if (results.message) {
+    } else if (results.message) {
         toast.warn(results.message);
-    } 
+    }
     if (results.token) {
         const data = {
             token: results.token,
@@ -171,31 +168,36 @@ export async function loginUser(username, password) {
 }
 
 export async function getLatestOrderId(user_id) {
-    console.log(user_id);
-    const response = await fetch(`http://localhost:3001/api/orders/users/${user_id}/latest`);
-    if (!response || !response.ok) {
-        const newOrder = await fetch(`http://localhost:3001/api/orders`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({user_id, status: 'created'}),
-        });
-        return newOrder.json();
-    } else {
-        const order = await response.json();
-        console.log(order);
-        return order;
+    try {
+        console.log(user_id);
+        const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/orders/users/${user_id}/latest`);
+        console.log(response);
+        if (!response || !response.ok) {
+            const newOrder = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/orders`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({user_id, status: "created"}),
+            });
+            return newOrder.json();
+        } else {
+            const order = await response.json();
+            return order;
+        }
+    } catch (error) {
+        console.error(error);
+        return {error: "Something went wrong"};
     }
 }
 
 
 export async function getOrdersByUserId(userId) {
-    const response = await fetch(`http://localhost:3001/api/orders/users/${userId}`);
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/orders/users/${userId}`);
     const orders = await response.json();
     return orders;
 }
 
 export async function getUserByUsername(username) {
-    const response = await fetch(`http://localhost:3001/api/users/${username}`);
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/users/${username}`);
     const user = await response.json();
     return user;
 }
@@ -203,7 +205,7 @@ export async function getUserByUsername(username) {
 export async function getAllUsers() {
     const token = localStorage.getItem('user-token');
     const response = await fetch(
-        `http://localhost:3001/api/users/`,
+        `${process.env.REACT_APP_EC2_PUBLIC_IP}/api/users/`,
         {
             method: "GET",
             headers: {
@@ -217,26 +219,25 @@ export async function getAllUsers() {
 }
 
 export async function getUserById(user_id, token) {
-    const response = await fetch(`http://localhost:3001/api/users/me/${user_id}`,
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/users/me/${user_id}`,
         {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
-            }
-        );
+        }
+    );
 
     const user = await response.json();
     return user;
 }
 
 export async function updateUser(id, username, email, first_name, last_name, address, phone, is_admin, is_active, password) {
-    console.log()
     const token = localStorage.getItem('user-token');
     const isAdmin = localStorage.getItem('user-is_admin');
 
-    if(isAdmin === 'true') {
-        const response = await fetch(`http://localhost:3001/api/users/${id}`, {
+    if (isAdmin === 'true') {
+        const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/users/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -259,7 +260,7 @@ export async function updateUser(id, username, email, first_name, last_name, add
         return user;
     } else {
         is_admin = false;
-        const response = await fetch(`http://localhost:3001/api/users/me/${id}`, {
+        const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/users/me/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -284,19 +285,19 @@ export async function updateUser(id, username, email, first_name, last_name, add
 }
 
 export async function getOrderById(id) {
-    const response = await fetch(`http://localhost:3001/api/orders/${id}`);
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/orders/${id}`);
     const order = await response.json();
     return order;
 }
 
 export async function getReviewsByProductId(id) {
-    const response = await fetch(`http://localhost:3001/api/reviews/${id}`);
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/reviews/${id}`);
     const reviews = await response.json();
     return reviews;
 }
 
 export async function createOrder(user_id) {
-    const response = await fetch(`http://localhost:3001/api/orders`, {
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/orders`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({user_id, status: 'created'}),
@@ -306,20 +307,19 @@ export async function createOrder(user_id) {
 }
 
 export async function getOrdersByUser(userId) {
-    const response = await fetch(`http://localhost:3001/api/orders/users/${userId}`);
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/orders/users/${userId}`);
     const orders = await response.json();
     return orders;
 }
 
 export async function getAverageProductRating(productId) {
-    const response = await fetch(`http://localhost:3001/api/reviews/${productId}/rating`);
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/reviews/${productId}/rating`);
     const average = await response.json();
     return average;
 }
 
 export async function getAllProductsBySearchTerm(searchTerm) {
-    const response = await fetch(`http://localhost:3001/api/products/search/${searchTerm}`);
+    const response = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/products/search/${searchTerm}`);
     const products = await response.json();
-    console.log(products);
     return products;
 }

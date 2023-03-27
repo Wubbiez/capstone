@@ -1,4 +1,11 @@
-import {createUser, getAllUsers, getUser, getUserByUsername, updateUser, getUserById} from "../../server/db/components/users.js";
+import {
+    createUser,
+    getAllUsers,
+    getUser,
+    getUserById,
+    getUserByUsername,
+    updateUser
+} from "../../server/db/components/users.js";
 import express from "express";
 import {config} from "dotenv";
 import jwt from "jsonwebtoken";
@@ -47,7 +54,6 @@ userRouter.post("/register", async (req, res, next) => {
                     message: "There was a problem registering you. Please try again.",
                 });
             } else {
-                console.log(user)
                 const token = jwt.sign(
                     {user_id: user.user_id, username: user.username, is_admin: user.is_admin},
                     JWT_SECRET,
@@ -166,7 +172,6 @@ userRouter.patch("/me/:user_id", async (req, res, next) => {
 // update user
     try {
         const {user_id} = req.params;
-        console.log(req.body)
         const {username, email, first_name, last_name, address, phone, is_admin, is_active, password} = req.body;
         const updatedUser = await updateUser({
             user_id,
@@ -198,7 +203,6 @@ userRouter.patch("/me/:user_id", async (req, res, next) => {
 userRouter.get("/", isAdmin, async (req, res, next) => {
     try {
         const users = await getAllUsers();
-        console.log(users)
         res.send(users);
     } catch (e) {
         next(e);

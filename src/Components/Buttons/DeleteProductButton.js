@@ -8,19 +8,18 @@ function DeleteProductButton({product_id}) {
         setIsDeleting(true);
         try {
             // delete product from all existing orders
-            const deleteOrderProduct = await fetch(`http://localhost:3001/api/cart/${product_id}`, {
+            const deleteOrderProduct = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/cart/${product_id}`, {
                 method: 'DELETE',
                 headers: {'Content-Type': 'application/json'},
             });
 
-            const deleteProduct = await fetch(`http://localhost:3001/api/products/${product_id}`, {
+            const deleteProduct = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/products/${product_id}`, {
                 method: 'DELETE',
                 headers: {'Content-Type': 'application/json'},
             });
 
             if (deleteProduct.ok) {
                 const product = await deleteProduct.json();
-                console.log(product);
             }
         } catch (error) {
             console.error(error);

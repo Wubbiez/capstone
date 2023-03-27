@@ -33,9 +33,7 @@ orderProductsRouter.get("/:order_id/items", async (req, res, next) => {
     try {
         const {order_id} = req.params;
         const orderProducts = await getOrderProductsByOrderId(order_id);
-        // console.log(orderProducts);
         const attach = await attachOrderProductsToOrder(order_id);
-        console.log(attach);
         const result = orderProducts.map((op) => {
             const product = attach.find((a) => a.productId === op.productId);
             return {
@@ -72,7 +70,6 @@ orderProductsRouter.post("/:order_id/items", async (req, res, next) => {
             stripe_id
         });
         const attach = await attachOrderProductsToOrder(order_id);
-        console.log(attach);
         res.send(orderProduct);
     } catch (error) {
         next(error);
@@ -94,10 +91,7 @@ orderProductsRouter.patch("/:order_id/:productId", async (req, res, next) => {
 orderProductsRouter.delete("/:order_id/:productId", async (req, res, next) => {
     try {
         const {order_id, productId} = req.params;
-
-        console.log(productId, order_id)
         const orderProduct = await destroyOrderProducts(productId, order_id);
-        console.log(orderProduct);
         res.send(orderProduct);
     } catch (error) {
         next(error);

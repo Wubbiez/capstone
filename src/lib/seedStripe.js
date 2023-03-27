@@ -11,8 +11,7 @@ const stripe = stripe0(process.env.STRIPE_API_KEY);
 
 
 const seedStripe = async () => {
-    console.log(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
-    const products = await fetch('http://localhost:3001/api/products');
+    const products = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/products`);
     const productsJson = await products.json();
     const productsArray = productsJson;
 

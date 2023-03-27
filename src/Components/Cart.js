@@ -1,14 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Button, Card, CardActions, CardContent, Grid, Modal, Paper, styled, Typography} from '@mui/material';
-
-
-import {getOrderById, getOrderProductsByOrderId} from "../api/apirequests.js";
-
+import {getOrderProductsByOrderId} from "../api/apirequests.js";
 import DeleteOrderProductButton from "./Buttons/DeleteOrderProductButton.js";
-
-
 import UpdateQuantityButton from './Buttons/UpdateQuantityButton.js';
-
 import CheckoutButton from './Buttons/CheckoutButton.js';
 import EmptyCartButton from './Buttons/EmptyCartButton.js';
 import {ShoppingCartTwoTone} from '@mui/icons-material';
@@ -32,11 +26,9 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
         if (order) {
             // check if order is paid
             getOrderProductsByOrderId(order).then((orderProducts) => {
-                console.log("orderProducts are", orderProducts);
                 setOrderProducts(orderProducts);
                 setRefresh(false);
                 setRefreshCart(false);
-                console.log("orderProducts are still", orderProducts);
             });
         }
 
@@ -78,14 +70,14 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
                 }}>
                 <ShoppingCartTwoTone/>
                 {
-                      orderProducts.length > 0
-                      ? Number(
-                          orderProducts.reduce(
-                              (total, orderProduct) => total + orderProduct.quantity,
-                              0
-                          )
-                      ).toFixed(0)
-                      : 0
+                    orderProducts.length > 0
+                        ? Number(
+                            orderProducts.reduce(
+                                (total, orderProduct) => total + orderProduct.quantity,
+                                0
+                            )
+                        ).toFixed(0)
+                        : 0
                 }
             </Button>
 
@@ -121,7 +113,8 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
 
                         }}
                     >
-                        <StyledTypography variant='h4' component='div' sx={{color: '#f8edeb'}}> My Cart</StyledTypography>
+                        <StyledTypography variant='h4' component='div' sx={{color: '#f8edeb'}}> My
+                            Cart</StyledTypography>
                         {orderProducts.length > 0 ? <Typography variant="h4">
                             Order Total: $ {Number(
                             orderProducts.reduce(
@@ -212,7 +205,7 @@ const Cart = ({order, setOrder, setRefreshCart, refreshCart}) => {
                                             width: '100%',
                                         }}>
                                             <StyledTypography variant="h6"
-                                                        sx={{color: '#343a40',}}
+                                                              sx={{color: '#343a40',}}
                                             >{orderProduct.title}</StyledTypography>
                                             <StyledTypography
                                                 variant="h6"
