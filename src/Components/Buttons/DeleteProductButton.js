@@ -20,7 +20,6 @@ function DeleteProductButton({product_id}) {
 
             if (deleteProduct.ok) {
                 const product = await deleteProduct.json();
-                console.log(product);
             }
         } catch (error) {
             console.error(error);

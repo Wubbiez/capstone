@@ -57,8 +57,7 @@ function CreateReviewButton({user, product_id, setRefresh}) {
             });
 
             if (response.ok) {
-                const item = await response.json();
-                console.log(item);
+                const item = await response.json();;
             }
         } catch (error) {
             console.error(error);
@@ -86,8 +85,8 @@ function CreateReviewButton({user, product_id, setRefresh}) {
                     }
                 }}
             >
-        
-      
+
+
                 Leave Review </Button>
 
 

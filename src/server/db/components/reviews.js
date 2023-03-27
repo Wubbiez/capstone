@@ -1,7 +1,6 @@
 import client from "../client.js";
 
 async function createReviews({user, product_id, title, content, rating}) {
-    console.log(user, product_id, title, content, rating)
     try {
         const {rows: [reviews]} = await client.query(`
             INSERT INTO reviews(username, productid, title, content, rating)

@@ -60,10 +60,7 @@ function EditProductButton({
         setIsEditing(true);
         try {
             const response = await updateProduct(product_id, title, description, price, image, in_stock, category, stripe_id);
-
-            console.log(response);
             setRefresh(true);
-            // window.location.reload();
         } catch (error) {
             console.error(error);
         }

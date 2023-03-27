@@ -3,7 +3,8 @@ import express from "express";
 import {
     checkIfProductInStock,
     destroyProduct,
-    getAllProducts, getAllProductsBySearchTerm,
+    getAllProducts,
+    getAllProductsBySearchTerm,
     getProductById,
     updateProduct,
     updateStripe

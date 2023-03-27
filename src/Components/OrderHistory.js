@@ -15,7 +15,6 @@ function OrderHistory({userId, user}) {
                 orders.map(async (order) => {
                     if (order.status === "paid") {
                         const orderProducts = await getOrderProductsByOrderId(order.order_id);
-                        console.log(orderProducts)
                         return {...order, orderProducts};
                     }
                 })
@@ -34,23 +33,25 @@ function OrderHistory({userId, user}) {
                     Order History
                 </Typography>
                 <Divider style={{marginBottom: '1rem'}}/>
-                <Grid container spacing={2}  style={{
-                        display: 'flex',
-                        flexDirection: 'column',
+                <Grid container spacing={2} style={{
+                    display: 'flex',
+                    flexDirection: 'column',
 
-                        width: '100%',
-                        overflowY: 'scroll',
-                        overflowX: 'hidden',
-                        margin: 0,
-                    }}>
+                    width: '100%',
+                    overflowY: 'scroll',
+                    overflowX: 'hidden',
+                    margin: 0,
+                }}>
                     {orders.map((order) => (
                         <Grid item xs={12} sm={6} md={4} key={order.order_id}>
-                            <Card sx={{width: '80vw',
-                        backgroundColor: "#f5f5f5",
-                        paddingTop: '0.5rem',
-                        paddingBottom: '1rem',
-                        paddingLeft: '1rem',
-                        borderBottom:'2px solid #212529'}}>
+                            <Card sx={{
+                                width: '80vw',
+                                backgroundColor: "#f5f5f5",
+                                paddingTop: '0.5rem',
+                                paddingBottom: '1rem',
+                                paddingLeft: '1rem',
+                                borderBottom: '2px solid #212529'
+                            }}>
                                 <CardContent>
                                     <Typography variant="h6">Order ID: {order.order_id}</Typography>
                                     <Typography variant="h6">Order Date: {order.date_created}</Typography>
@@ -65,10 +66,13 @@ function OrderHistory({userId, user}) {
                                             )
                                         ).toFixed(2)}
                                     </Typography>
-                                    <Typography variant="h6" sx={{textDecoration: 'underline'}}>Purchased Items:</Typography>
+                                    <Typography variant="h6" sx={{textDecoration: 'underline'}}>Purchased
+                                        Items:</Typography>
                                     {order.orderProducts.map((orderProduct) => (
-                                        <Box key={orderProduct.product_id} backgroundColor="rgba(241,250,238,0.7)" paddingBottom='1rem' borderBottom='2px solid #212529'>
-                                            <Typography variant="h6" sx={{paddingTop: '1rem'}}>Name: {orderProduct.title}</Typography>
+                                        <Box key={orderProduct.product_id} backgroundColor="rgba(241,250,238,0.7)"
+                                             paddingBottom='1rem' borderBottom='2px solid #212529'>
+                                            <Typography variant="h6"
+                                                        sx={{paddingTop: '1rem'}}>Name: {orderProduct.title}</Typography>
                                             <Typography variant="h6">Quantity: {orderProduct.quantity}</Typography>
                                             <Typography variant="h6">Price: ${orderProduct.price}</Typography>
                                             <CreateReviewButton userId={userId} user={user} setRefresh={setRefresh}

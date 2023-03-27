@@ -1,6 +1,5 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
-    alpha,
     AppBar,
     Avatar,
     Box,
@@ -8,27 +7,21 @@ import {
     Container,
     IconButton,
     Menu,
-    MenuItem, styled,
+    MenuItem,
     Tab,
     Tabs,
     Toolbar,
     Tooltip,
     Typography,
     useMediaQuery,
-    useTheme,
-    InputBase,
-    Icon,
-    Stack
+    useTheme
 } from "@mui/material";
 
 import {css} from '@emotion/react';
-import DrawerComp from "./Drawer.js";
 
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {handleLogout} from "./Buttons/LogoutButton.js";
 import Cart from "./Cart.js";
-import {SearchSharp} from '@mui/icons-material';
-import {searchProducts} from "../api/apirequests.js";
 import SearchBar from "./SearchBar.js";
 
 
@@ -130,7 +123,7 @@ const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCar
     return (
         <React.Fragment>
             <AppBar sx={{background: "#1D3557", padding: "0", margin: "0"}} position="sticky">
-                <Toolbar disableGutters sx={{ display: 'flex', alignItems: 'center' }}>
+                <Toolbar disableGutters sx={{display: 'flex', alignItems: 'center'}}>
                     {isMatch ? (
                         <>
                             <Typography component={Link} to="/" align="center" sx={{
@@ -190,9 +183,14 @@ const NavBar = ({admin, setIsAdmin, setToken, order, setOrder, token, refreshCar
                         </>
                     ) : (
                         <>
-                            <Typography component={Link} to="/" align="center" sx={{
-                                fontWeight: 900, textDecoration: "none", color: 'inherit',
-                                fontSize: 'calc(1.3rem + 1vw)'
+                            <Typography component={Link} to="/" align="center" justifyContent="center" sx={{
+                                fontWeight: 900,
+                                textDecoration: "none",
+                                color: 'inherit',
+                                fontSize: 'calc(1.3rem + 1vw)',
+                                marginLeft: "0.5rem",
+                                cursor: "pointer",
+                                marginBottom: '0px'
                             }}>
                                 Gadget<b style={{color: "#E63946"}}>Galaxy</b>
                             </Typography>

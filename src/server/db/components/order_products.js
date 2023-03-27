@@ -41,7 +41,6 @@ async function getOrderProductsByOrderId(order_id) {
 }
 
 async function updateOrderProduct({productId, price, quantity, orderId}) {
-    console.log(productId, price, quantity)
     try {
         const {rows: [orderProduct]} = await client.query(`
             UPDATE order_products
@@ -128,7 +127,6 @@ async function attachOrderProductsToOrder(order_id) {
 
     const result = orderProducts.map((op) => {
         const product = products.find((p) => p.product_id === op.productId);
-        console.log(product)
         return {
             productId: op.productId,
             title: product ? product.title : null,
@@ -137,7 +135,6 @@ async function attachOrderProductsToOrder(order_id) {
             image: product.image
         };
     });
-    console.log(result)
     return result;
 
 

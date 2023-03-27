@@ -21,13 +21,10 @@ const Success = ({order, setOrder, setRefreshCart}) => {
 
         if (order_id) {
             setOrderId(order_id);
-            console.log("order_id is", order_id);
         }
 
         getOrderProductsByOrderId(order_id).then((orderProducts) => {
-            console.log("orderProducts are", orderProducts);
             setOrderProducts(orderProducts);
-            console.log("orderProducts are still", orderProducts);
         });
 
         const fetchData = async () => {
@@ -45,17 +42,7 @@ const Success = ({order, setOrder, setRefreshCart}) => {
 
         setRefreshCart(true);
         localStorage.removeItem('order_id');
-
-        // Redirect user after 5 seconds
-        // const redirectTimer = setTimeout(() => {
-        //     navigate("/");
-        // }, 5000);
-        //
-        // return () => {
-        //     clearTimeout(redirectTimer);
-        // };
     }, []);
-
 
 
     return (

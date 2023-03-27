@@ -11,7 +11,6 @@ const stripe = stripe0(process.env.STRIPE_API_KEY);
 
 
 const seedStripe = async () => {
-    console.log(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
     const products = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/products`);
     const productsJson = await products.json();
     const productsArray = productsJson;
@@ -27,14 +26,11 @@ const seedStripe = async () => {
                 category: category
             },
         });
-
-        console.log(response);
         const priceResponse = await stripe.prices.create({
             product: response.id,
             unit_amount: Math.round(price * 100),
             currency: 'usd',
         });
-        console.log(priceResponse);
 
         const stripeId = priceResponse.id;
         await client.query(`

@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {useLocation} from "react-router-dom";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {Box, Card, CardContent, Grid, List, ListItem, ListItemText, styled, Typography} from "@mui/material";
 import {getAllProducts} from "../api/apirequests.js";
-// import EditOrderProductButton from "./Buttons/EditOrderProductButton.js";
 import SingleProductModal from "./SingleProductModal.js";
 import category from "./Category.js";
-import {TextField} from "@mui/material/";
+import {alpha} from '@mui/system';
 
 const StyledTypography = styled(Typography)({
     fontSize: 'calc(2rem + 2vw)',
@@ -20,10 +18,6 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
     const [refresh, setRefresh] = useState(false);
     const location = useLocation();
     const [category, setCategory] = useState(new URLSearchParams(location.search).get('category'));
-
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [popoverTimeout, setPopoverTimeout] = useState(null);
-    const [open, setOpen] = useState(false);
     const [searchString, setSearchString] = useState("");
     const history = useNavigate();
     const categories = ['ALL PRODUCTS', 'FRIDGES', 'LAPTOPS', 'SMART-WATCHES', 'VIDEO-GAMES', 'TELEVISIONS'];
@@ -45,7 +39,6 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
         }
         getAllProducts().then((products) => {
             products = products.filter(product => product.in_stock === true)
-            console.log(products);
             if (category) {
                 products = products.filter(product => product.category === category)
             }
@@ -57,8 +50,8 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
 
     return (
         <React.Fragment>
-            <Box sx={{backgroundColor: '#F5F5F5', width:'100%'}}>
-                <Box sx={{backgroundColor:'white'}}>
+            <Box sx={{backgroundColor: '#F5F5F5', width: '100%'}}>
+                <Box sx={{backgroundColor: 'white'}}>
                     <StyledTypography variant="h2" sx={{
                         fontWeight: 'bold',
                         textAlign: 'center',
@@ -79,7 +72,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                     {/*/>*/}
                     <Grid container spacing={1} justifyContent="center"
                         // Reduce number of columns on small screens
-                          sx={{ justifyContent: { xs: 'center', sm: 'flex-start' } }}
+                          sx={{justifyContent: {xs: 'center', sm: 'flex-start'}}}
                     >
                         {categories.map((category) => (
                             <Grid key={category} item xs={6} sm={4} md={4} lg={2}>
@@ -94,7 +87,8 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                                     padding: '0.5rem',
                                     'media (max-width: 600px)': {
                                         padding: '0.2rem',
-                                    }
+                                    },
+
                                 }}>
                                     <ListItem
                                         sx={{
@@ -156,6 +150,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                     marginLeft: 'auto',
                     marginRight: 'auto',
                     width: '100%',
+                    backgroundImage: 'url(https://st2.depositphotos.com/1716670/9902/v/450/depositphotos_99023574-stock-illustration-retrofuturistic-seamless-space-background.jpg)',
 
                     '& > .MuiGrid-item': {
                         flexBasis: '100%',
@@ -174,7 +169,7 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                             return (
                                 <Grid item xs={12} sm={6} md={4} lg={3} key={product.product_id} container spacing={2}
                                       sx={{
-                                          backgroundColor: '#F1FAEE',
+
                                           display: 'flex',
                                           flexWrap: 'wrap',
                                           marginLeft: 'auto',
@@ -194,10 +189,9 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
-
                                         flex: '1',
-                                        backgroundColor: '#f1faee',
-                                        backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'105\' viewBox=\'0 0 80 105\'%3E%3Cg fill-rule=\'evenodd\'%3E%3Cg id=\'death-star\' fill=\'%231d3557\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M20 10a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V10zm15 35a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V45zM20 75a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V75zm30-65a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V10zm0 65a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V75zM35 10a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V10zM5 45a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V45zm0-35a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V10zm60 35a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V45zm0-35a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V10z\' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+                                        backgroundColor: alpha('#fff', 0.8),
+
 
                                     }}>
 
@@ -245,7 +239,8 @@ function SampleProducts({order, setOrder, user, setIsAdmin, isAdmin, setRefreshC
 
                                             }}>
                                                 <StyledTypography variant="h6">{product.title}</StyledTypography>
-                                                <StyledTypography variant="h6" gutterBottom>$ {product.price}</StyledTypography>
+                                                <StyledTypography variant="h6"
+                                                                  gutterBottom>$ {product.price}</StyledTypography>
                                                 <SingleProductModal
                                                     variant="contained"
                                                     userId={userId}

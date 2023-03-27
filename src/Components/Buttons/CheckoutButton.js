@@ -4,7 +4,7 @@ import {Button} from '@mui/material';
 import {ShoppingCartCheckoutTwoTone} from '@mui/icons-material';
 
 const CheckoutButton = () => {
-const order_id = localStorage.getItem('order_id');
+    const order_id = localStorage.getItem('order_id');
 
     const handleClick = async (event) => {
         event.preventDefault();
@@ -41,7 +41,6 @@ const order_id = localStorage.getItem('order_id');
         const lineItems = items.map((item) => ({
             price: item.stripe_id,
             quantity: item.quantity,
-
         }));
         const {error} = await stripe.redirectToCheckout({
             mode: "payment",
@@ -56,31 +55,31 @@ const order_id = localStorage.getItem('order_id');
     };
 
     return (
-<>
-        { order_id ? <Button variant="contained" onClick={handleClick}
-                sx={{
-                    backgroundColor: '#84a98c',
-                    color: '#f8edeb',
-                    '&:hover': {
-                        backgroundColor: '#ccd5ae',
-                        color: '#343a40'
-                    }
-                }}
-        >
-            <ShoppingCartCheckoutTwoTone/> Checkout
-        </Button> : <Button variant="contained" disabled
-                            sx={{
-                                backgroundColor: '#84a98c',
-                                color: '#f8edeb',
-                                '&:hover': {
-                                    backgroundColor: '#ccd5ae',
-                                    color: '#343a40'
-                                }
-                            }}
+        <>
+            {order_id ? <Button variant="contained" onClick={handleClick}
+                                sx={{
+                                    backgroundColor: '#84a98c',
+                                    color: '#f8edeb',
+                                    '&:hover': {
+                                        backgroundColor: '#ccd5ae',
+                                        color: '#343a40'
+                                    }
+                                }}
             >
                 <ShoppingCartCheckoutTwoTone/> Checkout
-            </Button> }
-</>
+            </Button> : <Button variant="contained" disabled
+                                sx={{
+                                    backgroundColor: '#84a98c',
+                                    color: '#f8edeb',
+                                    '&:hover': {
+                                        backgroundColor: '#ccd5ae',
+                                        color: '#343a40'
+                                    }
+                                }}
+            >
+                <ShoppingCartCheckoutTwoTone/> Checkout
+            </Button>}
+        </>
     );
 }
 

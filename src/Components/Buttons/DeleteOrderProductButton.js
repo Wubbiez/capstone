@@ -18,7 +18,6 @@ function DeleteOrderProductButton({order_id, product_id, setRefresh,}) {
 
             if (response.ok) {
                 const item = await response.json();
-                console.log(item);
             }
         } catch (error) {
             console.error(error);

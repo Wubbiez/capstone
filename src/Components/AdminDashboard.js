@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {getAllProducts, getAllUsers} from "../api/apirequests.js";
-import {Box, Button, Card, CardContent, Grid, styled, Typography} from "@mui/material";
+import {Box, Button, Card, CardContent, Grid, Typography} from "@mui/material";
 import EditProductButton from "./Buttons/EditProductButton.js";
 import PageNotFound from "./PageNotFound.js";
 import EditUserButton from "./Buttons/EditUserButton.js";
@@ -120,7 +120,7 @@ function AdminDashboard({setIsAdmin, isAdmin}) {
 
 
                                 }
-                                } >
+                                }>
                                     <CardContent>
                                         <Typography variant="h6">Product Id: </Typography>
                                         <Typography variant="body1">{product.product_id}</Typography>
@@ -161,7 +161,7 @@ function AdminDashboard({setIsAdmin, isAdmin}) {
     )
 }
 
-    export default AdminDashboard;
+export default AdminDashboard;
 
 
 

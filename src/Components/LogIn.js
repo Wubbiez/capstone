@@ -32,16 +32,15 @@ const Login = ({setToken, setIsAdmin}) => {
         try {
             const response = await loginUser(username, password);
             const {user_id, token, is_admin} = response;
-            console.log(user_id, token, is_admin);
             setToken(token);
             setIsAdmin(is_admin);
             setUserId(user_id);
             const orderResponse = await getLatestOrderId(user_id);
             localStorage.setItem("order_id", orderResponse.order_id);
-            // Only redirect if login was successful
-            if (response.success) {
+            if (user_id) {
                 history('/');
             }
+
         } catch (error) {
             console.error(error);
         } finally {

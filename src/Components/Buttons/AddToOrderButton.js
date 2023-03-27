@@ -24,18 +24,12 @@ function AddToOrderButton({
 
         try {
             const orders = await getOrdersByUser(userId);
-            console.log(orders)
             const incompleteOrder = orders
                 .filter(order => order.status !== 'paid')
                 .sort((a, b) => new Date(b.date_created) - new Date(a.date_created))
                 [0];
-            console.log(incompleteOrder)
-
-
-            // console.log(incompleteOrder['user_id'], userId)
 
             if (incompleteOrder && incompleteOrder['user_id'] == userId && orders.length > 0) {
-                console.log("hi")
                 const order_id = incompleteOrder['order_id'];
                 setOrder(order_id);
                 localStorage.setItem('order_id', order_id);
@@ -54,7 +48,6 @@ function AddToOrderButton({
                     if (response3.ok) {
                         const item = await response3.json();
                         toast.success('Item added to cart!');
-                        console.log(item);
                     }
                 } else {
                     const quantity = 1;
@@ -66,11 +59,9 @@ function AddToOrderButton({
                     if (response.ok) {
                         const item = await response.json();
                         toast.success('Item added to cart!');
-                        console.log(item);
                     }
                 }
             } else {
-                console.log(userId, status)
                 const response2 = await fetch(`${process.env.REACT_APP_EC2_PUBLIC_IP}/api/orders`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
@@ -78,7 +69,6 @@ function AddToOrderButton({
                 });
                 if (response2.ok) {
                     const order = await response2.json();
-                    console.log(order);
 
                     const order_id = order['order_id'];
                     setOrder(order_id);
@@ -91,7 +81,6 @@ function AddToOrderButton({
                     if (response.ok) {
                         const item = await response.json();
                         toast.success('Item added to cart!');
-                        console.log(item);
                     }
                 }
             }
@@ -106,40 +95,40 @@ function AddToOrderButton({
 
     return (
         <Tooltip title="Add Item to Cart" arrow>
-        <Button
-            variant="contained"
-            disabled={isAddingToOrder}
-            onClick={handleClick}
-            sx={{
-                backgroundColor: '#457B9D',
-                height: '100%',
-                width: '80px',
-                fontSize: 'calc(1rem + 0.2vw)',
-                padding: 'calc(0.5rem + 0.1vw)',
-                transition: 'background-color 0.3s ease',
-                '&:hover': {
-                    backgroundColor: '#A8DADC',
-                    color: '#333333',
-                    boxShadow: '1px 2px 1px 1px #1D3557;',
-                },
-                '@media (min-width:600px)': {
-                    width: '120px',
-                },
-                '@media (min-width:960px)': {
-                    width: '160px',
-                },
-                // '@media (min-width:600px)': {
-                //     padding: 'calc(1.2rem + 0.6vw)',
-                //     fontSize: 'calc(1.3rem + 0.8vw)',
-                // },
-                // '@media (min-width:960px)': {
-                //     padding: 'calc(1.6rem + 1.2vw)',
-                //     fontSize: 'calc(2.2rem + 1.2vw)',
-                // },
-            }}>
+            <Button
+                variant="contained"
+                disabled={isAddingToOrder}
+                onClick={handleClick}
+                sx={{
+                    backgroundColor: '#457B9D',
+                    height: '100%',
+                    width: '80px',
+                    fontSize: 'calc(1rem + 0.2vw)',
+                    padding: 'calc(0.5rem + 0.1vw)',
+                    transition: 'background-color 0.3s ease',
+                    '&:hover': {
+                        backgroundColor: '#A8DADC',
+                        color: '#333333',
+                        boxShadow: '1px 2px 1px 1px #1D3557;',
+                    },
+                    '@media (min-width:600px)': {
+                        width: '120px',
+                    },
+                    '@media (min-width:960px)': {
+                        width: '160px',
+                    },
+                    // '@media (min-width:600px)': {
+                    //     padding: 'calc(1.2rem + 0.6vw)',
+                    //     fontSize: 'calc(1.3rem + 0.8vw)',
+                    // },
+                    // '@media (min-width:960px)': {
+                    //     padding: 'calc(1.6rem + 1.2vw)',
+                    //     fontSize: 'calc(2.2rem + 1.2vw)',
+                    // },
+                }}>
 
-            <AddShoppingCartTwoTone/>
-        </Button>
+                <AddShoppingCartTwoTone/>
+            </Button>
         </Tooltip>
     );
 }

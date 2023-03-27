@@ -3,7 +3,7 @@ import React from "react";
 import Watch from "../Components/Images/watch.jpg";
 import LapTop from "../Components/Images/laptop.png";
 import Fridge from "../Components/Images/fridge.jpg";
-import VideoGame from "../Components/Images/video_game.jpeg";
+import VideoGame from "./Images/video_game.jpg";
 import Tv from "../Components/Images/tv.jpeg";
 import {Link} from "react-router-dom";
 
@@ -15,7 +15,6 @@ const StyledBox = styled(Box)(({theme}) => ({
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
     backgroundSize: "cover",
-    backgroundColor: "#F1FAEE",
     border: 1,
     borderRadius: '17px',
     justifyContent: "center",
@@ -50,7 +49,7 @@ const Category = () => {
 
 
     return (
-        <Box sx={{backgroundColor: "#F1FAEE"}}>
+        <Box>
             <Stack
                 direction={{xs: "column", sm: "row"}}
                 spacing={{xs: 1, sm: 2, md: 4}}
@@ -61,7 +60,7 @@ const Category = () => {
                 <StyledLink to="/products?category=FRIDGES">
                     <StyledBox sx={{backgroundImage: `url(${Fridge})`}}>
 
-                        <StyledTypography align="center" variant="h6" >
+                        <StyledTypography align="center" variant="h6">
                             Refrigerators
                         </StyledTypography>
 
