@@ -20,8 +20,11 @@ function AddToOrderButton({
 
     async function handleClick() {
         setIsAddingToOrder(true);
-
-
+if (!userId) {
+            toast.error('Please log in to add items to your cart!');
+            setIsAddingToOrder(false);
+            return;
+}
         try {
             const orders = await getOrdersByUser(userId);
             const incompleteOrder = orders
